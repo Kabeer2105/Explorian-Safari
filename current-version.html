@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorian Safaris - Current Version</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234a7c59" width="1200" height="600"/><text x="50%" y="50%" fill="white" font-size="48" text-anchor="middle">Safari Background</text></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            margin-bottom: 3rem;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero .btn {
+            background: #e74c3c;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 0;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        section > p {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #4a7c59, #7cb342);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: #ecf0f1;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+        }
+
+        .contact-form button {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .contact-form button:hover {
+            background: #34495e;
+        }
+
+        .contact-info h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer a {
+            color: #3498db;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <h1>Explorian Safaris</h1>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#service">Safaris</a></li>
+                <li><a href="#service0">Mountain</a></li>
+                <li><a href="#service1">Beach</a></li>
+                <li><a href="#portfolio">Day Trips</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero" id="home">
+        <h2>Explorian Safaris</h2>
+        <p>Welcomes You, Karibu</p>
+        <a href="https://payments.pesapal.com/exploriansafaris" class="btn">Pay US</a>
+    </div>
+
+    <!-- Safaris Section -->
+    <section id="service">
+        <div class="container">
+            <h2>Safaris</h2>
+            <p>We are very proud of our National Parks, let us show you why...</p>
+            <p>We are proud to let you know that we are represented by <a href="https://www.safaribookings.com">SAFARI BOOKINGS</a></p>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-img">Ngorongoro</div>
+                    <div class="card-content">
+                        <h3>Ngorongoro</h3>
+                        <p>From the misty mountains and lush forests to the sweeping grasslands with their teeming herds. Ngorongoro provides a rich adventure to every visitor.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Serengeti</div>
+                    <div class="card-content">
+                        <h3>Serengeti</h3>
+                        <p>Home to the world's last remaining large mammal migration.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Tarangire</div>
+                    <div class="card-content">
+                        <h3>Tarangire</h3>
+                        <p>The Paradise of Elephants and one of the finest birding destinations in East Africa.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Lake Manyara</div>
+                    <div class="card-content">
+                        <h3>Lake Manyara</h3>
+                        <p>A Home of Tree Climbing Lions and the soda lake inhabited with thousands of pink-hued flamingos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mountain Section -->
+    <section id="service0" style="background: #f8f9fa;">
+        <div class="container">
+            <h2>Mountain</h2>
+            <p>A country with the highest mountain in Africa and the highest single free-standing mountain above sea level in the world...</p>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-img">Mt. Kilimanjaro</div>
+                    <div class="card-content">
+                        <h3>Mt. Kilimanjaro</h3>
+                        <p>The highest mountain in Africa, snow caped and world's highest free standing volcano. It comprises of two dormant volcanoes (Kibo 5,895m a.m.s.l and Mawenzi 5,149m a.m.s.l) and one extinct volcano (Shira 3,962m a.m.s.l) respectively.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Mt. Meru</div>
+                    <div class="card-content">
+                        <h3>Mt. Meru</h3>
+                        <p>Mount Meru, which at 4,566 m (14,980 ft) is the 5th highest free standing mountain in Africa. This second highest mountain in Tanzania offers unforgettable experience and serves as acclimatization refuge before climbing Mount Kilimanjaro.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Ol Doinyo Lengai</div>
+                    <div class="card-content">
+                        <h3>Ol Doinyo Lengai</h3>
+                        <p>Ol Doinyo Lengai, "Mountain of God" in the Maasai language, is an active volcano located in the Gregory Rift, south of Lake Natron within the Arusha Region of Tanzania, Africa. Part of the volcanic system of the East African Rift, it uniquely produces natrocarbonatite lava.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Mkomazi</div>
+                    <div class="card-content">
+                        <h3>Mkomazi National Park</h3>
+                        <p>The Park finds itself in a beautiful setting with both the Pare and Usambara mountains towering above its boundaries. Depending on the weather, Mount Kilimanjaro can also be seen from the park.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beach Section -->
+    <section id="service1">
+        <div class="container">
+            <h2>Beach</h2>
+            <p>The mainland and islands along the coastline have some of the most stunning beaches in the world...</p>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-img">Nungwi</div>
+                    <div class="card-content">
+                        <h3>Nungwi Beach</h3>
+                        <p>An island paradise destination situated at the north-western tip of the Zanzibar island. It is home to powdery white sand, crystal blue waters, and exotic flora and fauna.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Kendwa</div>
+                    <div class="card-content">
+                        <h3>Kendwa Beach</h3>
+                        <p>A wide and long white sandy beach, clear deep waters, popular Kendwa sunset, a coral reef spreads around the beach that attracts diving enthusiasts from around the world.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Saadani</div>
+                    <div class="card-content">
+                        <h3>Saadani National Park</h3>
+                        <p>Being the only National Park that harbors both marine and terrestrial habitats, Saadani has plenty of marine life and large numbers of wild animals. It is not surprising to encounter wild animals on the beach in this coastal Park.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Paje</div>
+                    <div class="card-content">
+                        <h3>Paje Beach</h3>
+                        <p>Watersports, scuba diving, snorkelling and of course kite surfing are a must here. Visit the historical Stone Town and watch the Red Colobus Monkey at the Jozani Forest.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day Trips Section -->
+    <section id="portfolio" style="background: #f8f9fa;">
+        <div class="container">
+            <h2>Day Trips/Tours</h2>
+            <p>Tanzania is famed for its wildlife-rich national parks and the highest mountain in Africa.</p>
+            <p>We arrange Day Trips and Tours in and around the Northern Tanzania.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-img">Day Trip Image</div>
+                    <div class="card-content">
+                        <h3>Day Trips to National Parks</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Waterfall Image</div>
+                    <div class="card-content">
+                        <h3>Materuni Waterfalls</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Hot Springs</div>
+                    <div class="card-content">
+                        <h3>Chemka Hot Springs</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Marangu</div>
+                    <div class="card-content">
+                        <h3>Marangu National Park</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Cultural</div>
+                    <div class="card-content">
+                        <h3>Maasai and Hadzabe</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Coffee</div>
+                    <div class="card-content">
+                        <h3>Coffee Plantation</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Contact</h2>
+            <p>Kindly leave us a Message</p>
+
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <input type="text" placeholder="Your Name">
+                    <input type="email" placeholder="Your Email">
+                    <textarea rows="5" placeholder="Your Message"></textarea>
+                    <button>Send</button>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contact Us</h3>
+                    <p><strong>Atif Gafoor</strong></p>
+                    <p>P.O.Box 906 Moshi, Kilimanjaro</p>
+                    <p>Tanzania</p>
+                    <br>
+                    <p><strong>Phone:</strong> (+255) 754-605665 / 719-245540</p>
+                    <p><strong>Email:</strong> info@exploriansafaris.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Copyright © 2023-Infinity Design and Developed By FAHARI</p>
+    </footer>
+</body>
+</html>

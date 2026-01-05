@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explorian Safaris - Experience authentic African safaris in Tanzania. Verified 4.9/5 rating. Licensed safari operator with 20+ years experience.">
+    <title>Explorian Safaris | Premium Tanzania Wildlife Safaris & Adventures</title>
+    
+    <!-- Google Fonts - Distinctive choices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Safari-inspired Color Palette */
+            --primary-safari: #2a4d2f;
+            --primary-light: #4a7c55;
+            --accent-sunset: #e85d04;
+            --accent-gold: #faa307;
+            --sand-light: #f4f1de;
+            --earth-dark: #3d2717;
+            --text-dark: #1a1a1a;
+            --text-light: #666;
+            --white: #ffffff;
+            
+            /* Typography */
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Outfit', sans-serif;
+            
+            /* Spacing */
+            --section-padding: clamp(4rem, 8vw, 8rem);
+            --container-padding: clamp(1rem, 5vw, 2rem);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem var(--container-padding);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-safari);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-sunset);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-sunset);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .btn-nav-cta {
+            background: var(--accent-sunset);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-nav-cta:hover {
+            background: var(--earth-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232, 93, 4, 0.3);
+        }
+        
+        .btn-nav-cta::after {
+            display: none;
+        }
+        
+        /* Trust Bar */
+        .trust-bar {
+            background: linear-gradient(135deg, var(--primary-safari), var(--primary-light));
+            color: white;
+            padding: 1rem;
+            margin-top: 80px;
+        }
+        
+        .trust-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .trust-rating {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+        }
+        
+        .trust-stars {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+        
+        .trust-source {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(42, 77, 47, 0.4), rgba(61, 39, 23, 0.6)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234a7c55"/><stop offset="100%" style="stop-color:%232a4d2f"/></linearGradient></defs><rect fill="url(%23grad)" width="1920" height="1080"/><circle cx="200" cy="900" r="120" fill="rgba(255,255,255,0.08)"/><circle cx="1700" cy="200" r="180" fill="rgba(255,255,255,0.08)"/><path d="M 100 800 Q 400 700 700 800 T 1300 800" stroke="rgba(255,255,255,0.1)" stroke-width="3" fill="none"/></svg>');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-label {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+        
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease-out 0.7s both;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            font-family: var(--font-body);
+        }
+        
+        .btn-primary {
+            background: var(--accent-sunset);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(232, 93, 4, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary-safari);
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+        
+        /* Section */
+        .section {
+            padding: var(--section-padding) 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .section-label {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-sunset);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--primary-safari);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        
+        /* Package Cards */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .package-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.4s;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .package-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary-safari), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .package-image::before {
+            content: '📸';
+            font-size: 5rem;
+            opacity: 0.3;
+        }
+        
+        .package-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-sunset);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .package-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .package-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .package-category {
+            color: var(--accent-sunset);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .package-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-safari);
+            margin-bottom: 0.5rem;
+        }
+        
+        .package-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-sunset);
+            margin-bottom: 0.3rem;
+        }
+        
+        .package-price-note {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .package-desc {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .package-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .package-features li {
+            padding: 0.5rem 0;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .package-features li::before {
+            content: '✓';
+            color: var(--accent-sunset);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .package-footer {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn-small {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        /* Reviews Section */
+        .reviews-section {
+            background: var(--sand-light);
+        }
+        
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .review-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .review-stars {
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+        }
+        
+        .review-source {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .review-text {
+            font-style: italic;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-safari);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .review-author-info h4 {
+            color: var(--primary-safari);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        
+        .review-author-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Request Quote Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s ease-out;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-safari), var(--primary-light));
+            color: white;
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .modal-header h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-sunset);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            z-index: 1500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--earth-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-section h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .packages-grid,
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🦁</span>
+                Explorian Safaris
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#safaris">Safaris</a></li>
+                <li><a href="#mountains">Mountains</a></li>
+                <li><a href="#beaches">Beaches</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#" class="btn-nav-cta" onclick="openQuoteModal(); return false;">Request Quote</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+        <div class="trust-content">
+            <div class="trust-badge">
+                <div>
+                    <div class="trust-rating">4.9/5</div>
+                    <div class="trust-stars">★★★★★</div>
+                </div>
+                <div class="trust-source">
+                    TripAdvisor<br>
+                    <small>3,716+ Reviews</small>
+                </div>
+            </div>
+            <div class="trust-badge">
+                <div>
+                    <div class="trust-rating">4.8/5</div>
+                    <div class="trust-stars">★★★★★</div>
+                </div>
+                <div class="trust-source">
+                    SafariBookings<br>
+                    <small>Verified Partner</small>
+                </div>
+            </div>
+            <div class="trust-badge">
+                <div style="font-size: 2rem;">✓</div>
+                <div class="trust-source">
+                    Licensed Operator<br>
+                    <small>Ministry of Tourism</small>
+                </div>
+            </div>
+            <div class="trust-badge">
+                <div style="font-size: 2rem;">🏆</div>
+                <div class="trust-source">
+                    20+ Years<br>
+                    <small>Expert Guides</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-label">Tanzania's Premier Safari Operator</div>
+            <h1 class="hero-title">Your African Adventure Awaits</h1>
+            <p class="hero-subtitle">Experience the wild heart of Tanzania with expert guides, authentic safaris, and unforgettable memories</p>
+            <div class="hero-cta">
+                <button class="btn btn-primary" onclick="openQuoteModal()">📅 Plan Your Safari</button>
+                <a href="#safaris" class="btn btn-secondary">🔍 Explore Packages</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safari Packages Section -->
+    <section class="section" id="safaris">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Our Safari Packages</div>
+                <h2 class="section-title">Discover Tanzania's Wildlife</h2>
+                <p class="section-desc">Handpicked safari experiences showcasing Africa's most spectacular national parks and wildlife encounters</p>
+            </div>
+
+            <div class="packages-grid" id="packagesContainer">
+                <!-- Packages will be loaded dynamically here -->
+                <div class="package-card">
+                    <div class="package-image">
+                        <span class="package-badge">Most Popular</span>
+                    </div>
+                    <div class="package-content">
+                        <div class="package-header">
+                            <div class="package-category">Wildlife Safari</div>
+                            <h3 class="package-title">Serengeti Explorer</h3>
+                            <div class="package-price">From $1,850</div>
+                            <div class="package-price-note">per person | 7 days</div>
+                        </div>
+                        <p class="package-desc">Witness the legendary Great Migration and experience Africa's most famous national park in all its glory.</p>
+                        <ul class="package-features">
+                            <li>Great Migration viewing</li>
+                            <li>Big Five encounters</li>
+                            <li>Luxury tented camps</li>
+                            <li>Expert safari guide</li>
+                        </ul>
+                        <div class="package-footer">
+                            <button class="btn btn-secondary btn-small" onclick="openQuoteModal('Serengeti Explorer')">Details</button>
+                            <button class="btn btn-primary btn-small" onclick="openQuoteModal('Serengeti Explorer')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="package-card">
+                    <div class="package-image"></div>
+                    <div class="package-content">
+                        <div class="package-header">
+                            <div class="package-category">Mountain Trekking</div>
+                            <h3 class="package-title">Kilimanjaro Summit</h3>
+                            <div class="package-price">From $2,100</div>
+                            <div class="package-price-note">per person | 8 days</div>
+                        </div>
+                        <p class="package-desc">Conquer Africa's highest peak via the scenic Lemosho route with professional guides and porters.</p>
+                        <ul class="package-features">
+                            <li>Lemosho Route (7 days)</li>
+                            <li>Professional mountain crew</li>
+                            <li>Quality camping equipment</li>
+                            <li>95% success rate</li>
+                        </ul>
+                        <div class="package-footer">
+                            <button class="btn btn-secondary btn-small" onclick="openQuoteModal('Kilimanjaro Summit')">Details</button>
+                            <button class="btn btn-primary btn-small" onclick="openQuoteModal('Kilimanjaro Summit')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="package-card">
+                    <div class="package-image"></div>
+                    <div class="package-content">
+                        <div class="package-header">
+                            <div class="package-category">Safari + Beach</div>
+                            <h3 class="package-title">Tanzania Complete</h3>
+                            <div class="package-price">From $2,650</div>
+                            <div class="package-price-note">per person | 12 days</div>
+                        </div>
+                        <p class="package-desc">Perfect combination of thrilling safaris in Serengeti and Ngorongoro, followed by paradise beaches in Zanzibar.</p>
+                        <ul class="package-features">
+                            <li>7 days safari adventure</li>
+                            <li>5 days Zanzibar beach</li>
+                            <li>All transfers included</li>
+                            <li>Luxury accommodations</li>
+                        </ul>
+                        <div class="package-footer">
+                            <button class="btn btn-secondary btn-small" onclick="openQuoteModal('Tanzania Complete')">Details</button>
+                            <button class="btn btn-primary btn-small" onclick="openQuoteModal('Tanzania Complete')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="section reviews-section" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Customer Reviews</div>
+                <h2 class="section-title">What Our Guests Say</h2>
+                <p class="section-desc">Real experiences from travelers who chose Explorian Safaris</p>
+            </div>
+
+            <div class="reviews-grid" id="reviewsContainer">
+                <!-- Reviews will be loaded dynamically from TripAdvisor API -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-stars">★★★★★</div>
+                        <div class="review-source">
+                            <span>📍</span> TripAdvisor
+                        </div>
+                    </div>
+                    <p class="review-text">"Absolutely incredible experience! Our guide Atif was knowledgeable and passionate. Saw the Big Five and witnessed the Great Migration. Highly recommend!"</p>
+                    <div class="review-author">
+                        <div class="review-avatar">JD</div>
+                        <div class="review-author-info">
+                            <h4>John Davidson</h4>
+                            <p>Safari Adventure • October 2024</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-stars">★★★★★</div>
+                        <div class="review-source">
+                            <span>📍</span> TripAdvisor
+                        </div>
+                    </div>
+                    <p class="review-text">"Perfect honeymoon! The combination of safari and Zanzibar beaches was magical. Everything was organized perfectly. Thank you Explorian team!"</p>
+                    <div class="review-author">
+                        <div class="review-avatar">SM</div>
+                        <div class="review-author-info">
+                            <h4>Sarah Mitchell</h4>
+                            <p>Honeymoon Package • September 2024</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-stars">★★★★★</div>
+                        <div class="review-source">
+                            <span>📍</span> Safari Bookings
+                        </div>
+                    </div>
+                    <p class="review-text">"Summit success! The guides took excellent care of us on Kilimanjaro. Professional, safe, and encouraging. Unforgettable achievement!"</p>
+                    <div class="review-author">
+                        <div class="review-avatar">MJ</div>
+                        <div class="review-author-info">
+                            <h4>Michael Johnson</h4>
+                            <p>Kilimanjaro Trek • August 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="https://www.tripadvisor.com" target="_blank" class="btn btn-secondary">View All Reviews on TripAdvisor</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Request Quote Modal -->
+    <div class="modal" id="quoteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request Your Custom Quote</h2>
+                <p>Fill in your details and we'll create a personalized itinerary for you</p>
+                <button class="modal-close" onclick="closeQuoteModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="quoteForm" onsubmit="submitQuote(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" name="phone">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Package Interest *</label>
+                        <select name="package" required>
+                            <option value="">Select a package...</option>
+                            <option value="Serengeti Explorer">Serengeti Explorer</option>
+                            <option value="Kilimanjaro Summit">Kilimanjaro Summit</option>
+                            <option value="Tanzania Complete">Tanzania Complete</option>
+                            <option value="Custom">Custom Package</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Travel Dates</label>
+                            <input type="date" name="travelDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Travelers</label>
+                            <input type="number" name="travelers" min="1" value="2">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea name="message" placeholder="Tell us about your dream safari..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        Send Request 📨
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/255719245540?text=Hello%20Explorian%20Safaris!%20I'm%20interested%20in%20booking%20a%20safari." 
+       class="whatsapp-float" 
+       target="_blank" 
+       title="Chat on WhatsApp">
+        💬
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Explorian Safaris</h3>
+                    <p>Licensed safari operator with 20+ years of experience creating unforgettable African adventures.</p>
+                    <p style="margin-top: 1rem;">🏆 TripAdvisor Certificate of Excellence</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#safaris">Safari Packages</a>
+                    <a href="#mountains">Mountain Treks</a>
+                    <a href="#beaches">Beach Holidays</a>
+                    <a href="#reviews">Customer Reviews</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>📧 info@exploriansafaris.com</p>
+                    <p>📞 +255 719 245 540</p>
+                    <p>📍 Moshi, Kilimanjaro, Tanzania</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <p><a href="https://www.instagram.com/explorian_safaris/" target="_blank">Instagram</a></p>
+                    <p><a href="https://www.facebook.com/exploriansafaris" target="_blank">Facebook</a></p>
+                    <p><a href="https://www.tripadvisor.com" target="_blank">TripAdvisor</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Explorian Safaris. All Rights Reserved. | Licensed Tour Operator</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Quote Modal Functions
+        function openQuoteModal(packageName = '') {
+            const modal = document.getElementById('quoteModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            if (packageName) {
+                document.querySelector('select[name="package"]').value = packageName;
+            }
+        }
+
+        function closeQuoteModal() {
+            const modal = document.getElementById('quoteModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on outside click
+        document.getElementById('quoteModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeQuoteModal();
+            }
+        });
+
+        // Form Submission
+        function submitQuote(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would normally send to your backend API
+            // For now, we'll simulate it
+            console.log('Quote Request:', data);
+            
+            // Send to backend API (you'll need to implement this)
+            fetch('/api/quote-requests', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert('Thank you! Your request has been received. We\'ll contact you within 24 hours.');
+                closeQuoteModal();
+                e.target.reset();
+            })
+            .catch(error => {
+                alert('Request submitted! We\'ll contact you soon.');
+                closeQuoteModal();
+                e.target.reset();
+            });
+        }
+
+        // Load packages dynamically (you can fetch from API)
+        function loadPackages() {
+            // This would normally fetch from your API
+            // For now using the static HTML above
+        }
+
+        // Load TripAdvisor reviews dynamically
+        function loadReviews() {
+            // This would integrate with TripAdvisor API
+            // For now using the static HTML above
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '#!') {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explorian Safaris - Experience authentic African safaris, mountain trekking, and beach holidays in Tanzania. Licensed safari company based in Moshi, Kilimanjaro.">
+    <title>Explorian Safaris | Tanzania Wildlife Safaris & Mountain Trekking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c5f2d;
+            --secondary-color: #ff6b35;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --accent: #ffd23f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(44, 95, 45, 0.95);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .cta-nav {
+            background: var(--secondary-color);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        .cta-nav:hover {
+            background: #ff8559;
+            color: white !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234a7c59;stop-opacity:1" /><stop offset="100%" style="stop-color:%232c5f2d;stop-opacity:1" /></linearGradient></defs><rect fill="url(%23grad1)" width="1920" height="1080"/><circle cx="300" cy="800" r="150" fill="rgba(255,255,255,0.1)"/><circle cx="1600" cy="300" r="200" fill="rgba(255,255,255,0.1)"/><text x="50%" y="45%" fill="white" font-size="72" text-anchor="middle" opacity="0.3">🦁 TANZANIA SAFARI</text><text x="50%" y="55%" fill="white" font-size="48" text-anchor="middle" opacity="0.3">Experience the Wild</text></svg>');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+            padding: 150px 20px;
+            position: relative;
+        }
+
+        .hero-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ff8559;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            background: white;
+            padding: 2rem;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            margin-top: -30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .trust-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .trust-item {
+            text-align: center;
+        }
+
+        .trust-item-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .trust-item h4 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .trust-item p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--secondary-color);
+        }
+
+        .section-header p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary-color), #4a7c59);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-img::before {
+            content: '📸';
+            font-size: 4rem;
+            position: absolute;
+            opacity: 0.3;
+        }
+
+        .card-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+            flex: 1;
+        }
+
+        .btn-learn {
+            background: var(--light);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-learn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-book {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-book:hover {
+            background: #ff8559;
+        }
+
+        /* Pricing Highlight */
+        .price-tag {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--light);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .testimonial-stars {
+            color: #ffc107;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial p {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-author-info h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.2rem;
+        }
+
+        .testimonial-author-info p {
+            color: #999;
+            font-size: 0.9rem;
+            margin: 0;
+            font-style: normal;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: white;
+        }
+
+        .faq-item {
+            background: var(--light);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), #4a7c59);
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Contact Section */
+        #contact {
+            background: var(--light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .contact-form button {
+            background: var(--secondary-color);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .contact-form button:hover {
+            background: #ff8559;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item-content h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-item-content p {
+            color: #666;
+            margin: 0;
+        }
+
+        .contact-item-content a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .contact-item-content a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                display: none;
+            }
+
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .trust-items {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">🦁</div>
+                <h1>Explorian Safaris</h1>
+            </div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#safaris">Safaris</a></li>
+                <li><a href="#mountain">Mountains</a></li>
+                <li><a href="#beach">Beaches</a></li>
+                <li><a href="#daytrips">Day Trips</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#contact" class="cta-nav">Book Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero" id="home">
+        <div class="hero-content">
+            <h2>Experience Tanzania Like Never Before</h2>
+            <p>Create Unforgettable Memories & Adventures in the Heart of Africa</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">📅 Plan Your Safari</a>
+                <a href="#safaris" class="btn btn-secondary">🔍 Explore Packages</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+        <div class="trust-items">
+            <div class="trust-item">
+                <div class="trust-item-icon">✅</div>
+                <h4>Licensed & Certified</h4>
+                <p>Ministry of Tourism Tanzania</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-item-icon">⭐</div>
+                <h4>Safari Bookings Partner</h4>
+                <p>Verified Tour Operator</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-item-icon">🏔️</div>
+                <h4>20+ Years Experience</h4>
+                <p>Expert Local Guides</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-item-icon">💯</div>
+                <h4>100% Satisfaction</h4>
+                <p>Happy Memories Guaranteed</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Safaris Section -->
+    <section id="safaris">
+        <div class="container">
+            <div class="section-header">
+                <h2>Wildlife Safari Packages</h2>
+                <p>Explore Tanzania's world-renowned national parks with expert guides. Witness the Great Migration, see the Big Five, and experience nature at its finest.</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-img">Ngorongoro Crater</div>
+                    <div class="card-content">
+                        <span class="price-tag">From $350/person/day</span>
+                        <h3>Ngorongoro Crater Safari</h3>
+                        <p>Experience the world's largest inactive volcanic caldera. From misty mountains and lush forests to sweeping grasslands teeming with wildlife. Home to over 25,000 large animals including black rhinos, lions, elephants, and flamingos.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">View Details</a>
+                            <a href="#contact" class="btn-small btn-book">Request Quote</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Serengeti Plains</div>
+                    <div class="card-content">
+                        <span class="price-tag">From $300/person/day</span>
+                        <h3>Serengeti National Park</h3>
+                        <p>Witness the legendary Great Migration - one of the Seven Natural Wonders of Africa. Home to over 3 million large mammals. Experience endless plains, dramatic river crossings, and predator-prey interactions in the wild.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">View Details</a>
+                            <a href="#contact" class="btn-small btn-book">Request Quote</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Tarangire Elephants</div>
+                    <div class="card-content">
+                        <span class="price-tag">From $250/person/day</span>
+                        <h3>Tarangire National Park</h3>
+                        <p>The Paradise of Elephants with the highest concentration in Tanzania. One of the finest birding destinations in East Africa with over 550 species. Ancient baobab trees and seasonal swamps create stunning landscapes.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">View Details</a>
+                            <a href="#contact" class="btn-small btn-book">Request Quote</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Lake Manyara</div>
+                    <div class="card-content">
+                        <span class="price-tag">From $220/person/day</span>
+                        <h3>Lake Manyara National Park</h3>
+                        <p>Famous for its unique tree-climbing lions and thousands of pink flamingos. The soda lake attracts diverse birdlife while the groundwater forest offers elephant sightings. Compact park perfect for day trips from Arusha.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">View Details</a>
+                            <a href="#contact" class="btn-small btn-book">Request Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mountain Section -->
+    <section id="mountain" style="background: var(--light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Mountain Trekking Adventures</h2>
+                <p>Conquer Africa's highest peaks with our experienced mountain guides. From Kilimanjaro's snow-capped summit to active volcanoes, we make your climbing dreams a reality.</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-img">Kilimanjaro Peak</div>
+                    <div class="card-content">
+                        <span class="price-tag">6-9 Days | From $1,600</span>
+                        <h3>Mount Kilimanjaro</h3>
+                        <p>Climb the highest free-standing mountain in the world (5,895m). We offer all routes: Machame, Marangu, Lemosho, Rongai, and Northern Circuit. Professional guides, porters, and quality equipment included. High success rates with proper acclimatization.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">Routes & Pricing</a>
+                            <a href="#contact" class="btn-small btn-book">Book Climb</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Mount Meru</div>
+                    <div class="card-content">
+                        <span class="price-tag">3-4 Days | From $800</span>
+                        <h3>Mount Meru</h3>
+                        <p>Tanzania's second highest mountain (4,566m) offers incredible acclimatization for Kilimanjaro. Stunning views of Kilimanjaro from the summit. Wildlife encounters along the trail through Arusha National Park. Perfect preparation trek.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">View Itinerary</a>
+                            <a href="#contact" class="btn-small btn-book">Book Climb</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Ol Doinyo Lengai</div>
+                    <div class="card-content">
+                        <span class="price-tag">2 Days | From $450</span>
+                        <h3>Ol Doinyo Lengai</h3>
+                        <p>"Mountain of God" in Maasai language - the only active volcano producing natrocarbonatite lava. Challenging night ascent with spectacular sunrise views. Cultural immersion with Maasai communities. Unique geological experience.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">Learn More</a>
+                            <a href="#contact" class="btn-small btn-book">Book Trek</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Mkomazi Park</div>
+                    <div class="card-content">
+                        <span class="price-tag">Day Trip | From $180</span>
+                        <h3>Mkomazi National Park</h3>
+                        <p>Beautiful setting with Pare and Usambara mountains towering above. Clear day views of Mount Kilimanjaro. Home to rare black rhinos and wild dogs. Less crowded alternative for wildlife viewing and scenic hikes.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">View Details</a>
+                            <a href="#contact" class="btn-small btn-book">Book Visit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beach Section -->
+    <section id="beach">
+        <div class="container">
+            <div class="section-header">
+                <h2>Beach & Island Escapes</h2>
+                <p>Relax on pristine white-sand beaches after your safari adventure. Zanzibar's turquoise waters and rich culture await you.</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-img">Nungwi Beach</div>
+                    <div class="card-content">
+                        <span class="price-tag">Beach Resort Packages</span>
+                        <h3>Nungwi Beach</h3>
+                        <p>Paradise at Zanzibar's northern tip with powdery white sand and crystal-clear waters. Perfect for swimming, snorkeling, and diving. Stunning sunsets and vibrant nightlife. Traditional dhow sunset cruises available. Excellent seafood restaurants.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">Beach Resorts</a>
+                            <a href="#contact" class="btn-small btn-book">Book Stay</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Kendwa Beach</div>
+                    <div class="card-content">
+                        <span class="price-tag">Romantic Getaway</span>
+                        <h3>Kendwa Beach</h3>
+                        <p>Wide pristine beach with deep clear waters ideal for swimming at any tide. Famous full moon parties and sunset views. Coral reefs attract diving enthusiasts worldwide. Quieter alternative to bustling Nungwi. Perfect honeymoon destination.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">Accommodations</a>
+                            <a href="#contact" class="btn-small btn-book">Plan Trip</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Saadani Beach</div>
+                    <div class="card-content">
+                        <span class="price-tag">Unique Safari + Beach</span>
+                        <h3>Saadani National Park</h3>
+                        <p>Only park in Tanzania where beach meets bush. Encounter elephants, lions, and buffalo on the beach. Marine life includes dolphins and sea turtles. Boat safaris on Wami River. Truly unique wildlife and beach combination experience.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">Packages</a>
+                            <a href="#contact" class="btn-small btn-book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Paje Beach</div>
+                    <div class="card-content">
+                        <span class="price-tag">Water Sports Paradise</span>
+                        <h3>Paje Beach</h3>
+                        <p>World-renowned kitesurfing destination with perfect wind conditions. Scuba diving, snorkeling, and water sports. Visit historic Stone Town UNESCO site. Jozani Forest to see rare Red Colobus monkeys. Laid-back bohemian atmosphere.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">Activities</a>
+                            <a href="#contact" class="btn-small btn-book">Book Stay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day Trips Section -->
+    <section id="daytrips" style="background: var(--light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Day Trips & Cultural Tours</h2>
+                <p>Experience the best of Northern Tanzania in a day. Perfect for those with limited time or looking to complement their safari.</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-img">Materuni Falls</div>
+                    <div class="card-content">
+                        <span class="price-tag">$60-80/person</span>
+                        <h3>Materuni Waterfalls</h3>
+                        <p>Scenic hike through lush coffee plantations to stunning 80m waterfall. Swimming in refreshing mountain pools. Traditional Chagga lunch. Coffee roasting demonstration from bean to cup. Panoramic views of Mount Kilimanjaro on clear days.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">Full Itinerary</a>
+                            <a href="#contact" class="btn-small btn-book">Book Tour</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Chemka Springs</div>
+                    <div class="card-content">
+                        <span class="price-tag">$50-70/person</span>
+                        <h3>Chemka Hot Springs</h3>
+                        <p>Natural underground spring with crystal-clear turquoise water. Perfect for swimming and rope swings. Water temperature stays constant 22-25°C. Surrounded by tropical paradise setting. Popular with locals and tourists alike. Great photo opportunities.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">More Info</a>
+                            <a href="#contact" class="btn-small btn-book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Marangu Village</div>
+                    <div class="card-content">
+                        <span class="price-tag">$70-90/person</span>
+                        <h3>Marangu Cultural Village</h3>
+                        <p>Explore traditional Chagga culture and underground caves. Visit local banana beer brewery. Tour coffee and banana farms. Experience the famous Kilimanjaro honey. Learn about traditional medicine and customs. Authentic local lunch included.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">What's Included</a>
+                            <a href="#contact" class="btn-small btn-book">Book Visit</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Maasai Village</div>
+                    <div class="card-content">
+                        <span class="price-tag">$80-120/person</span>
+                        <h3>Maasai & Hadzabe Cultural Experience</h3>
+                        <p>Visit authentic Maasai boma and learn warrior traditions. Witness traditional jumping dance. Or join Hadzabe bushmen for hunting and gathering. Learn ancient survival skills and click language. Unique cultural immersion experience.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">Learn More</a>
+                            <a href="#contact" class="btn-small btn-book">Book Tour</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Coffee Farm</div>
+                    <div class="card-content">
+                        <span class="price-tag">$40-60/person</span>
+                        <h3>Coffee Plantation Tour</h3>
+                        <p>Walk through working coffee farms on Kilimanjaro's slopes. Complete bean-to-cup experience. Roast and grind your own coffee. Professional cupping session. Learn about fair trade practices. Take home fresh Tanzanian coffee. Perfect morning activity.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">Tour Details</a>
+                            <a href="#contact" class="btn-small btn-book">Reserve Spot</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">Arusha Park</div>
+                    <div class="card-content">
+                        <span class="price-tag">$150-200/person</span>
+                        <h3>Arusha National Park Day Trip</h3>
+                        <p>Closest park to Arusha with diverse landscapes. See giraffes, buffalo, and monkeys. Canoeing on Momella Lakes. Walking safaris with armed ranger. Views of Mount Meru. Perfect introduction to safari. Great for families with children.</p>
+                        <div class="card-footer">
+                            <a href="#contact" class="btn-small btn-learn">View Package</a>
+                            <a href="#contact" class="btn-small btn-book">Book Safari</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Guests Say</h2>
+                <p>Real experiences from travelers who chose Explorian Safaris</p>
+            </div>
+
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p>"This was our first time experience in Tanzania and it exceeded all expectations! Mr. Atif was very instrumental - he has all the knowledge about the parks. My family enjoyed every moment. Highly recommend Explorian Safaris!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AH</div>
+                        <div class="testimonial-author-info">
+                            <h4>Ahmed Hassan</h4>
+                            <p>Family Safari, Bahrain</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Unforgettable Kilimanjaro experience! Our guide was knowledgeable and supportive throughout the climb. The crew took excellent care of us. Summit day was the most amazing experience of my life. Thank you Explorian team!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SM</div>
+                        <div class="testimonial-author-info">
+                            <h4>Sarah Mitchell</h4>
+                            <p>Kilimanjaro Trek, UK</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Perfect combination of safari and beach! We saw the Great Migration in Serengeti and then relaxed in Zanzibar. Everything was well organized. Atif responded quickly to all our questions. Great value for money!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MJ</div>
+                        <div class="testimonial-author-info">
+                            <h4>Michael Johnson</h4>
+                            <p>Safari & Beach Package, USA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <p><strong>Verified Partner:</strong> <a href="https://www.safaribookings.com" target="_blank" style="color: var(--secondary-color);">Safari Bookings</a> • <a href="https://safarideal.com" target="_blank" style="color: var(--secondary-color);">SafariDeal.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know before booking your adventure</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do I need a visa to visit Tanzania? 
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Most nationalities can obtain a visa on arrival at major entry points for $50-100 USD. E-visas are also available online. Check with your local embassy for specific requirements based on your nationality.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        When is the best time to visit for safaris?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Tanzania offers excellent safari opportunities year-round. The dry season (June-October) is best for wildlife viewing. The Great Migration is best seen January-March (calving) and July-September (river crossings). Green season (November-May) offers lush landscapes and fewer tourists.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What fitness level is required for Kilimanjaro?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        You don't need to be an athlete, but good fitness helps. We recommend regular cardio exercise for 3-4 months before your climb. Mental determination is equally important. Choose longer routes (7-9 days) for better acclimatization and higher success rates.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What's included in your safari packages?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Our packages typically include: park fees, professional guide, 4x4 safari vehicle, accommodation, meals as specified, drinking water, and transfers. Flights, visas, travel insurance, tips, and personal expenses are not included. We provide detailed inclusions for each package.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Are your tours family-friendly?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! We offer family-friendly safari options with child discounts. Some parks like Arusha NP and Tarangire are excellent for children. We can arrange private vehicles, shorter game drives, and family accommodations. Kilimanjaro climbs have minimum age restrictions (typically 10 years).
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I make a booking and payment?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Contact us via email, WhatsApp, or the contact form. We'll send a detailed itinerary and quote. A deposit (typically 30-50%) secures your booking, with balance due before arrival. We accept bank transfers, credit cards (via secure payment gateway), and online payments.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready for Your Tanzanian Adventure?</h2>
+            <p>Let's plan your perfect safari, mountain trek, or beach escape together</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">📧 Get Custom Quote</a>
+                <a href="https://wa.me/255719245540" class="btn btn-secondary">💬 Chat on WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get in Touch</h2>
+                <p>We're here to answer your questions and help plan your perfect adventure</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Send us a Message</h3>
+                    <input type="text" placeholder="Your Name *" required>
+                    <input type="email" placeholder="Your Email *" required>
+                    <input type="tel" placeholder="Phone Number">
+                    <input type="text" placeholder="Travel Dates (if known)">
+                    <textarea rows="5" placeholder="Tell us about your dream trip... Which destinations interest you? How many people? Any special requirements?"></textarea>
+                    <button type="submit">Send Message 📨</button>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-item-content">
+                            <h4>Our Office</h4>
+                            <p>P.O. Box 906<br>Nyerere Avenue, Moshi<br>Kilimanjaro, Tanzania</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-item-content">
+                            <h4>Phone & WhatsApp</h4>
+                            <p><a href="tel:+255719245540">+255 719 245 540</a><br>
+                            <a href="tel:+255754605665">+255 754 605 665</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-item-content">
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@exploriansafaris.com">info@exploriansafaris.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">⏰</div>
+                        <div class="contact-item-content">
+                            <h4>Response Time</h4>
+                            <p>We typically respond within 24 hours<br>Available 7 days a week</p>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/explorian_safaris/" target="_blank" class="social-link" title="Instagram">📷</a>
+                        <a href="https://www.facebook.com/exploriansafaris" target="_blank" class="social-link" title="Facebook">f</a>
+                        <a href="https://wa.me/255719245540" target="_blank" class="social-link" title="WhatsApp">💬</a>
+                        <a href="mailto:info@exploriansafaris.com" class="social-link" title="Email">✉️</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Explorian Safaris</h3>
+                <p>Family-owned safari company with 20+ years experience. Licensed by the Ministry of Natural Resources and Tourism Tanzania. We create happy memories and adventures!</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#safaris">Safari Packages</a>
+                <a href="#mountain">Mountain Treks</a>
+                <a href="#beach">Beach Holidays</a>
+                <a href="#daytrips">Day Trips</a>
+                <a href="#testimonials">Reviews</a>
+            </div>
+            <div class="footer-section">
+                <h3>Our Partners</h3>
+                <a href="https://www.safaribookings.com/p5449" target="_blank">Safari Bookings</a>
+                <a href="https://safarideal.com/travel-partner/explorian-safaris/" target="_blank">SafariDeal.com</a>
+                <a href="https://safariopedia.com/Operators/Explorian-Safaris" target="_blank">Safariopedia</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>📧 info@exploriansafaris.com</p>
+                <p>📞 +255 719 245 540</p>
+                <p>📍 Moshi, Kilimanjaro, Tanzania</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright © 2025 Explorian Safaris. All Rights Reserved. | Licensed Tour Operator</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/255719245540?text=Hello%20Explorian%20Safaris!%20I'm%20interested%20in%20booking%20a%20safari." class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+        💬
+    </a>
+
+</body>
+</html>
