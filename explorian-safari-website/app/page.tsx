@@ -22,18 +22,18 @@ export default function Home() {
           <p className="text-lg md:text-xl lg:text-2xl mb-8 max-w-3xl mx-auto opacity-90 leading-relaxed">
             Create unforgettable memories with authentic safaris, mountain trekking, and beach escapes in the heart of Africa
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link
               href="/request-quote"
-              className="bg-secondary hover:bg-secondary-dark text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl inline-block text-base text-center"
-              style={{ padding: '16px 40px' }}
+              className="bg-secondary hover:bg-secondary-dark text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl inline-flex items-center justify-center text-base"
+              style={{ padding: '18px 48px' }}
             >
               Request Travel Offer
             </Link>
             <Link
               href="/safaris"
-              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold rounded-full transition-all duration-300 border-2 border-white/30 inline-block text-base text-center"
-              style={{ padding: '16px 40px' }}
+              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold rounded-full transition-all duration-300 border-2 border-white/30 inline-flex items-center justify-center text-base"
+              style={{ padding: '18px 48px' }}
             >
               Explore Packages
             </Link>
@@ -42,7 +42,7 @@ export default function Home() {
       </section>
 
       {/* Trust Bar */}
-      <section className="bg-white py-8 shadow-lg relative z-20 -mt-8">
+      <section className="bg-white py-12 shadow-lg relative z-20 -mt-8">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center">
@@ -70,7 +70,7 @@ export default function Home() {
       </section>
 
       {/* Popular Safari Packages */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
@@ -133,8 +133,8 @@ export default function Home() {
                 </div>
                 <Link
                   href="/safaris/serengeti-ngorongoro"
-                  className="block w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200 text-center"
-                  style={{ padding: '12px 24px' }}
+                  className="flex items-center justify-center w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200"
+                  style={{ padding: '14px 28px' }}
                 >
                   View Details
                 </Link>
@@ -189,8 +189,8 @@ export default function Home() {
                 </div>
                 <Link
                   href="/safaris/northern-circuit"
-                  className="block w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200 text-center"
-                  style={{ padding: '12px 24px' }}
+                  className="flex items-center justify-center w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200"
+                  style={{ padding: '14px 28px' }}
                 >
                   View Details
                 </Link>
@@ -248,8 +248,8 @@ export default function Home() {
                 </div>
                 <Link
                   href="/safaris/safari-zanzibar"
-                  className="block w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200 text-center"
-                  style={{ padding: '12px 24px' }}
+                  className="flex items-center justify-center w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200"
+                  style={{ padding: '14px 28px' }}
                 >
                   View Details
                 </Link>
@@ -257,11 +257,11 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-16">
             <Link
               href="/safaris"
-              className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold rounded-full transition-all duration-300 text-center"
-              style={{ padding: '14px 36px' }}
+              className="inline-flex items-center justify-center bg-primary hover:bg-primary-dark text-white font-semibold rounded-full transition-all duration-300"
+              style={{ padding: '16px 40px' }}
             >
               View All Safari Packages
             </Link>
@@ -270,7 +270,7 @@ export default function Home() {
       </section>
 
       {/* Featured Sections Preview */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
@@ -346,7 +346,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
@@ -442,7 +442,7 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
@@ -555,7 +555,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary to-primary-dark text-white">
+      <section className="py-24 bg-gradient-to-r from-primary to-primary-dark text-white">
         <div className="container mx-auto px-4 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Ready to Plan Your Dream Safari?
@@ -565,8 +565,8 @@ export default function Home() {
           </p>
           <Link
             href="/request-quote"
-            className="inline-block bg-secondary hover:bg-secondary-dark text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl text-lg text-center"
-            style={{ padding: '16px 44px' }}
+            className="inline-flex items-center justify-center bg-secondary hover:bg-secondary-dark text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl text-lg"
+            style={{ padding: '18px 52px' }}
           >
             Get Your Free Quote
           </Link>
