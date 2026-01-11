@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  /* Safari Theme Colors */
+  --color-primary: #2c5f2d;
+  --color-primary-dark: #1a3a1b;
+  --color-primary-light: #4a7c59;
+
+  --color-secondary: #ff6b35;
+  --color-secondary-dark: #e55a2a;
+  --color-secondary-light: #ff8559;
+
+  --color-accent: #ffd23f;
+  --color-accent-dark: #f5c525;
+  --color-accent-light: #ffe066;
+
+  --color-earth: #8b6f47;
+  --color-sand: #e8d5b5;
+  --color-savanna: #c9a876;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Custom button styles with proper spacing */
+.btn-primary {
+  padding: 16px 40px;
+  background: #ff6b35;
+  color: white;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.btn-primary:hover {
+  background: #e55a2a;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+}
+
+.btn-secondary {
+  padding: 16px 40px;
+  background: white;
+  color: #2c5f2d;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: white;
+  transform: translateY(-2px);
+}
