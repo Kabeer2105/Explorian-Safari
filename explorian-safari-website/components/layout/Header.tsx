@@ -50,8 +50,7 @@ export default function Header() {
           <div className="hidden lg:block">
             <Link
               href="/request-quote"
-              className="bg-secondary text-white font-semibold rounded-full hover:bg-secondary-dark transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl inline-flex items-center justify-center"
-              style={{ padding: '14px 36px' }}
+              className="bg-secondary text-white font-semibold rounded-full hover:bg-secondary-dark transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl inline-flex items-center justify-center px-8 py-3"
             >
               Request Travel Offer
             </Link>
@@ -92,8 +91,7 @@ export default function Header() {
               <Link
                 href="/request-quote"
                 onClick={() => setMobileMenuOpen(false)}
-                className="mx-4 mt-4 bg-secondary text-white font-semibold rounded-full hover:bg-secondary-dark transition-all duration-200 shadow-lg flex items-center justify-center"
-                style={{ padding: '14px 36px' }}
+                className="mx-4 mt-4 bg-secondary text-white font-semibold rounded-full hover:bg-secondary-dark transition-all duration-200 shadow-lg flex items-center justify-center px-8 py-3"
               >
                 Request Travel Offer
               </Link>

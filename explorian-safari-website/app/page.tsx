@@ -14,26 +14,53 @@ export default function Home() {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center text-white">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+        <div className="relative z-10 container mx-auto px-4 lg:px-8 text-white">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-center">
             Experience Tanzania <br className="hidden md:block" />
             <span className="text-accent">Like Never Before</span>
           </h1>
-          <p className="text-lg md:text-xl lg:text-2xl mb-8 max-w-3xl mx-auto opacity-90 leading-relaxed">
+          <p className="text-lg md:text-xl lg:text-2xl mb-10 opacity-90 leading-relaxed text-center">
             Create unforgettable memories with authentic safaris, mountain trekking, and beach escapes in the heart of Africa
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link
               href="/request-quote"
-              className="bg-secondary hover:bg-secondary-dark text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl inline-flex items-center justify-center text-base"
-              style={{ padding: '18px 48px' }}
+              style={{
+                backgroundColor: '#ff6b35',
+                color: 'white',
+                padding: '16px 40px',
+                borderRadius: '50px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 'bold',
+                fontSize: '16px',
+                textDecoration: 'none',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                transition: 'all 0.3s ease'
+              }}
+              className="transform hover:scale-105"
             >
               Request Travel Offer
             </Link>
             <Link
               href="/safaris"
-              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold rounded-full transition-all duration-300 border-2 border-white/30 inline-flex items-center justify-center text-base"
-              style={{ padding: '18px 48px' }}
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                color: 'white',
+                padding: '16px 40px',
+                borderRadius: '50px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: '600',
+                fontSize: '16px',
+                textDecoration: 'none',
+                border: '2px solid rgba(255,255,255,0.3)',
+                backdropFilter: 'blur(4px)',
+                transition: 'all 0.3s ease'
+              }}
+              className="transform hover:scale-105"
             >
               Explore Packages
             </Link>
@@ -42,9 +69,9 @@ export default function Home() {
       </section>
 
       {/* Trust Bar */}
-      <section className="bg-white py-12 shadow-lg relative z-20 -mt-8">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <section className="bg-white py-20 shadow-lg relative z-20 -mt-8 ">
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
             <div className="text-center">
               <div className="text-3xl mb-2">✅</div>
               <h3 className="font-bold text-primary text-sm md:text-base">Licensed & Certified</h3>
@@ -70,18 +97,18 @@ export default function Home() {
       </section>
 
       {/* Popular Safari Packages */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+      <section className="py-40 bg-white">
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+          <div className="text-center mb-24">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-8 leading-tight">
               Popular Safari Packages
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 text-lg md:text-xl leading-relaxed mx-auto" style={{ textAlign: 'center' }}>
               Carefully crafted adventures combining the best of Tanzania's wildlife, landscapes, and culture
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
             {/* 5-Day Serengeti & Ngorongoro Safari */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
               <div className="relative h-56 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
@@ -133,8 +160,7 @@ export default function Home() {
                 </div>
                 <Link
                   href="/safaris/serengeti-ngorongoro"
-                  className="flex items-center justify-center w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200"
-                  style={{ padding: '14px 28px' }}
+                  className="flex items-center justify-center w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200 px-6 py-3"
                 >
                   View Details
                 </Link>
@@ -189,8 +215,7 @@ export default function Home() {
                 </div>
                 <Link
                   href="/safaris/northern-circuit"
-                  className="flex items-center justify-center w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200"
-                  style={{ padding: '14px 28px' }}
+                  className="flex items-center justify-center w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200 px-6 py-3"
                 >
                   View Details
                 </Link>
@@ -248,8 +273,7 @@ export default function Home() {
                 </div>
                 <Link
                   href="/safaris/safari-zanzibar"
-                  className="flex items-center justify-center w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200"
-                  style={{ padding: '14px 28px' }}
+                  className="flex items-center justify-center w-full bg-secondary hover:bg-secondary-dark text-white font-semibold rounded-full transition-all duration-200 px-6 py-3"
                 >
                   View Details
                 </Link>
@@ -257,11 +281,10 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="text-center mt-16">
+          <div className="text-center mt-24">
             <Link
               href="/safaris"
-              className="inline-flex items-center justify-center bg-primary hover:bg-primary-dark text-white font-semibold rounded-full transition-all duration-300"
-              style={{ padding: '16px 40px' }}
+              className="inline-flex items-center justify-center bg-primary hover:bg-primary-dark text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl px-12 py-4 text-lg"
             >
               View All Safari Packages
             </Link>
@@ -270,18 +293,18 @@ export default function Home() {
       </section>
 
       {/* Featured Sections Preview */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+      <section className="py-40 bg-gray-50">
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+          <div className="text-center mb-24">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-8 leading-tight">
               Your Tanzania Adventure Awaits
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 text-lg md:text-xl leading-relaxed mx-auto" style={{ textAlign: 'center' }}>
               From wildlife safaris to mountain peaks and pristine beaches, discover the best of Tanzania
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-12">
             {/* Safari Card */}
             <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="h-48 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
@@ -346,94 +369,94 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+      <section className="py-40 bg-white">
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+          <div className="text-center mb-28">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-8 leading-tight">
               Why Choose Explorian Safaris?
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 text-lg md:text-xl leading-relaxed mx-auto" style={{ textAlign: 'center' }}>
               Experience the difference that expertise, passion, and personalized service make
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-16">
             <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
-                <span className="text-4xl">🎖️</span>
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
+                <span className="text-5xl">🎖️</span>
               </div>
-              <h3 className="text-lg font-bold text-primary mb-2">Licensed & Certified</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <h3 className="text-xl font-bold text-primary mb-3">Licensed & Certified</h3>
+              <p className="text-gray-600 text-base leading-relaxed">
                 Fully licensed by Tanzania Tourist Board with certified professional guides
               </p>
             </div>
 
             <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-all duration-300">
-                <span className="text-4xl">👥</span>
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-all duration-300">
+                <span className="text-5xl">👥</span>
               </div>
-              <h3 className="text-lg font-bold text-primary mb-2">Expert Local Guides</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <h3 className="text-xl font-bold text-primary mb-3">Expert Local Guides</h3>
+              <p className="text-gray-600 text-base leading-relaxed">
                 Born and raised in Tanzania, our guides know every trail and wildlife pattern
               </p>
             </div>
 
             <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300">
-                <span className="text-4xl">🛡️</span>
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300">
+                <span className="text-5xl">🛡️</span>
               </div>
-              <h3 className="text-lg font-bold text-primary mb-2">Safety First</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <h3 className="text-xl font-bold text-primary mb-3">Safety First</h3>
+              <p className="text-gray-600 text-base leading-relaxed">
                 Modern 4x4 vehicles, first aid certified staff, and comprehensive insurance
               </p>
             </div>
 
             <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-earth/10 flex items-center justify-center group-hover:bg-earth/20 transition-all duration-300">
-                <span className="text-4xl">✨</span>
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-earth/10 flex items-center justify-center group-hover:bg-earth/20 transition-all duration-300">
+                <span className="text-5xl">✨</span>
               </div>
-              <h3 className="text-lg font-bold text-primary mb-2">Personalized Service</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <h3 className="text-xl font-bold text-primary mb-3">Personalized Service</h3>
+              <p className="text-gray-600 text-base leading-relaxed">
                 Custom itineraries tailored to your interests, budget, and travel style
               </p>
             </div>
 
             <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
-                <span className="text-4xl">💰</span>
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
+                <span className="text-5xl">💰</span>
               </div>
-              <h3 className="text-lg font-bold text-primary mb-2">Best Value Guaranteed</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <h3 className="text-xl font-bold text-primary mb-3">Best Value Guaranteed</h3>
+              <p className="text-gray-600 text-base leading-relaxed">
                 Direct operator with no middlemen - better prices and more flexibility
               </p>
             </div>
 
             <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-all duration-300">
-                <span className="text-4xl">🌍</span>
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-all duration-300">
+                <span className="text-5xl">🌍</span>
               </div>
-              <h3 className="text-lg font-bold text-primary mb-2">Eco-Responsible</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <h3 className="text-xl font-bold text-primary mb-3">Eco-Responsible</h3>
+              <p className="text-gray-600 text-base leading-relaxed">
                 Supporting conservation and local communities through sustainable tourism
               </p>
             </div>
 
             <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300">
-                <span className="text-4xl">📞</span>
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-all duration-300">
+                <span className="text-5xl">📞</span>
               </div>
-              <h3 className="text-lg font-bold text-primary mb-2">24/7 Support</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <h3 className="text-xl font-bold text-primary mb-3">24/7 Support</h3>
+              <p className="text-gray-600 text-base leading-relaxed">
                 WhatsApp support throughout your journey - we're always just a message away
               </p>
             </div>
 
             <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-earth/10 flex items-center justify-center group-hover:bg-earth/20 transition-all duration-300">
-                <span className="text-4xl">⭐</span>
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-earth/10 flex items-center justify-center group-hover:bg-earth/20 transition-all duration-300">
+                <span className="text-5xl">⭐</span>
               </div>
-              <h3 className="text-lg font-bold text-primary mb-2">5-Star Reviews</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <h3 className="text-xl font-bold text-primary mb-3">5-Star Reviews</h3>
+              <p className="text-gray-600 text-base leading-relaxed">
                 Rated excellent on TripAdvisor and Safari Bookings by hundreds of travelers
               </p>
             </div>
@@ -442,48 +465,48 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+      <section className="py-40 bg-gray-50">
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+          <div className="text-center mb-24">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-8 leading-tight">
               Frequently Asked Questions
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 text-lg md:text-xl leading-relaxed mx-auto" style={{ textAlign: 'center' }}>
               Got questions? We've got answers! Here's what travelers usually ask us.
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto space-y-4">
-            <details className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
-              <summary className="flex items-center justify-between cursor-pointer font-semibold text-lg text-primary">
+          <div className="max-w-5xl mx-auto space-y-8">
+            <details className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300">
+              <summary className="flex items-center justify-between cursor-pointer font-semibold text-xl text-primary">
                 <span>When is the best time to visit Tanzania for a safari?</span>
                 <span className="text-secondary group-open:rotate-180 transition-transform duration-300">▼</span>
               </summary>
-              <p className="mt-4 text-gray-600 leading-relaxed">
+              <p className="mt-6 text-gray-600 text-lg leading-relaxed">
                 The best time depends on what you want to see! For the Great Migration, visit between June and October.
                 For calving season and baby animals, January to March is magical. Tanzania offers incredible wildlife viewing
                 year-round, and the green season (March-May) offers lower prices and fewer tourists.
               </p>
             </details>
 
-            <details className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
-              <summary className="flex items-center justify-between cursor-pointer font-semibold text-lg text-primary">
+            <details className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300">
+              <summary className="flex items-center justify-between cursor-pointer font-semibold text-xl text-primary">
                 <span>Do I need a visa to visit Tanzania?</span>
                 <span className="text-secondary group-open:rotate-180 transition-transform duration-300">▼</span>
               </summary>
-              <p className="mt-4 text-gray-600 leading-relaxed">
+              <p className="mt-6 text-gray-600 text-lg leading-relaxed">
                 Most visitors can get a visa on arrival at Tanzanian airports for $50-$100 (depending on nationality).
                 You can also apply for an e-Visa online before your trip. We'll send you detailed visa information once
                 you book with us!
               </p>
             </details>
 
-            <details className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
-              <summary className="flex items-center justify-between cursor-pointer font-semibold text-lg text-primary">
+            <details className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300">
+              <summary className="flex items-center justify-between cursor-pointer font-semibold text-xl text-primary">
                 <span>What's included in your safari packages?</span>
                 <span className="text-secondary group-open:rotate-180 transition-transform duration-300">▼</span>
               </summary>
-              <p className="mt-4 text-gray-600 leading-relaxed">
+              <p className="mt-6 text-gray-600 text-lg leading-relaxed">
                 Our packages typically include: 4x4 safari vehicle with pop-up roof, professional English-speaking guide,
                 accommodation (lodges or tented camps), all meals during safari, park entrance fees, game drives,
                 and unlimited drinking water. Airport transfers are also included. International flights and visa fees
@@ -491,60 +514,60 @@ export default function Home() {
               </p>
             </details>
 
-            <details className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
-              <summary className="flex items-center justify-between cursor-pointer font-semibold text-lg text-primary">
+            <details className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300">
+              <summary className="flex items-center justify-between cursor-pointer font-semibold text-xl text-primary">
                 <span>Is Tanzania safe for tourists?</span>
                 <span className="text-secondary group-open:rotate-180 transition-transform duration-300">▼</span>
               </summary>
-              <p className="mt-4 text-gray-600 leading-relaxed">
+              <p className="mt-6 text-gray-600 text-lg leading-relaxed">
                 Absolutely! Tanzania is one of the safest countries in Africa for tourists. The safari circuits are very safe,
                 and our experienced guides ensure your safety at all times. We have comprehensive insurance, first-aid trained
                 staff, and well-maintained vehicles. We're also available 24/7 on WhatsApp during your trip.
               </p>
             </details>
 
-            <details className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
-              <summary className="flex items-center justify-between cursor-pointer font-semibold text-lg text-primary">
+            <details className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300">
+              <summary className="flex items-center justify-between cursor-pointer font-semibold text-xl text-primary">
                 <span>Can I customize my safari itinerary?</span>
                 <span className="text-secondary group-open:rotate-180 transition-transform duration-300">▼</span>
               </summary>
-              <p className="mt-4 text-gray-600 leading-relaxed">
+              <p className="mt-6 text-gray-600 text-lg leading-relaxed">
                 Yes! All our safaris can be customized to match your interests, budget, and time frame. Want to spend
                 an extra day in Serengeti? Prefer luxury lodges over tented camps? Have specific wildlife you want to see?
                 Just let us know, and we'll create a personalized itinerary for you.
               </p>
             </details>
 
-            <details className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
-              <summary className="flex items-center justify-between cursor-pointer font-semibold text-lg text-primary">
+            <details className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300">
+              <summary className="flex items-center justify-between cursor-pointer font-semibold text-xl text-primary">
                 <span>What vaccinations do I need for Tanzania?</span>
                 <span className="text-secondary group-open:rotate-180 transition-transform duration-300">▼</span>
               </summary>
-              <p className="mt-4 text-gray-600 leading-relaxed">
+              <p className="mt-6 text-gray-600 text-lg leading-relaxed">
                 Yellow fever vaccination is required if you're coming from a yellow fever endemic country. We recommend
                 consulting your doctor about malaria prophylaxis, Hepatitis A & B, and Typhoid. Most safari areas have low
                 malaria risk, but it's good to be prepared. We'll provide specific health advice based on your itinerary.
               </p>
             </details>
 
-            <details className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
-              <summary className="flex items-center justify-between cursor-pointer font-semibold text-lg text-primary">
+            <details className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300">
+              <summary className="flex items-center justify-between cursor-pointer font-semibold text-xl text-primary">
                 <span>How do I pay for my safari?</span>
                 <span className="text-secondary group-open:rotate-180 transition-transform duration-300">▼</span>
               </summary>
-              <p className="mt-4 text-gray-600 leading-relaxed">
+              <p className="mt-6 text-gray-600 text-lg leading-relaxed">
                 We accept secure online payments via credit card through our payment partner Pesapal. For bookings more than
                 7 days away, we require a 30% deposit to secure your reservation, with the balance due 30 days before departure.
                 For bookings within 7 days, we'll contact you directly to arrange payment.
               </p>
             </details>
 
-            <details className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
-              <summary className="flex items-center justify-between cursor-pointer font-semibold text-lg text-primary">
+            <details className="group bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300">
+              <summary className="flex items-center justify-between cursor-pointer font-semibold text-xl text-primary">
                 <span>What should I pack for a safari?</span>
                 <span className="text-secondary group-open:rotate-180 transition-transform duration-300">▼</span>
               </summary>
-              <p className="mt-4 text-gray-600 leading-relaxed">
+              <p className="mt-6 text-gray-600 text-lg leading-relaxed">
                 Pack light! Neutral-colored clothing (khaki, green, beige), comfortable walking shoes, sunscreen, hat,
                 sunglasses, binoculars, camera with zoom lens, and insect repellent. Layers are important as mornings can
                 be cool. We'll send you a detailed packing list once you book. Most lodges offer laundry service.
@@ -555,18 +578,17 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-primary to-primary-dark text-white">
-        <div className="container mx-auto px-4 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      <section className="py-40 bg-gradient-to-r from-primary to-primary-dark text-white">
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-tight">
             Ready to Plan Your Dream Safari?
           </h2>
-          <p className="text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl lg:text-2xl mb-12 opacity-90 leading-relaxed mx-auto" style={{ textAlign: 'center' }}>
             Let our experts create a personalized itinerary just for you
           </p>
           <Link
             href="/request-quote"
-            className="inline-flex items-center justify-center bg-secondary hover:bg-secondary-dark text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl text-lg"
-            style={{ padding: '18px 52px' }}
+            className="inline-flex items-center justify-center bg-secondary hover:bg-secondary-dark text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-2xl text-lg px-14 py-5"
           >
             Get Your Free Quote
           </Link>
