@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "safaris": "Safaris",
+    "mountains": "Berge",
+    "beaches": "Strände",
+    "dayTrips": "Tagesausflüge",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "requestQuote": "Angebot anfordern",
+    "book": "Jetzt buchen"
+  },
+  "hero": {
+    "title": "Entdecken Sie die Magie Tansanias",
+    "subtitle": "Unvergessliche Safaris, Bergtouren und Strandurlaube in Ostafrika",
+    "cta": "Entdecken Sie unsere Abenteuer"
+  },
+  "trustBar": {
+    "rating": "4,8/5 Bewertung auf Safari Bookings",
+    "licensed": "Lizenzierter Reiseveranstalter",
+    "experience": "10+ Jahre Erfahrung",
+    "satisfaction": "100% Zufriedenheitsgarantie"
+  },
+  "packages": {
+    "featured": "Empfohlene Pakete",
+    "all": "Alle Pakete",
+    "safari": "Safari-Pakete",
+    "mountain": "Bergwanderungen",
+    "beach": "Strandurlaub",
+    "daytrip": "Tagesausflüge",
+    "from": "Ab",
+    "perPerson": "pro Person",
+    "days": "Tage",
+    "bookNow": "Jetzt buchen",
+    "learnMore": "Mehr erfahren",
+    "viewDetails": "Details anzeigen"
+  },
+  "common": {
+    "loading": "Lädt...",
+    "error": "Ein Fehler ist aufgetreten",
+    "submit": "Absenden",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "sort": "Sortieren",
+    "viewAll": "Alle anzeigen"
+  },
+  "footer": {
+    "quickLinks": "Schnelle Links",
+    "contact": "Kontaktieren Sie uns",
+    "followUs": "Folgen Sie uns",
+    "copyright": "© 2026 Explorian Safaris. Alle Rechte vorbehalten.",
+    "tagline": "Ihr vertrauenswürdiger Partner für Tansania-Abenteuer"
+  },
+  "contact": {
+    "title": "Kontaktieren Sie uns",
+    "subtitle": "Nehmen Sie Kontakt mit unserem Team auf",
+    "name": "Ihr Name",
+    "email": "E-Mail-Adresse",
+    "phone": "Telefonnummer",
+    "message": "Ihre Nachricht",
+    "send": "Nachricht senden",
+    "success": "Nachricht erfolgreich gesendet!",
+    "error": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
+  },
+  "booking": {
+    "title": "Buchen Sie Ihr Abenteuer",
+    "selectPackage": "Paket auswählen",
+    "travelDate": "Reisedatum",
+    "guests": "Anzahl der Gäste",
+    "specialRequests": "Besondere Wünsche",
+    "submit": "Buchung absenden",
+    "success": "Buchung erfolgreich eingereicht!",
+    "error": "Buchung konnte nicht übermittelt werden. Bitte versuchen Sie es erneut."
+  }
+}

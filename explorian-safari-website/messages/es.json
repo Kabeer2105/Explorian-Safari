@@ -1,0 +1,83 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "safaris": "Safaris",
+    "mountains": "Montañas",
+    "beaches": "Playas",
+    "dayTrips": "Excursiones",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "requestQuote": "Solicitar cotización",
+    "book": "Reservar ahora"
+  },
+  "hero": {
+    "title": "Descubre la magia de Tanzania",
+    "subtitle": "Safaris inolvidables, trekkings de montaña y vacaciones en la playa en África Oriental",
+    "cta": "Explora nuestras aventuras"
+  },
+  "trustBar": {
+    "rating": "Calificación 4.8/5 en Safari Bookings",
+    "licensed": "Operador turístico licenciado",
+    "experience": "Más de 10 años de experiencia",
+    "satisfaction": "100% de garantía de satisfacción"
+  },
+  "packages": {
+    "featured": "Paquetes destacados",
+    "all": "Todos los paquetes",
+    "safari": "Paquetes de Safari",
+    "mountain": "Senderismo de montaña",
+    "beach": "Vacaciones en la playa",
+    "daytrip": "Excursiones de un día",
+    "from": "Desde",
+    "perPerson": "por persona",
+    "days": "días",
+    "bookNow": "Reservar ahora",
+    "learnMore": "Saber más",
+    "viewDetails": "Ver detalles"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "viewAll": "Ver todo"
+  },
+  "footer": {
+    "quickLinks": "Enlaces rápidos",
+    "contact": "Contáctenos",
+    "followUs": "Síguenos",
+    "copyright": "© 2026 Explorian Safaris. Todos los derechos reservados.",
+    "tagline": "Su socio de confianza para aventuras en Tanzania"
+  },
+  "contact": {
+    "title": "Contáctenos",
+    "subtitle": "Póngase en contacto con nuestro equipo",
+    "name": "Su nombre",
+    "email": "Correo electrónico",
+    "phone": "Número de teléfono",
+    "message": "Su mensaje",
+    "send": "Enviar mensaje",
+    "success": "¡Mensaje enviado con éxito!",
+    "error": "No se pudo enviar el mensaje. Por favor, inténtelo de nuevo."
+  },
+  "booking": {
+    "title": "Reserve su aventura",
+    "selectPackage": "Seleccionar paquete",
+    "travelDate": "Fecha de viaje",
+    "guests": "Número de personas",
+    "specialRequests": "Solicitudes especiales",
+    "submit": "Enviar reserva",
+    "success": "¡Reserva enviada con éxito!",
+    "error": "No se pudo enviar la reserva. Por favor, inténtelo de nuevo."
+  }
+}

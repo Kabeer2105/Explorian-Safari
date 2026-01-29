@@ -1,0 +1,191 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Package {
+  id              String    @id @default(cuid())
+  name            String
+  slug            String    @unique
+  type            String    // safari, mountain, beach, daytrip
+  shortDescription String?  @db.Text
+  description     String    @db.Text
+  highlights      String?   @db.Text
+  inclusions      String?   @db.Text
+  exclusions      String?   @db.Text
+  itinerary       String?   @db.Text
+  durationDays    Int
+  priceFrom       Decimal   @db.Decimal(10, 2)
+  currency        String    @default("USD")
+  images          String?   @db.Text // JSON array of image URLs
+  maxGroupSize    Int?
+  difficultyLevel String?   // easy, moderate, challenging, extreme
+  active          Boolean   @default(true)
+  featured        Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  bookings        Booking[]
+
+  @@index([type])
+  @@index([slug])
+  @@index([active])
+  @@index([featured])
+}
+
+model Booking {
+  id              String    @id @default(cuid())
+  packageId       String?
+  referenceNumber String    @unique
+  customerName    String
+  email           String
+  phone           String
+  country         String?
+  travelDate      DateTime
+  numberOfGuests  Int
+  guestDetails    String?   @db.Text // JSON array of guest info
+  totalAmount     Decimal?  @db.Decimal(10, 2)
+  depositAmount   Decimal?  @db.Decimal(10, 2)
+  currency        String    @default("USD")
+  specialRequests String?   @db.Text
+  status          String    @default("PENDING") // PENDING, INQUIRY, CONFIRMED, PAID, CANCELLED
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  package         Package?  @relation(fields: [packageId], references: [id])
+  payments        Payment[]
+
+  @@index([status])
+  @@index([packageId])
+  @@index([email])
+  @@index([referenceNumber])
+}
+
+model Payment {
+  id                        String    @id @default(cuid())
+  bookingId                 String
+  transactionId             String?   @unique
+  amount                    Decimal   @db.Decimal(10, 2)
+  currency                  String    @default("USD")
+  paymentMethod             String?
+  status                    String    @default("PENDING") // PENDING, COMPLETED, FAILED, REFUNDED
+  pesapalMerchantReference  String?
+  pesapalTrackingId         String?
+  paidAt                    DateTime?
+  createdAt                 DateTime  @default(now())
+
+  booking                   Booking   @relation(fields: [bookingId], references: [id])
+
+  @@index([bookingId])
+  @@index([status])
+  @@index([transactionId])
+}
+
+model Review {
+  id          String    @id @default(cuid())
+  source      String    // tripadvisor, safaribookings, manual
+  externalId  String?   // ID from external platform (optional for manual reviews)
+  authorName  String
+  rating      Decimal   @db.Decimal(2, 1)
+  reviewText  String    @db.Text
+  reviewDate  DateTime
+  lastSynced  DateTime?
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  @@index([source])
+  @@index([active])
+}
+
+model Inquiry {
+  id            String    @id @default(cuid())
+  name          String
+  email         String
+  phone         String?
+  country       String?
+  message       String    @db.Text
+  tripInterest  String?   // safari, mountain, beach, daytrip, custom
+  travelDates   String?
+  numberOfGuests Int?
+  status        String    @default("NEW") // NEW, RESPONDED, CONVERTED, CLOSED
+  createdAt     DateTime  @default(now())
+  respondedAt   DateTime?
+
+  @@index([status])
+  @@index([email])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  name          String
+  role          String    @default("ADMIN") // ADMIN, MANAGER
+  createdAt     DateTime  @default(now())
+  lastLogin     DateTime?
+
+  @@index([email])
+}
+
+model Faq {
+  id          String    @id @default(cuid())
+  question    String
+  answer      String    @db.Text
+  category    String?   // general, visa, packing, weather, etc.
+  order       Int       @default(0)
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([active])
+  @@index([order])
+}
+
+model Setting {
+  id          String    @id @default(cuid())
+  key         String    @unique
+  value       String    @db.Text
+  type        String    @default("TEXT") // TEXT, JSON, NUMBER, BOOLEAN
+  description String?
+  updatedAt   DateTime  @updatedAt
+
+  @@index([key])
+}
+
+model GalleryImage {
+  id          String    @id @default(cuid())
+  url         String
+  title       String?
+  caption     String?   @db.Text
+  category    String?   // wildlife, mountains, beaches, culture
+  order       Int       @default(0)
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  @@index([category])
+  @@index([active])
+  @@index([order])
+}
+
+model Video {
+  id          String    @id @default(cuid())
+  title       String
+  description String?   @db.Text
+  url         String    // YouTube URL or local video path
+  thumbnailUrl String?
+  type        String    @default("youtube") // youtube, local
+  category    String?   // safari, mountain, beach, culture
+  order       Int       @default(0)
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  @@index([active])
+  @@index([order])
+}

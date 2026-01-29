@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import { getLocale } from "@/lib/locale";
 
 export const metadata: Metadata = {
   title: "Explorian Safaris | Tanzania Wildlife Safaris & Mountain Trekking",
@@ -10,20 +13,30 @@ export const metadata: Metadata = {
   keywords: ["Tanzania safari", "Kilimanjaro trekking", "Zanzibar beach", "safari tours", "wildlife safari", "Africa travel"],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
-      <body className="antialiased">
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
-        <WhatsAppButton />
+    <html lang={locale}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+      </head>
+      <body className="antialiased" style={{ margin: 0, padding: 0 }}>
+        <NextIntlClientProvider messages={messages}>
+          <Header />
+          <main style={{ minHeight: '100vh', display: 'block', margin: 0, padding: 0 }}>
+            {children}
+          </main>
+          <Footer />
+          <WhatsAppButton />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

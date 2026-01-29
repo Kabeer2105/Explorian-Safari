@@ -46,3 +46,7 @@ next-env.d.ts
 *.swp
 *.swo
 *~
+
+/lib/generated/prisma
+nul
+temp-styles.txt

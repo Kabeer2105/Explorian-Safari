@@ -4,8 +4,8 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-4 lg:px-8 py-12">
+    <footer style={{ background: 'var(--earth-dark)', color: 'white', margin: 0, padding: 0 }}>
+      <div className="container mx-auto px-4 lg:px-8" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
