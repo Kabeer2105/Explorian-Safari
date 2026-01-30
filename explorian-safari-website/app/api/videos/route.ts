@@ -4,20 +4,16 @@ import { prisma } from '@/lib/prisma';
 // GET videos (public)
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const category = searchParams.get('category');
-
-    const where: any = { active: true };
-    if (category && category !== 'all') {
-      where.category = category;
-    }
-
-    const videos = await prisma.video.findMany({
-      where,
-      orderBy: { order: 'asc' },
+    const videosSetting = await prisma.setting.findUnique({
+      where: { key: 'youtube_videos' },
     });
 
-    return NextResponse.json(videos);
+    let videos = [];
+    if (videosSetting && videosSetting.value) {
+      videos = JSON.parse(videosSetting.value);
+    }
+
+    return NextResponse.json({ videos });
   } catch (error) {
     console.error('Error fetching videos:', error);
     return NextResponse.json(

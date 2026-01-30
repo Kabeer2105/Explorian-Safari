@@ -4,20 +4,16 @@ import { prisma } from '@/lib/prisma';
 // GET gallery images (public)
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const category = searchParams.get('category');
-
-    const where: any = { active: true };
-    if (category && category !== 'all') {
-      where.category = category;
-    }
-
-    const images = await prisma.galleryImage.findMany({
-      where,
-      orderBy: { order: 'asc' },
+    const gallerySetting = await prisma.setting.findUnique({
+      where: { key: 'gallery_images' },
     });
 
-    return NextResponse.json(images);
+    let images = [];
+    if (gallerySetting && gallerySetting.value) {
+      images = JSON.parse(gallerySetting.value);
+    }
+
+    return NextResponse.json({ images });
   } catch (error) {
     console.error('Error fetching gallery images:', error);
     return NextResponse.json(
