@@ -6,7 +6,7 @@ import GallerySectionClient from './GallerySectionClient';
 import VideosSection from './VideosSection';
 
 export default function RestOfHomeContent() {
-  const [activeF AQ, setActiveFAQ] = useState<number | null>(null);
+  const [activeFAQ, setActiveFAQ] = useState<number | null>(null);
 
   const faqs = [
     {
