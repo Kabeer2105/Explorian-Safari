@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,112 +8,112 @@ datasource db {
 }
 
 model Package {
-  id              String    @id @default(cuid())
-  name            String
-  slug            String    @unique
-  type            String    // safari, mountain, beach, daytrip
-  shortDescription String?  @db.Text
-  description     String    @db.Text
-  highlights      String?   @db.Text
-  inclusions      String?   @db.Text
-  exclusions      String?   @db.Text
-  itinerary       String?   @db.Text
-  durationDays    Int
-  priceFrom       Decimal   @db.Decimal(10, 2)
-  currency        String    @default("USD")
-  images          String?   @db.Text // JSON array of image URLs
-  maxGroupSize    Int?
-  difficultyLevel String?   // easy, moderate, challenging, extreme
-  active          Boolean   @default(true)
-  featured        Boolean   @default(false)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id               String       @id @default(cuid())
+  name             String
+  slug             String       @unique
+  type             Package_type
+  description      String       @db.Text
+  highlights       String?      @db.Text
+  inclusions       String?      @db.Text
+  exclusions       String?      @db.Text
+  duration_days    Int
+  price_from       Decimal      @db.Decimal(10, 2)
+  currency         String       @default("USD")
+  images           String?      @db.Text
+  max_group_size   Int?
+  difficulty_level String?
+  active           Boolean      @default(true)
+  featured         Boolean      @default(false)
+  created_at       DateTime     @default(now())
+  updated_at       DateTime       @updatedAt
+  itinerary        String?      @db.Text
+  description_i18n String?      @db.Text
+  exclusions_i18n  String?      @db.Text
+  highlights_i18n  String?      @db.Text
+  inclusions_i18n  String?      @db.Text
+  name_i18n        String?      @db.Text
+  badge_label      String?
+  itinerary_i18n   String?      @db.Text
+  Booking          Booking[]
 
-  bookings        Booking[]
-
-  @@index([type])
-  @@index([slug])
-  @@index([active])
   @@index([featured])
+  @@index([type, active])
 }
 
 model Booking {
-  id              String    @id @default(cuid())
-  packageId       String?
-  referenceNumber String    @unique
-  customerName    String
-  email           String
-  phone           String
-  country         String?
-  travelDate      DateTime
-  numberOfGuests  Int
-  guestDetails    String?   @db.Text // JSON array of guest info
-  totalAmount     Decimal?  @db.Decimal(10, 2)
-  depositAmount   Decimal?  @db.Decimal(10, 2)
-  currency        String    @default("USD")
-  specialRequests String?   @db.Text
-  status          String    @default("PENDING") // PENDING, INQUIRY, CONFIRMED, PAID, CANCELLED
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-
-  package         Package?  @relation(fields: [packageId], references: [id])
-  payments        Payment[]
+  id               String         @id @default(cuid())
+  reference_number String         @unique
+  package_id       String?
+  customer_name    String
+  email            String
+  phone            String?
+  country          String?
+  travel_date      DateTime
+  number_of_guests Int
+  guest_details    String?        @db.Text
+  special_requests String?        @db.Text
+  total_amount     Decimal?       @db.Decimal(10, 2)
+  deposit_amount   Decimal?       @db.Decimal(10, 2)
+  currency         String         @default("USD")
+  status           Booking_status @default(PENDING)
+  created_at       DateTime       @default(now())
+  updated_at       DateTime       @updatedAt
+  Package          Package?       @relation(fields: [package_id], references: [id])
+  Payment          Payment[]
 
   @@index([status])
-  @@index([packageId])
   @@index([email])
-  @@index([referenceNumber])
+  @@index([package_id], map: "Booking_package_id_fkey")
+  @@index([travel_date])
 }
 
 model Payment {
-  id                        String    @id @default(cuid())
-  bookingId                 String
-  transactionId             String?   @unique
-  amount                    Decimal   @db.Decimal(10, 2)
-  currency                  String    @default("USD")
-  paymentMethod             String?
-  status                    String    @default("PENDING") // PENDING, COMPLETED, FAILED, REFUNDED
-  pesapalMerchantReference  String?
-  pesapalTrackingId         String?
-  paidAt                    DateTime?
-  createdAt                 DateTime  @default(now())
+  id                         String         @id @default(cuid())
+  booking_id                 String
+  transaction_id             String         @unique
+  amount                     Decimal        @db.Decimal(10, 2)
+  currency                   String         @default("USD")
+  payment_method             String?
+  pesapal_merchant_reference String?
+  pesapal_tracking_id        String?
+  status                     Payment_status @default(PENDING)
+  paid_at                    DateTime?
+  created_at                 DateTime       @default(now())
+  updated_at                 DateTime
+  Booking                    Booking        @relation(fields: [booking_id], references: [id])
 
-  booking                   Booking   @relation(fields: [bookingId], references: [id])
-
-  @@index([bookingId])
   @@index([status])
-  @@index([transactionId])
+  @@index([booking_id])
 }
 
 model Review {
   id          String    @id @default(cuid())
-  source      String    // tripadvisor, safaribookings, manual
-  externalId  String?   // ID from external platform (optional for manual reviews)
-  authorName  String
-  rating      Decimal   @db.Decimal(2, 1)
-  reviewText  String    @db.Text
-  reviewDate  DateTime
-  lastSynced  DateTime?
+  source      String
+  author_name String
+  rating      Int
+  review_text String    @db.Text
+  review_date DateTime
+  external_id String?   @unique
+  last_synced DateTime?
   active      Boolean   @default(true)
-  createdAt   DateTime  @default(now())
+  created_at  DateTime  @default(now())
 
-  @@index([source])
-  @@index([active])
+  @@index([rating])
+  @@index([source, active])
 }
 
 model Inquiry {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String
   email         String
   phone         String?
-  country       String?
-  message       String    @db.Text
-  tripInterest  String?   // safari, mountain, beach, daytrip, custom
-  travelDates   String?
-  numberOfGuests Int?
-  status        String    @default("NEW") // NEW, RESPONDED, CONVERTED, CLOSED
-  createdAt     DateTime  @default(now())
-  respondedAt   DateTime?
+  message       String         @db.Text
+  trip_interest String?
+  travel_dates  String?
+  status        Inquiry_status @default(NEW)
+  responded_at  DateTime?
+  created_at    DateTime       @default(now())
+  updated_at    DateTime
 
   @@index([status])
   @@index([email])
@@ -125,67 +122,71 @@ model Inquiry {
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
-  passwordHash  String
+  password_hash String
   name          String
-  role          String    @default("ADMIN") // ADMIN, MANAGER
-  createdAt     DateTime  @default(now())
-  lastLogin     DateTime?
+  role          User_role @default(ADMIN)
+  created_at    DateTime  @default(now())
+  last_login    DateTime?
 
   @@index([email])
 }
 
 model Faq {
-  id          String    @id @default(cuid())
-  question    String
-  answer      String    @db.Text
-  category    String?   // general, visa, packing, weather, etc.
-  order       Int       @default(0)
-  active      Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id            String   @id @default(cuid())
+  question      String
+  answer        String   @db.Text
+  category      String?
+  order         Int      @default(0)
+  active        Boolean  @default(true)
+  created_at    DateTime @default(now())
+  updated_at    DateTime
+  answer_i18n   String?  @db.Text
+  question_i18n String?  @db.Text
 
   @@index([active])
-  @@index([order])
+  @@index([category])
 }
 
 model Setting {
-  id          String    @id @default(cuid())
-  key         String    @unique
-  value       String    @db.Text
-  type        String    @default("TEXT") // TEXT, JSON, NUMBER, BOOLEAN
-  description String?
-  updatedAt   DateTime  @updatedAt
+  id         String   @id @default(cuid())
+  key        String   @unique
+  value      String   @db.Text
+  created_at DateTime @default(now())
+  updated_at DateTime
 
   @@index([key])
 }
 
-model GalleryImage {
-  id          String    @id @default(cuid())
-  url         String
-  title       String?
-  caption     String?   @db.Text
-  category    String?   // wildlife, mountains, beaches, culture
-  order       Int       @default(0)
-  active      Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-
-  @@index([category])
-  @@index([active])
-  @@index([order])
+enum Package_type {
+  SAFARI
+  MOUNTAIN
+  BEACH
+  DAYTRIP
 }
 
-model Video {
-  id          String    @id @default(cuid())
-  title       String
-  description String?   @db.Text
-  url         String    // YouTube URL or local video path
-  thumbnailUrl String?
-  type        String    @default("youtube") // youtube, local
-  category    String?   // safari, mountain, beach, culture
-  order       Int       @default(0)
-  active      Boolean   @default(true)
-  createdAt   DateTime  @default(now())
+enum User_role {
+  ADMIN
+  SUPER_ADMIN
+}
 
-  @@index([active])
-  @@index([order])
+enum Inquiry_status {
+  NEW
+  CONTACTED
+  CONVERTED
+  CLOSED
+}
+
+enum Payment_status {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum Booking_status {
+  INQUIRY
+  PENDING
+  CONFIRMED
+  PAID
+  CANCELLED
 }

@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import BookingActions from '@/components/admin/BookingActions';
 
@@ -13,9 +13,9 @@ export default async function BookingDetailPage({
   const booking = await prisma.booking.findUnique({
     where: { id },
     include: {
-      package: true,
-      payments: {
-        orderBy: { createdAt: 'desc' },
+      Package: true,
+      Payment: {
+        orderBy: { created_at: 'desc' },
       },
     },
   });
@@ -38,10 +38,10 @@ export default async function BookingDetailPage({
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">
-              Booking {booking.referenceNumber}
+              Booking {booking.reference_number}
             </h1>
             <p className="mt-2 text-gray-600">
-              Created on {new Date(booking.createdAt).toLocaleDateString()}
+              Created on {new Date(booking.created_at).toLocaleDateString()}
             </p>
           </div>
           <BookingActions bookingId={booking.id} currentStatus={booking.status} />
@@ -57,7 +57,7 @@ export default async function BookingDetailPage({
             <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <dt className="text-sm font-medium text-gray-500">Reference Number</dt>
-                <dd className="mt-1 text-sm text-gray-900 font-mono">{booking.referenceNumber}</dd>
+                <dd className="mt-1 text-sm text-gray-900 font-mono">{booking.reference_number}</dd>
               </div>
               <div>
                 <dt className="text-sm font-medium text-gray-500">Status</dt>
@@ -88,28 +88,28 @@ export default async function BookingDetailPage({
               <div>
                 <dt className="text-sm font-medium text-gray-500">Travel Date</dt>
                 <dd className="mt-1 text-sm text-gray-900">
-                  {new Date(booking.travelDate).toLocaleDateString()}
+                  {new Date(booking.travel_date).toLocaleDateString()}
                 </dd>
               </div>
               <div>
                 <dt className="text-sm font-medium text-gray-500">Number of Guests</dt>
-                <dd className="mt-1 text-sm text-gray-900">{booking.numberOfGuests}</dd>
+                <dd className="mt-1 text-sm text-gray-900">{booking.number_of_guests}</dd>
               </div>
               <div>
                 <dt className="text-sm font-medium text-gray-500">Total Amount</dt>
                 <dd className="mt-1 text-sm text-gray-900 font-semibold">
-                  {booking.totalAmount
-                    ? `${booking.currency} ${Number(booking.totalAmount).toFixed(2)}`
+                  {booking.total_amount
+                    ? `${booking.currency} ${Number(booking.total_amount).toFixed(2)}`
                     : 'Not calculated'}
                 </dd>
               </div>
             </dl>
 
-            {booking.specialRequests && (
+            {booking.special_requests && (
               <div className="mt-6">
                 <dt className="text-sm font-medium text-gray-500 mb-2">Special Requests</dt>
                 <dd className="text-sm text-gray-900 bg-gray-50 p-4 rounded-lg">
-                  {booking.specialRequests}
+                  {booking.special_requests}
                 </dd>
               </div>
             )}
@@ -121,7 +121,7 @@ export default async function BookingDetailPage({
             <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <dt className="text-sm font-medium text-gray-500">Name</dt>
-                <dd className="mt-1 text-sm text-gray-900">{booking.customerName}</dd>
+                <dd className="mt-1 text-sm text-gray-900">{booking.customer_name}</dd>
               </div>
               <div>
                 <dt className="text-sm font-medium text-gray-500">Email</dt>
@@ -169,20 +169,20 @@ export default async function BookingDetailPage({
               <div className="space-y-3">
                 <div>
                   <p className="text-sm font-medium text-gray-500">Package Name</p>
-                  <p className="text-sm text-gray-900">{booking.package.name}</p>
+                  <p className="text-sm text-gray-900">{booking.Package.name}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-500">Type</p>
-                  <p className="text-sm text-gray-900 capitalize">{booking.package.type}</p>
+                  <p className="text-sm text-gray-900 capitalize">{booking.Package.type}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-500">Duration</p>
-                  <p className="text-sm text-gray-900">{booking.package.durationDays} days</p>
+                  <p className="text-sm text-gray-900">{booking.Package.duration_days} days</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-500">Price (per person)</p>
                   <p className="text-sm text-gray-900">
-                    {booking.package.currency} {Number(booking.package.priceFrom).toFixed(2)}
+                    {booking.Package.currency} {Number(booking.Package.price_from).toFixed(2)}
                   </p>
                 </div>
               </div>
@@ -195,11 +195,11 @@ export default async function BookingDetailPage({
           {/* Payment Information */}
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment Status</h2>
-            {booking.payments.length === 0 ? (
+            {booking.Payment.length === 0 ? (
               <p className="text-sm text-gray-500">No payments recorded</p>
             ) : (
               <div className="space-y-3">
-                {booking.payments.map((payment) => (
+                {booking.Payment.map((payment) => (
                   <div key={payment.id} className="border-l-4 border-primary pl-4">
                     <div className="flex items-center justify-between mb-1">
                       <span
@@ -223,7 +223,7 @@ export default async function BookingDetailPage({
                     <p className="text-xs text-gray-500 mt-1">
                       {payment.paidAt
                         ? `Paid on ${new Date(payment.paidAt).toLocaleDateString()}`
-                        : `Created on ${new Date(payment.createdAt).toLocaleDateString()}`}
+                        : `Created on ${new Date(payment.created_at).toLocaleDateString()}`}
                     </p>
                     {payment.transactionId && (
                       <p className="text-xs text-gray-500 font-mono mt-1">

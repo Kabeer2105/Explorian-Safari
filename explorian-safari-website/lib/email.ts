@@ -1,15 +1,17 @@
-import nodemailer from 'nodemailer';
+import * as nodemailer from 'nodemailer';
 
 // Create transporter using cPanel SMTP
-const transporter = nodemailer.createTransporter({
-  host: process.env.SMTP_HOST || 'mail.exploriansafaris.com',
-  port: parseInt(process.env.SMTP_PORT || '465'),
-  secure: true, // SSL
-  auth: {
-    user: process.env.SMTP_USER || 'info@exploriansafaris.com',
-    pass: process.env.SMTP_PASSWORD || '',
-  },
-});
+function getTransporter() {
+  return nodemailer.createTransport({
+    host: process.env.EMAIL_HOST || 'mail.exploriansafaris.com',
+    port: parseInt(process.env.EMAIL_PORT || '465'),
+    secure: process.env.EMAIL_SECURE !== 'false', // SSL
+    auth: {
+      user: process.env.EMAIL_USER || 'info@exploriansafaris.com',
+      pass: process.env.EMAIL_PASSWORD || '',
+    },
+  });
+}
 
 // Send inquiry confirmation to customer
 export async function sendInquiryConfirmation(to: string, name: string, inquiryType: string) {
@@ -33,7 +35,7 @@ export async function sendInquiryConfirmation(to: string, name: string, inquiryT
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  await getTransporter().sendMail(mailOptions);
 }
 
 // Send inquiry notification to admin
@@ -65,13 +67,13 @@ export async function sendInquiryNotification(inquiry: {
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  await getTransporter().sendMail(mailOptions);
 }
 
 // Send urgent booking inquiry (< 7 days)
 export async function sendUrgentBookingInquiry(booking: any) {
   // Send to customer
-  await transporter.sendMail({
+  await getTransporter().sendMail({
     from: '"Explorian Safaris" <info@exploriansafaris.com>',
     to: booking.email,
     subject: 'Your Safari Booking Request - Explorian Safaris',
@@ -89,7 +91,7 @@ export async function sendUrgentBookingInquiry(booking: any) {
   });
 
   // Send to admin
-  await transporter.sendMail({
+  await getTransporter().sendMail({
     from: '"Explorian Website" <info@exploriansafaris.com>',
     to: process.env.ADMIN_EMAIL || 'info@exploriansafaris.com',
     subject: '🚨 URGENT: Booking Request (< 7 days)',
@@ -136,7 +138,7 @@ export async function sendBookingConfirmation(booking: any, payment: any) {
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  await getTransporter().sendMail(mailOptions);
 }
 
 // Send booking notification to admin
@@ -162,5 +164,5 @@ export async function sendBookingNotificationToAdmin(booking: any) {
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  await getTransporter().sendMail(mailOptions);
 }

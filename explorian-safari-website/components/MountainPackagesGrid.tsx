@@ -7,63 +7,55 @@ export default async function MountainPackagesGrid() {
     orderBy: { created_at: 'desc' },
   });
 
+  if (mountains.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="section-desc">No mountain trekking packages available at the moment.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {mountains.map((mountain) => {
-        const images = mountain.images ? JSON.parse(mountain.images) : [];
-        const highlights = mountain.highlights ? JSON.parse(mountain.highlights) : [];
+    <div className="packages-grid">
+      {mountains.map((pkg) => {
+        const images = pkg.images ? JSON.parse(pkg.images) : [];
+        const highlights = pkg.highlights ? JSON.parse(pkg.highlights) : [];
 
         return (
-          <div key={mountain.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-            <div className="relative">
-              {mountain.badge_label && (
-                <span className="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold z-10">
-                  {mountain.badge_label}
-                </span>
+          <div key={pkg.id} className="package-card">
+            <div className="package-image-wrapper">
+              {pkg.badge_label && (
+                <span className="package-badge">{pkg.badge_label}</span>
               )}
               <img
                 src={images[0] || '/images/placeholder.jpg'}
-                alt={mountain.name}
-                className="w-full h-64 object-cover"
+                alt={pkg.name}
+                className="package-image"
               />
-              <div className="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-semibold">
-                {mountain.duration_days} Days
-              </div>
             </div>
 
-            <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">{mountain.name}</h3>
-              <p className="text-gray-600 mb-4 line-clamp-3">{mountain.description}</p>
-
-              {mountain.difficulty_level && (
-                <div className="mb-3">
-                  <span className="text-sm text-gray-600">Difficulty: </span>
-                  <span className="text-sm font-semibold text-primary">{mountain.difficulty_level}</span>
-                </div>
-              )}
+            <div className="package-content">
+              <div className="package-category-text">{pkg.type}</div>
+              <h3 className="package-title">{pkg.name}</h3>
+              <p className="package-description">
+                {pkg.description.substring(0, 120)}...
+              </p>
 
               {highlights.length > 0 && (
-                <ul className="mb-4 space-y-1">
+                <ul className="package-features">
                   {highlights.slice(0, 3).map((highlight: string, index: number) => (
-                    <li key={index} className="text-sm text-gray-700 flex items-start">
-                      <span className="text-primary mr-2">✓</span>
-                      {highlight}
-                    </li>
+                    <li key={index}>{highlight}</li>
                   ))}
                 </ul>
               )}
 
-              <div className="flex items-center justify-between pt-4 border-t">
-                <div>
-                  <span className="text-sm text-gray-500">From</span>
-                  <div className="text-xl font-bold text-primary">
-                    {mountain.currency} {Number(mountain.price_from).toLocaleString()}
-                  </div>
+              <div className="package-footer">
+                <div className="package-price package-price-mountain">
+                  <span className="from">From</span>
+                  <span className="price">{pkg.currency} {Number(pkg.price_from).toLocaleString()}</span>
+                  <span className="per-person">per person</span>
                 </div>
-                <Link
-                  href={`/book?package=${mountain.id}`}
-                  className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark transition"
-                >
+                <Link href={`/book?package=${pkg.id}`} className="btn-book btn-book-mountain">
                   Book Now
                 </Link>
               </div>

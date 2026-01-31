@@ -62,16 +62,12 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
   return (
     <div>
       {/* Category Filter */}
-      <div className="flex flex-wrap gap-3 justify-center mb-8">
+      <div className="gallery-filters">
         {categories.map((category) => (
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`px-6 py-2 rounded-full font-medium transition ${
-              selectedCategory === category
-                ? 'bg-primary text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
+            className={selectedCategory === category ? 'filter-btn active' : 'filter-btn'}
           >
             {category}
           </button>
@@ -83,7 +79,7 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
         {filteredImages.map((image, index) => (
           <div
             key={image.id}
-            className="gallery-item cursor-pointer overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow"
+            className="gallery-item cursor-pointer"
             onClick={() => openLightbox(index)}
           >
             <img
@@ -91,9 +87,9 @@ export default function GalleryLightbox({ images }: GalleryLightboxProps) {
               alt={image.caption}
               className="w-full h-64 object-cover hover:scale-110 transition-transform duration-300"
             />
-            <div className="p-3 bg-white">
-              <p className="text-sm text-gray-700 font-medium">{image.caption}</p>
-              <p className="text-xs text-gray-500 mt-1">{image.category}</p>
+            <div className="gallery-caption">
+              <p className="gallery-caption-title">{image.caption}</p>
+              <p className="gallery-caption-category">{image.category}</p>
             </div>
           </div>
         ))}

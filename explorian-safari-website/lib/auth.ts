@@ -1,11 +1,12 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import { prisma } from '@/lib/prisma';
+import { prisma } from './prisma';
 import bcrypt from 'bcryptjs';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
+      name: 'credentials',
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
@@ -19,18 +20,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           where: { email: credentials.email as string },
         });
 
-        if (!user || !user.password_hash) {
+        if (!user) {
           return null;
         }
 
-        const isValidPassword = await bcrypt.compare(
+        const passwordMatch = await bcrypt.compare(
           credentials.password as string,
           user.password_hash
         );
 
-        if (!isValidPassword) {
+        if (!passwordMatch) {
           return null;
         }
+
+        // Update last login
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { last_login: new Date() },
+        });
 
         return {
           id: user.id,
@@ -41,9 +48,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  pages: {
-    signIn: '/admin-login',
-  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -53,12 +57,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      if (token && session.user) {
+      if (session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as string;
       }
       return session;
     },
+  },
+  pages: {
+    signIn: '/admin-login',
+  },
+  session: {
+    strategy: 'jwt',
   },
   secret: process.env.NEXTAUTH_SECRET,
 });

@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import ConditionalLayout from "@/components/layout/ConditionalLayout";
 import { getLocale } from "@/lib/locale";
 
 export const metadata: Metadata = {
@@ -30,12 +28,9 @@ export default async function RootLayout({
       </head>
       <body className="antialiased" style={{ margin: 0, padding: 0 }}>
         <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main style={{ minHeight: '100vh', display: 'block', margin: 0, padding: 0 }}>
+          <ConditionalLayout>
             {children}
-          </main>
-          <Footer />
-          <WhatsAppButton />
+          </ConditionalLayout>
         </NextIntlClientProvider>
       </body>
     </html>

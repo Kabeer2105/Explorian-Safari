@@ -3,32 +3,26 @@
 export default function TrustBar() {
   return (
     <section className="trust-bar">
-      <div className="trust-item">
-        <div className="trust-icon">⭐</div>
-        <div className="trust-text">
-          <div className="trust-number">4.8/5</div>
-          <div className="trust-label">Rating</div>
+      <div className="trust-items">
+        <div className="trust-item">
+          <div className="trust-item-icon">⭐</div>
+          <h4>4.8/5 Rating</h4>
+          <p>on Safari Bookings</p>
         </div>
-      </div>
-      <div className="trust-item">
-        <div className="trust-icon">✓</div>
-        <div className="trust-text">
-          <div className="trust-number">Licensed</div>
-          <div className="trust-label">Tour Operator</div>
+        <div className="trust-item">
+          <div className="trust-item-icon">✓</div>
+          <h4>Licensed Tour Operator</h4>
+          <p>Fully Certified</p>
         </div>
-      </div>
-      <div className="trust-item">
-        <div className="trust-icon">📅</div>
-        <div className="trust-text">
-          <div className="trust-number">10+ Years</div>
-          <div className="trust-label">Experience</div>
+        <div className="trust-item">
+          <div className="trust-item-icon">📅</div>
+          <h4>10+ Years of Experience</h4>
+          <p>Expert Guides</p>
         </div>
-      </div>
-      <div className="trust-item">
-        <div className="trust-icon">😊</div>
-        <div className="trust-text">
-          <div className="trust-number">98%</div>
-          <div className="trust-label">Satisfaction</div>
+        <div className="trust-item">
+          <div className="trust-item-icon">😊</div>
+          <h4>100% Satisfaction Guarantee</h4>
+          <p>Happy Customers</p>
         </div>
       </div>
     </section>

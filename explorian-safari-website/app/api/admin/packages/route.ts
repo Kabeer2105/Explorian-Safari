@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
-import prisma from '@/lib/prisma';
+import { auth } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
 
 // GET all packages
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -21,7 +20,7 @@ export async function GET(request: NextRequest) {
 
     const packages = await prisma.package.findMany({
       where,
-      orderBy: { createdAt: 'desc' },
+      orderBy: { created_at: 'desc' },
     });
 
     return NextResponse.json(packages);
@@ -37,7 +36,7 @@ export async function GET(request: NextRequest) {
 // POST new package
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -47,24 +46,24 @@ export async function POST(request: NextRequest) {
       name,
       slug,
       type,
-      shortDescription,
       description,
       highlights,
       inclusions,
       exclusions,
       itinerary,
-      durationDays,
-      priceFrom,
-      currency,
       images,
-      maxGroupSize,
-      difficultyLevel,
+      badge_label,
+      duration_days,
+      price_from,
+      currency,
+      max_group_size,
+      difficulty_level,
       active,
       featured,
     } = body;
 
     // Validate required fields
-    if (!name || !slug || !type || !description || !durationDays || !priceFrom) {
+    if (!name || !slug || !type || !description || !duration_days || !price_from) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -88,18 +87,18 @@ export async function POST(request: NextRequest) {
         name,
         slug,
         type,
-        shortDescription,
         description,
         highlights,
         inclusions,
         exclusions,
         itinerary,
-        durationDays: parseInt(durationDays),
-        priceFrom: parseFloat(priceFrom),
-        currency: currency || 'USD',
         images,
-        maxGroupSize: maxGroupSize ? parseInt(maxGroupSize) : null,
-        difficultyLevel,
+        badge_label,
+        duration_days: parseInt(duration_days),
+        price_from: parseFloat(price_from),
+        currency: currency || 'USD',
+        max_group_size: max_group_size ? parseInt(max_group_size) : null,
+        difficulty_level: difficulty_level || null,
         active: active !== false,
         featured: featured === true,
       },

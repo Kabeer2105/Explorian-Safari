@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio';
-import prisma from './prisma';
+import { prisma } from './prisma';
 
 // TripAdvisor review scraping (public profile)
 async function fetchTripAdvisorReviews() {

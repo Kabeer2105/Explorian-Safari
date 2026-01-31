@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 
 export default async function FAQPage() {
@@ -46,7 +46,7 @@ export default async function FAQPage() {
                     <div className="flex items-center gap-4 mt-4 text-sm text-gray-500">
                       <span>Order: {faq.order}</span>
                       <span>•</span>
-                      <span>Updated: {new Date(faq.updatedAt).toLocaleDateString()}</span>
+                      <span>Updated: {new Date(faq.updated_at).toLocaleDateString()}</span>
                     </div>
                   </div>
                   <div className="flex gap-2 ml-4">

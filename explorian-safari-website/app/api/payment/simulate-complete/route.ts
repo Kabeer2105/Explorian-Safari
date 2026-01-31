@@ -1,64 +1,92 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
+import { sendBookingConfirmation } from '@/lib/email';
 
 // This endpoint is used to complete simulated payments (when Pesapal credentials are not configured)
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { merchantReference, success } = body;
+    const { bookingId, status } = body;
 
-    if (!merchantReference) {
+    if (!bookingId) {
       return NextResponse.json(
-        { error: 'Merchant reference is required' },
+        { error: 'Booking ID is required' },
         { status: 400 }
       );
     }
 
-    // Find payment by merchant reference
-    const payment = await prisma.payment.findFirst({
-      where: { pesapalMerchantReference: merchantReference },
-      include: { booking: true },
+    // Find booking
+    const booking = await prisma.booking.findUnique({
+      where: { id: bookingId },
+    });
+
+    if (!booking) {
+      return NextResponse.json({ error: 'Booking not found' }, { status: 404 });
+    }
+
+    const isSuccess = status === 'success';
+
+    // Find or create payment record
+    let payment = await prisma.payment.findFirst({
+      where: { booking_id: bookingId },
     });
 
     if (!payment) {
-      return NextResponse.json({ error: 'Payment not found' }, { status: 404 });
-    }
-
-    if (success) {
-      // Mark payment as completed
-      await prisma.payment.update({
-        where: { id: payment.id },
+      // Create payment record
+      const merchantRef = `SIM-${Date.now().toString(36).toUpperCase()}`;
+      const transactionId = `TXN-${Date.now().toString(36).toUpperCase()}`;
+      payment = await prisma.payment.create({
         data: {
-          status: 'COMPLETED',
-          paymentMethod: 'Simulated Payment',
-          paidAt: new Date(),
+          booking_id: bookingId,
+          transaction_id: transactionId,
+          amount: booking.total_amount || 0,
+          currency: booking.currency,
+          status: isSuccess ? 'COMPLETED' : 'FAILED',
+          payment_method: 'Simulated Payment',
+          pesapal_merchant_reference: merchantRef,
+          paid_at: isSuccess ? new Date() : null,
+          updated_at: new Date(),
         },
       });
-
-      // Update booking status
-      await prisma.booking.update({
-        where: { id: payment.bookingId },
-        data: { status: 'PAID' },
-      });
-
-      return NextResponse.json({
-        success: true,
-        message: 'Payment completed successfully',
-        bookingReference: payment.booking.referenceNumber,
-      });
     } else {
-      // Mark payment as failed
-      await prisma.payment.update({
+      // Update existing payment
+      payment = await prisma.payment.update({
         where: { id: payment.id },
-        data: { status: 'FAILED' },
-      });
-
-      return NextResponse.json({
-        success: false,
-        message: 'Payment failed',
-        bookingReference: payment.booking.referenceNumber,
+        data: {
+          status: isSuccess ? 'COMPLETED' : 'FAILED',
+          payment_method: 'Simulated Payment',
+          paid_at: isSuccess ? new Date() : null,
+          updated_at: new Date(),
+        },
       });
     }
+
+    // Update booking status
+    const updatedBooking = await prisma.booking.update({
+      where: { id: bookingId },
+      data: {
+        status: isSuccess ? 'PAID' : 'PENDING',
+        updated_at: new Date(),
+      },
+    });
+
+    // Send confirmation email if payment succeeded
+    if (isSuccess) {
+      try {
+        await sendBookingConfirmation(updatedBooking, payment);
+      } catch (emailError) {
+        console.error('Email sending failed (payment still completed):', emailError);
+        // Continue anyway - payment was successful
+      }
+    }
+
+    return NextResponse.json({
+      success: isSuccess,
+      message: isSuccess ? 'Payment completed successfully' : 'Payment failed',
+      booking: {
+        reference_number: booking.reference_number,
+      },
+    });
   } catch (error) {
     console.error('Error completing simulated payment:', error);
     return NextResponse.json(

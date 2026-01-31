@@ -34,10 +34,10 @@ export default async function FeaturedPackages() {
                     alt={pkg.name}
                     className="package-image"
                   />
-                  <div className="package-category">{pkg.type}</div>
                 </div>
 
                 <div className="package-content">
+                  <div className="package-category-text">{pkg.type}</div>
                   <h3 className="package-title">{pkg.name}</h3>
                   <p className="package-description">
                     {pkg.description.substring(0, 120)}...
@@ -46,9 +46,7 @@ export default async function FeaturedPackages() {
                   {highlights.length > 0 && (
                     <ul className="package-features">
                       {highlights.slice(0, 3).map((highlight: string, index: number) => (
-                        <li key={index}>
-                          <span className="checkmark">✓</span> {highlight}
-                        </li>
+                        <li key={index}>{highlight}</li>
                       ))}
                     </ul>
                   )}
@@ -59,7 +57,7 @@ export default async function FeaturedPackages() {
                       <span className="price">{pkg.currency} {Number(pkg.price_from).toLocaleString()}</span>
                       <span className="per-person">per person</span>
                     </div>
-                    <Link href={`/book?package=${pkg.id}`} className="btn-primary">
+                    <Link href={`/book?package=${pkg.id}`} className="btn-book">
                       Book Now
                     </Link>
                   </div>
@@ -67,12 +65,6 @@ export default async function FeaturedPackages() {
               </div>
             );
           })}
-        </div>
-
-        <div className="text-center mt-12">
-          <Link href="/safaris" className="btn-secondary-large">
-            View All Safaris
-          </Link>
         </div>
       </div>
     </section>

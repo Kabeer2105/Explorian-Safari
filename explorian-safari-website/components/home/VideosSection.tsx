@@ -90,8 +90,10 @@ export default function VideosSection() {
                 </div>
               )}
             </div>
-            <h3 className="mt-4 font-semibold text-lg">{video.title}</h3>
-            <p className="mt-2 text-gray-600 text-sm">{video.description}</p>
+            <div className="video-content">
+              <h3 className="video-title">{video.title}</h3>
+              <p className="video-description">{video.description}</p>
+            </div>
           </div>
         );
       })}

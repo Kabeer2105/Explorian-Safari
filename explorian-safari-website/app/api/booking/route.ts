@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { sendBookingConfirmation, sendBookingNotificationToAdmin, sendUrgentBookingInquiry } from '@/lib/email';
 
 export async function POST(request: NextRequest) {
@@ -50,69 +50,64 @@ export async function POST(request: NextRequest) {
     // Create booking
     const booking = await prisma.booking.create({
       data: {
-        packageId: packageId || null,
-        referenceNumber,
-        customerName,
+        package_id: packageId || null,
+        reference_number: referenceNumber,
+        customer_name: customerName,
         email,
         phone,
         country,
-        travelDate: travelDateObj,
-        numberOfGuests,
-        guestDetails: guestDetails ? JSON.stringify(guestDetails) : null,
-        totalAmount: packageDetails
-          ? Number(packageDetails.priceFrom) * numberOfGuests
+        travel_date: travelDateObj,
+        number_of_guests: numberOfGuests,
+        guest_details: guestDetails ? JSON.stringify(guestDetails) : null,
+        total_amount: packageDetails
+          ? Number(packageDetails.price_from) * numberOfGuests
           : null,
         currency: packageDetails?.currency || 'USD',
-        specialRequests,
+        special_requests: specialRequests,
         status,
+        updated_at: new Date(),
       },
     });
 
-    // Send appropriate emails
-    if (isUrgent) {
-      // Send "we'll contact you" email
-      await sendUrgentBookingInquiry({
-        customerName,
-        email,
-        phone,
-        referenceNumber,
-        packageName: packageDetails?.name || 'Custom Package',
-        travelDate: travelDateObj.toDateString(),
-        numberOfGuests,
-      });
+    // Send appropriate emails (wrapped in try-catch to not block booking)
+    try {
+      if (isUrgent) {
+        // Send "we'll contact you" email
+        await sendUrgentBookingInquiry({
+          customerName,
+          email,
+          phone,
+          referenceNumber,
+          packageName: packageDetails?.name || 'Custom Package',
+          travelDate: travelDateObj.toDateString(),
+          numberOfGuests,
+        });
 
-      // Send urgent notification to admin
-      await sendBookingNotificationToAdmin({
-        ...booking,
-        packageName: packageDetails?.name || 'Custom Package',
-        urgent: true,
-      });
-    } else {
-      // Send regular booking confirmation with payment instructions
-      await sendBookingConfirmation({
-        customerName,
-        email,
-        referenceNumber,
-        packageName: packageDetails?.name || 'Custom Package',
-        travelDate: travelDateObj.toDateString(),
-        numberOfGuests,
-        totalAmount: booking.totalAmount?.toString() || '0',
-        currency: booking.currency,
-      });
-
-      // Send admin notification
-      await sendBookingNotificationToAdmin({
-        ...booking,
-        packageName: packageDetails?.name || 'Custom Package',
-        urgent: false,
-      });
+        // Send urgent notification to admin
+        await sendBookingNotificationToAdmin({
+          ...booking,
+          packageName: packageDetails?.name || 'Custom Package',
+          urgent: true,
+        });
+      } else {
+        // For bookings >= 7 days, confirmation email will be sent after payment
+        // Just send admin notification for now
+        await sendBookingNotificationToAdmin({
+          ...booking,
+          packageName: packageDetails?.name || 'Custom Package',
+          urgent: false,
+        });
+      }
+    } catch (emailError) {
+      console.error('Email sending failed (booking still created):', emailError);
+      // Continue anyway - booking was created successfully
     }
 
     return NextResponse.json({
       success: true,
       booking: {
         id: booking.id,
-        referenceNumber: booking.referenceNumber,
+        reference_number: booking.reference_number,
         status: booking.status,
         isUrgent,
       },

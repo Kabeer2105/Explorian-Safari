@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import PackageForm from '@/components/admin/PackageForm';
 
 export default async function EditPackagePage({

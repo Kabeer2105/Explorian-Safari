@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { redirect } from 'next/navigation';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import initPesapal from '@/lib/pesapal';
 
 export async function GET(request: NextRequest) {

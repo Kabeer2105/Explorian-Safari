@@ -1,10 +1,9 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
-import prisma from '@/lib/prisma';
+import { auth } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 
 export default async function AdminDashboard() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   // Fetch statistics
   const [
@@ -39,137 +38,152 @@ export default async function AdminDashboard() {
   // Recent bookings
   const recentBookings = await prisma.booking.findMany({
     take: 5,
-    orderBy: { createdAt: 'desc' },
-    include: { package: true },
+    orderBy: { created_at: 'desc' },
+    include: { Package: true },
   });
 
   // Recent inquiries
   const recentInquiries = await prisma.inquiry.findMany({
     take: 5,
-    orderBy: { createdAt: 'desc' },
+    orderBy: { created_at: 'desc' },
   });
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="mt-2 text-gray-600">Welcome back, {session?.user?.name}</p>
+      {/* Header */}
+      <div className="mb-12">
+        <h1 className="text-4xl font-bold text-gray-900 font-heading">Dashboard</h1>
+        <p className="mt-3 text-lg text-gray-600">Welcome back, {session?.user?.name || 'Admin'}</p>
       </div>
 
       {/* Statistics Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Total Bookings</p>
-              <p className="text-3xl font-bold text-gray-900">{totalBookings}</p>
-            </div>
-            <div className="bg-blue-100 rounded-full p-3">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        {/* Total Bookings Card */}
+        <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-4">
+              <span className="text-4xl">📅</span>
             </div>
           </div>
-          <div className="mt-4 flex gap-4 text-sm">
-            <span className="text-yellow-600">{pendingBookings} pending</span>
-            <span className="text-green-600">{paidBookings} paid</span>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Inquiries</p>
-              <p className="text-3xl font-bold text-gray-900">{totalInquiries}</p>
+          <div>
+            <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Total Bookings</p>
+            <p className="text-4xl font-bold text-gray-900 mb-4">{totalBookings}</p>
+            <div className="flex gap-3 text-sm pt-4 border-t border-gray-100">
+              <span className="px-3 py-1 bg-yellow-50 text-yellow-700 rounded-full font-medium">
+                {pendingBookings} pending
+              </span>
+              <span className="px-3 py-1 bg-green-50 text-green-700 rounded-full font-medium">
+                {paidBookings} paid
+              </span>
             </div>
-            <div className="bg-purple-100 rounded-full p-3">
-              <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
-          </div>
-          <div className="mt-4 text-sm">
-            <span className="text-orange-600">{newInquiries} new inquiries</span>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Packages</p>
-              <p className="text-3xl font-bold text-gray-900">{totalPackages}</p>
-            </div>
-            <div className="bg-green-100 rounded-full p-3">
-              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-              </svg>
+        {/* Inquiries Card */}
+        <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-xl p-4">
+              <span className="text-4xl">✉️</span>
             </div>
           </div>
-          <div className="mt-4 text-sm">
-            <span className="text-green-600">{activePackages} active</span>
+          <div>
+            <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Inquiries</p>
+            <p className="text-4xl font-bold text-gray-900 mb-4">{totalInquiries}</p>
+            <div className="pt-4 border-t border-gray-100">
+              <span className="px-3 py-1 bg-orange-50 text-orange-700 rounded-full font-medium text-sm">
+                {newInquiries} new inquiries
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Revenue</p>
-              <p className="text-3xl font-bold text-gray-900">
-                ${totalRevenue._sum.amount?.toFixed(0) || 0}
-              </p>
-            </div>
-            <div className="bg-yellow-100 rounded-full p-3">
-              <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+        {/* Packages Card */}
+        <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl p-4">
+              <span className="text-4xl">📦</span>
             </div>
           </div>
-          <div className="mt-4 text-sm">
-            <span className="text-green-600">{completedPayments} completed</span>
-            <span className="mx-2">•</span>
-            <span className="text-yellow-600">{pendingPayments} pending</span>
+          <div>
+            <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Packages</p>
+            <p className="text-4xl font-bold text-gray-900 mb-4">{totalPackages}</p>
+            <div className="pt-4 border-t border-gray-100">
+              <span className="px-3 py-1 bg-green-50 text-green-700 rounded-full font-medium text-sm">
+                {activePackages} active
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Revenue Card */}
+        <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="bg-gradient-to-br from-savanna/20 to-savanna/10 rounded-xl p-4">
+              <span className="text-4xl">💰</span>
+            </div>
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Revenue</p>
+            <p className="text-4xl font-bold text-gray-900 mb-4">
+              ${totalRevenue._sum.amount?.toFixed(0) || 0}
+            </p>
+            <div className="flex gap-3 text-sm pt-4 border-t border-gray-100">
+              <span className="px-3 py-1 bg-green-50 text-green-700 rounded-full font-medium">
+                {completedPayments} completed
+              </span>
+              <span className="px-3 py-1 bg-yellow-50 text-yellow-700 rounded-full font-medium">
+                {pendingPayments} pending
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Recent Bookings */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="p-6 border-b border-gray-200">
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div className="px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-primary/5 to-transparent">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">Recent Bookings</h2>
+              <h2 className="text-xl font-bold text-gray-900 font-heading">Recent Bookings</h2>
               <Link
                 href="/admin/bookings"
-                className="text-sm text-primary hover:text-primary-dark"
+                className="text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
               >
-                View all
+                View all →
               </Link>
             </div>
           </div>
-          <div className="divide-y divide-gray-200">
+          <div className="divide-y divide-gray-100">
             {recentBookings.length === 0 ? (
-              <div className="p-6 text-center text-gray-500">No bookings yet</div>
+              <div className="p-12 text-center text-gray-500">
+                <span className="text-4xl mb-4 block">📭</span>
+                No bookings yet
+              </div>
             ) : (
               recentBookings.map((booking) => (
                 <Link
                   key={booking.id}
                   href={`/admin/bookings/${booking.id}`}
-                  className="block p-4 hover:bg-gray-50 transition"
+                  className="block px-8 py-6 hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium text-gray-900">{booking.customerName}</p>
-                      <p className="text-sm text-gray-600">
-                        {booking.package?.name || 'Custom Package'}
+                    <div className="flex-1">
+                      <p className="font-semibold text-gray-900 text-lg mb-1">{booking.customer_name}</p>
+                      <p className="text-sm text-gray-600 mb-2">
+                        {booking.Package?.name || 'Custom Package'}
                       </p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {new Date(booking.createdAt).toLocaleDateString()}
+                      <p className="text-xs text-gray-500">
+                        {new Date(booking.created_at).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
                       </p>
                     </div>
                     <div>
                       <span
-                        className={`px-2 py-1 text-xs rounded-full ${
+                        className={`px-4 py-2 text-sm font-semibold rounded-full ${
                           booking.status === 'PAID'
                             ? 'bg-green-100 text-green-800'
                             : booking.status === 'PENDING'
@@ -190,38 +204,45 @@ export default async function AdminDashboard() {
         </div>
 
         {/* Recent Inquiries */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="p-6 border-b border-gray-200">
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div className="px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-secondary/5 to-transparent">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">Recent Inquiries</h2>
+              <h2 className="text-xl font-bold text-gray-900 font-heading">Recent Inquiries</h2>
               <Link
                 href="/admin/inquiries"
-                className="text-sm text-primary hover:text-primary-dark"
+                className="text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
               >
-                View all
+                View all →
               </Link>
             </div>
           </div>
-          <div className="divide-y divide-gray-200">
+          <div className="divide-y divide-gray-100">
             {recentInquiries.length === 0 ? (
-              <div className="p-6 text-center text-gray-500">No inquiries yet</div>
+              <div className="p-12 text-center text-gray-500">
+                <span className="text-4xl mb-4 block">📬</span>
+                No inquiries yet
+              </div>
             ) : (
               recentInquiries.map((inquiry) => (
-                <div key={inquiry.id} className="p-4 hover:bg-gray-50 transition">
+                <div key={inquiry.id} className="px-8 py-6 hover:bg-gray-50 transition-colors">
                   <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium text-gray-900">{inquiry.name}</p>
-                      <p className="text-sm text-gray-600">{inquiry.email}</p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {new Date(inquiry.createdAt).toLocaleDateString()}
+                    <div className="flex-1">
+                      <p className="font-semibold text-gray-900 text-lg mb-1">{inquiry.name}</p>
+                      <p className="text-sm text-gray-600 mb-2">{inquiry.email}</p>
+                      <p className="text-xs text-gray-500">
+                        {new Date(inquiry.created_at).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
                       </p>
                     </div>
                     <div>
                       <span
-                        className={`px-2 py-1 text-xs rounded-full ${
+                        className={`px-4 py-2 text-sm font-semibold rounded-full ${
                           inquiry.status === 'NEW'
                             ? 'bg-orange-100 text-orange-800'
-                            : inquiry.status === 'RESPONDED'
+                            : inquiry.status === 'CONTACTED'
                             ? 'bg-blue-100 text-blue-800'
                             : 'bg-gray-100 text-gray-800'
                         }`}

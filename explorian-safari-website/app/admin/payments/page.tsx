@@ -1,16 +1,16 @@
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 
 export default async function PaymentsPage() {
   const payments = await prisma.payment.findMany({
     include: {
-      booking: {
+      Booking: {
         include: {
-          package: true,
+          Package: true,
         },
       },
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { created_at: 'desc' },
   });
 
   const stats = {
@@ -99,22 +99,22 @@ export default async function PaymentsPage() {
               payments.map((payment) => (
                 <tr key={payment.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">
-                    {payment.transactionId || payment.id.substring(0, 12)}
+                    {payment.transaction_id || payment.id.substring(0, 12)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {payment.booking.referenceNumber}
+                    {payment.Booking.reference_number}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
-                      {payment.booking.customerName}
+                      {payment.Booking.customer_name}
                     </div>
-                    <div className="text-sm text-gray-500">{payment.booking.email}</div>
+                    <div className="text-sm text-gray-500">{payment.Booking.email}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
                     {payment.currency} {Number(payment.amount).toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {payment.paymentMethod || 'N/A'}
+                    {payment.payment_method || 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
@@ -130,13 +130,13 @@ export default async function PaymentsPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {payment.paidAt
-                      ? new Date(payment.paidAt).toLocaleDateString()
-                      : new Date(payment.createdAt).toLocaleDateString()}
+                    {payment.paid_at
+                      ? new Date(payment.paid_at).toLocaleDateString()
+                      : new Date(payment.created_at).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <Link
-                      href={`/admin/bookings/${payment.bookingId}`}
+                      href={`/admin/bookings/${payment.booking_id}`}
                       className="text-primary hover:text-primary-dark"
                     >
                       View Booking

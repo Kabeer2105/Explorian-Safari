@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 
 // Create first admin user (public endpoint - should be disabled after first use)
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     const admin = await prisma.user.create({
       data: {
         email,
-        passwordHash,
+        password_hash: passwordHash,
         name,
         role: 'ADMIN',
       },

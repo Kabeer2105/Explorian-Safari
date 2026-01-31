@@ -1,48 +1,29 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
 import GallerySectionClient from './GallerySectionClient';
 import VideosSection from './VideosSection';
+import FAQSection from './FAQSection';
 
 export default function RestOfHomeContent() {
-  const [activeFAQ, setActiveFAQ] = useState<number | null>(null);
-
-  const faqs = [
-    {
-      question: 'What is the best time to visit Tanzania for a safari?',
-      answer: 'The best time for wildlife safaris is during the dry season (June to October). For the Great Migration, visit between July and September. Beach holidays are great year-round, with the best weather from June to October and December to February.',
-    },
-    {
-      question: 'Do I need a visa to visit Tanzania?',
-      answer: 'Most visitors need a visa to enter Tanzania. You can obtain a visa on arrival at the airport ($50-$100 USD depending on nationality) or apply for an e-visa online before your trip. Check with your local embassy for specific requirements.',
-    },
-    {
-      question: 'What is included in your safari packages?',
-      answer: 'Our packages typically include accommodation, meals, park fees, experienced guides, 4x4 safari vehicles, drinking water, and airport transfers. International flights, travel insurance, visa fees, tips, and personal expenses are usually not included.',
-    },
-    {
-      question: 'Is it safe to travel to Tanzania?',
-      answer: 'Tanzania is one of the safest countries in East Africa for tourists. Our guides are experienced professionals, and we follow all safety protocols. We recommend standard travel precautions: don\'t carry valuables, stay in groups, and follow your guide\'s instructions.',
-    },
-    {
-      question: 'Can I customize my safari itinerary?',
-      answer: 'Absolutely! We specialize in custom safaris tailored to your preferences, budget, and schedule. Contact us to discuss your dream safari, and we\'ll create a personalized itinerary just for you.',
-    },
-  ];
-
   return (
     <>
       {/* Discover Tanzania Section */}
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="section-label">DISCOVER TANZANIA</div>
-          <h2 className="section-title">Explore Our Safari Destinations</h2>
+          <h2 className="section-title">Explore Our Destinations</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             {/* Safaris */}
             <div className="feature-card">
-              <div className="feature-icon">🦁</div>
+              <div className="feature-image-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&h=300&fit=crop"
+                  alt="Wildlife Safari"
+                  className="feature-image"
+                />
+              </div>
               <h3 className="feature-title">Wildlife Safaris</h3>
               <p className="feature-description">
                 Witness the Big Five and experience the Great Migration in Serengeti and Ngorongoro Crater.
@@ -54,7 +35,13 @@ export default function RestOfHomeContent() {
 
             {/* Mountains */}
             <div className="feature-card">
-              <div className="feature-icon">⛰️</div>
+              <div className="feature-image-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?w=400&h=300&fit=crop"
+                  alt="Mount Kilimanjaro"
+                  className="feature-image"
+                />
+              </div>
               <h3 className="feature-title">Mountain Trekking</h3>
               <p className="feature-description">
                 Conquer Africa's highest peak - Mount Kilimanjaro. Multiple routes available for all skill levels.
@@ -66,7 +53,13 @@ export default function RestOfHomeContent() {
 
             {/* Beaches */}
             <div className="feature-card">
-              <div className="feature-icon">🏖️</div>
+              <div className="feature-image-wrapper">
+                <img
+                  src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=400&h=300&fit=crop"
+                  alt="Zanzibar Beach"
+                  className="feature-image"
+                />
+              </div>
               <h3 className="feature-title">Beach Holidays</h3>
               <p className="feature-description">
                 Relax on the pristine beaches of Zanzibar. Crystal-clear waters and white sand paradise.
@@ -179,32 +172,8 @@ export default function RestOfHomeContent() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
-          <div className="section-label">FREQUENTLY ASKED QUESTIONS</div>
-          <h2 className="section-title">Everything You Need to Know</h2>
-
-          <div className="max-w-3xl mx-auto mt-12 space-y-4">
-            {faqs.map((faq, index) => (
-              <div key={index} className="faq-item">
-                <button
-                  onClick={() => setActiveFAQ(activeFAQ === index ? null : index)}
-                  className="faq-question"
-                >
-                  <span>{faq.question}</span>
-                  <span className="faq-icon">{activeFAQ === index ? '−' : '+'}</span>
-                </button>
-                {activeFAQ === index && (
-                  <div className="faq-answer">
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* FAQ Section - From Database */}
+      <FAQSection />
 
       {/* CTA Section */}
       <section className="cta-section">
