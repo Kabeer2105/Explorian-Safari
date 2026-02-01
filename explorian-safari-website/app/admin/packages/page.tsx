@@ -11,14 +11,13 @@ export default async function PackagesPage() {
     },
   });
 
-  // Convert Decimal to number for client component - must serialize completely
-  const packages = packagesRaw.map((pkg) => {
-    const { price_from, ...rest } = pkg;
-    return {
-      ...rest,
-      price_from: price_from ? parseFloat(price_from.toString()) : null,
-    };
-  });
+  // Explicitly convert Decimal fields to numbers for client component
+  const packages = packagesRaw.map(pkg => ({
+    ...pkg,
+    price_from: pkg.price_from ? Number(pkg.price_from) : null,
+    created_at: pkg.created_at.toISOString(),
+    updated_at: pkg.updated_at.toISOString(),
+  }));
 
   return <PackagesClient packages={packages} />;
 }

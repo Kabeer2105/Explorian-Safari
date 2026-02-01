@@ -32,12 +32,12 @@ async function fetchTripAdvisorReviews() {
       if (authorName && rating && reviewText) {
         reviews.push({
           source: 'tripadvisor',
-          externalId: `ta-${i}`,
-          authorName,
+          external_id: `ta-${i}`,
+          author_name: authorName,
           rating,
-          reviewText,
-          reviewDate: dateStr ? new Date(dateStr) : new Date(),
-          lastSynced: new Date(),
+          review_text: reviewText,
+          review_date: dateStr ? new Date(dateStr) : new Date(),
+          last_synced: new Date(),
           active: true,
         });
       }
@@ -53,80 +53,86 @@ async function fetchTripAdvisorReviews() {
 // Safari Bookings API (public reviews)
 async function fetchSafariBookingsReviews() {
   const operatorId = 'p5449'; // Explorian Safaris operator ID
-  const url = `https://www.safaribookings.com/api/v1/operators/${operatorId}/reviews`;
 
-  try {
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-      },
-    });
-
-    if (!response.ok) {
-      // Try scraping if API doesn't work
-      return await scrapeSafariBookingsReviews();
-    }
-
-    const data = await response.json();
-    const reviews = data.reviews?.map((review: any) => ({
-      source: 'safaribookings',
-      externalId: review.id?.toString() || `sb-${review.date}`,
-      authorName: review.author || 'Anonymous',
-      rating: parseFloat(review.rating) || 5,
-      reviewText: review.text || review.comment || '',
-      reviewDate: new Date(review.date),
-      lastSynced: new Date(),
-      active: true,
-    })) || [];
-
-    return reviews;
-  } catch (error) {
-    console.error('Error fetching Safari Bookings reviews:', error);
-    return await scrapeSafariBookingsReviews();
-  }
+  // Safari Bookings doesn't have a public API, go straight to scraping
+  console.log('Fetching Safari Bookings reviews via scraping...');
+  return await scrapeSafariBookingsReviews();
 }
 
-// Scrape Safari Bookings if API fails
+// Scrape Safari Bookings reviews
 async function scrapeSafariBookingsReviews() {
-  const url = 'https://www.safaribookings.com/reviews/p5449';
+  const url = 'https://www.safaribookings.com/p5449';
 
   try {
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
       },
     });
 
     if (!response.ok) {
-      throw new Error(`Safari Bookings fetch failed: ${response.status}`);
+      console.error(`Safari Bookings fetch failed: ${response.status}`);
+      return [];
     }
 
     const html = await response.text();
     const $ = cheerio.load(html);
     const reviews: any[] = [];
 
-    $('.review-item, .review').each((i, element) => {
-      const $review = $(element);
-      const authorName = $review.find('.review-author, .author-name').text().trim() || 'Anonymous';
-      const ratingText = $review.find('.rating, .review-rating').text().trim();
-      const rating = parseFloat(ratingText.match(/[\d.]+/)?.[0] || '5');
-      const reviewText = $review.find('.review-text, .review-content').text().trim();
-      const dateStr = $review.find('.review-date, .date').text().trim();
+    console.log('Parsing Safari Bookings HTML...');
 
-      if (reviewText) {
+    // Try multiple selectors for reviews
+    const reviewElements = $('.review-card, .review, article[data-testid="review"], .operator-review');
+    console.log(`Found ${reviewElements.length} potential review elements`);
+
+    reviewElements.each((i, element) => {
+      const $review = $(element);
+
+      // Try multiple selectors for each field
+      const authorName =
+        $review.find('.review-author').text().trim() ||
+        $review.find('.author-name').text().trim() ||
+        $review.find('[class*="author"]').text().trim() ||
+        'Anonymous';
+
+      const ratingText =
+        $review.find('.rating').text().trim() ||
+        $review.find('[class*="rating"]').attr('data-rating') ||
+        $review.find('[class*="stars"]').attr('data-rating') ||
+        '5';
+
+      const rating = parseFloat(ratingText.match(/[\d.]+/)?.[0] || '5');
+
+      const reviewText =
+        $review.find('.review-text').text().trim() ||
+        $review.find('.review-content').text().trim() ||
+        $review.find('p').text().trim();
+
+      const dateStr =
+        $review.find('.review-date').text().trim() ||
+        $review.find('.date').text().trim() ||
+        $review.find('time').attr('datetime') ||
+        '';
+
+      console.log(`Review ${i}: author="${authorName}", rating=${rating}, text length=${reviewText.length}`);
+
+      if (reviewText && reviewText.length > 10) {
         reviews.push({
           source: 'safaribookings',
-          externalId: `sb-scraped-${i}`,
-          authorName,
+          external_id: `sb-${i}-${Date.now()}`,
+          author_name: authorName,
           rating,
-          reviewText,
-          reviewDate: dateStr ? new Date(dateStr) : new Date(),
-          lastSynced: new Date(),
+          review_text: reviewText,
+          review_date: dateStr ? new Date(dateStr) : new Date(),
+          last_synced: new Date(),
           active: true,
         });
       }
     });
 
+    console.log(`Successfully parsed ${reviews.length} Safari Bookings reviews`);
     return reviews;
   } catch (error) {
     console.error('Error scraping Safari Bookings reviews:', error);
@@ -152,17 +158,30 @@ export async function syncReviews() {
     let syncedCount = 0;
     for (const review of allReviews) {
       try {
+        const reviewId = review.external_id || `${review.source}-${Date.now()}-${syncedCount}`;
+
         await prisma.review.upsert({
           where: {
-            id: review.externalId || `${review.source}-${Date.now()}-${syncedCount}`,
+            id: reviewId,
           },
           update: {
-            ...review,
-            lastSynced: new Date(),
+            author_name: review.author_name,
+            rating: review.rating,
+            review_text: review.review_text,
+            review_date: review.review_date,
+            last_synced: new Date(),
+            active: review.active,
           },
           create: {
-            ...review,
-            id: review.externalId || `${review.source}-${Date.now()}-${syncedCount}`,
+            id: reviewId,
+            source: review.source,
+            external_id: review.external_id,
+            author_name: review.author_name,
+            rating: review.rating,
+            review_text: review.review_text,
+            review_date: review.review_date,
+            last_synced: new Date(),
+            active: review.active,
           },
         });
         syncedCount++;
@@ -196,7 +215,7 @@ export async function getReviews(limit = 10) {
   try {
     const reviews = await prisma.review.findMany({
       where: { active: true },
-      orderBy: { reviewDate: 'desc' },
+      orderBy: { review_date: 'desc' },
       take: limit,
     });
 

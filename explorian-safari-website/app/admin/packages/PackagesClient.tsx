@@ -18,7 +18,8 @@ type Package = {
   duration_days: number | null;
   featured: boolean;
   active: boolean;
-  created_at: Date;
+  created_at: string;
+  updated_at: string;
   _count: {
     Booking: number;
   };

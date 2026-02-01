@@ -3,6 +3,8 @@ import TrustBar from '@/components/home/TrustBar';
 import FeaturedPackages from '@/components/FeaturedPackages';
 import RestOfHomeContent from '@/components/home/RestOfHomeContent';
 import TripPlannerWidget from '@/components/TripPlannerWidget';
+import Reviews from '@/components/Reviews';
+import ReviewLinks from '@/components/ReviewLinks';
 
 /**
  * Home Page - Server Component
@@ -32,7 +34,24 @@ export default function Home() {
       {/* Featured Packages */}
       <FeaturedPackages />
 
-      {/* Rest of Home Page Content (Discover, Why Choose, Testimonials, Gallery, Videos, FAQ, CTA) */}
+      {/* Customer Reviews Section */}
+      <section className="section-padding bg-gradient-subtle">
+        <div className="container-custom">
+          <div className="section-label">TESTIMONIALS</div>
+          <h2 className="section-title">What Our Travelers Say</h2>
+          <p className="section-subtitle">Real reviews from real adventures</p>
+
+          <div className="mt-12">
+            <Reviews />
+          </div>
+
+          <div className="mt-8 text-center">
+            <ReviewLinks />
+          </div>
+        </div>
+      </section>
+
+      {/* Rest of Home Page Content (Discover, Why Choose, Gallery, Videos, FAQ, CTA) */}
       <RestOfHomeContent />
     </>
   );

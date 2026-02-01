@@ -14,7 +14,7 @@ export async function GET(
     }
 
     const { id } = await params;
-    const packageData = await prisma.package.findUnique({
+    const packageDataRaw = await prisma.package.findUnique({
       where: { id },
       include: {
         _count: {
@@ -23,9 +23,15 @@ export async function GET(
       },
     });
 
-    if (!packageData) {
+    if (!packageDataRaw) {
       return NextResponse.json({ error: 'Package not found' }, { status: 404 });
     }
+
+    // Explicitly convert Decimal fields to numbers
+    const packageData = {
+      ...packageDataRaw,
+      price_from: packageDataRaw.price_from ? Number(packageDataRaw.price_from) : null,
+    };
 
     return NextResponse.json(packageData);
   } catch (error) {

@@ -10,13 +10,21 @@ export default async function EditPackagePage({
 }) {
   const { id } = await params;
 
-  const pkg = await prisma.package.findUnique({
+  const pkgRaw = await prisma.package.findUnique({
     where: { id },
   });
 
-  if (!pkg) {
+  if (!pkgRaw) {
     notFound();
   }
+
+  // Explicitly convert Decimal fields to numbers for client component
+  const pkg = {
+    ...pkgRaw,
+    price_from: pkgRaw.price_from ? Number(pkgRaw.price_from) : null,
+    created_at: pkgRaw.created_at.toISOString(),
+    updated_at: pkgRaw.updated_at.toISOString(),
+  };
 
   return (
     <div>

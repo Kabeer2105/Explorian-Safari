@@ -1,11 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
-
-import { auth } from '@/lib/auth';
+import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { auth } from '@/lib/auth';
 
-// PUT update review
-export async function PUT(
-  request: NextRequest,
+// PATCH - Toggle review visibility or update review
+export async function PATCH(
+  request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
@@ -17,25 +16,21 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
-    const review = await prisma.review.update({
+    const updatedReview = await prisma.review.update({
       where: { id },
-      data: {
-        ...body,
-        rating: body.rating ? parseFloat(body.rating) : undefined,
-        reviewDate: body.reviewDate ? new Date(body.reviewDate) : undefined,
-      },
+      data: body,
     });
 
-    return NextResponse.json(review);
+    return NextResponse.json(updatedReview);
   } catch (error) {
     console.error('Error updating review:', error);
     return NextResponse.json({ error: 'Failed to update review' }, { status: 500 });
   }
 }
 
-// DELETE review (only manual reviews can be deleted)
+// DELETE - Delete manual review
 export async function DELETE(
-  request: NextRequest,
+  request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
@@ -46,7 +41,7 @@ export async function DELETE(
 
     const { id } = await params;
 
-    // Check if review is manual
+    // Only allow deleting manual reviews
     const review = await prisma.review.findUnique({
       where: { id },
     });
@@ -57,7 +52,7 @@ export async function DELETE(
 
     if (review.source !== 'manual') {
       return NextResponse.json(
-        { error: 'Only manual reviews can be deleted' },
+        { error: 'Cannot delete synced reviews from external sources' },
         { status: 400 }
       );
     }
@@ -66,7 +61,7 @@ export async function DELETE(
       where: { id },
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ message: 'Review deleted successfully' });
   } catch (error) {
     console.error('Error deleting review:', error);
     return NextResponse.json({ error: 'Failed to delete review' }, { status: 500 });

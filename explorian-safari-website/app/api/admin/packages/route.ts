@@ -18,10 +18,16 @@ export async function GET(request: NextRequest) {
     if (type) where.type = type;
     if (active !== null) where.active = active === 'true';
 
-    const packages = await prisma.package.findMany({
+    const packagesRaw = await prisma.package.findMany({
       where,
       orderBy: { created_at: 'desc' },
     });
+
+    // Explicitly convert Decimal fields to numbers
+    const packages = packagesRaw.map(pkg => ({
+      ...pkg,
+      price_from: pkg.price_from ? Number(pkg.price_from) : null,
+    }));
 
     return NextResponse.json(packages);
   } catch (error) {
