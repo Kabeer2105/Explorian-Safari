@@ -30,8 +30,8 @@ export async function GET(
   }
 }
 
-// PUT update FAQ
-export async function PUT(
+// PATCH update FAQ (partial update)
+export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
@@ -57,6 +57,14 @@ export async function PUT(
     console.error('Error updating FAQ:', error);
     return NextResponse.json({ error: 'Failed to update FAQ' }, { status: 500 });
   }
+}
+
+// PUT update FAQ (full update - kept for compatibility)
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  return PATCH(request, { params });
 }
 
 // DELETE FAQ
