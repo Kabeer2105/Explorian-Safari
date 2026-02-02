@@ -49,6 +49,8 @@ export default function ContentClient({ initialGallery, initialVideos }: Content
     order: gallery.length + 1,
     active: true,
   });
+  const [imageUploadMode, setImageUploadMode] = useState<'url' | 'upload'>('url');
+  const [imageUploading, setImageUploading] = useState(false);
 
   // Video states
   const [showAddVideoModal, setShowAddVideoModal] = useState(false);
@@ -60,12 +62,70 @@ export default function ContentClient({ initialGallery, initialVideos }: Content
     order: videos.length + 1,
     active: true,
   });
+  const [videoUploadMode, setVideoUploadMode] = useState<'url' | 'upload'>('url');
+  const [videoUploading, setVideoUploading] = useState(false);
 
   // Extract YouTube video ID from URL
   const getYouTubeId = (url: string) => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return match && match[2].length === 11 ? match[2] : null;
+  };
+
+  // Handle Image File Upload
+  const handleImageFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setImageUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('type', 'image');
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error('Upload failed');
+
+      const data = await response.json();
+      setImageFormData({ ...imageFormData, url: data.url });
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('Failed to upload image. Please try again.');
+    } finally {
+      setImageUploading(false);
+    }
+  };
+
+  // Handle Video File Upload
+  const handleVideoFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setVideoUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('type', 'video');
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error('Upload failed');
+
+      const data = await response.json();
+      setVideoFormData({ ...videoFormData, url: data.url });
+    } catch (error) {
+      console.error('Error uploading video:', error);
+      alert('Failed to upload video. Please try again.');
+    } finally {
+      setVideoUploading(false);
+    }
   };
 
   // Add Gallery Image
@@ -430,88 +490,177 @@ export default function ContentClient({ initialGallery, initialVideos }: Content
 
       {/* Add Image Modal */}
       {showAddImageModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-900">Add Gallery Image</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-white rounded-xl shadow-2xl max-w-3xl w-full my-8 max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white px-8 py-6 border-b border-gray-200 rounded-t-xl">
+              <div className="flex items-center justify-between">
+                <h2 className="text-3xl font-bold text-gray-900">Add Gallery Image</h2>
+                <button
+                  onClick={() => setShowAddImageModal(false)}
+                  className="text-gray-400 hover:text-gray-600 transition"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
             </div>
 
-            <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Image URL <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="url"
-                  value={imageFormData.url}
-                  onChange={(e) => setImageFormData({ ...imageFormData, url: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
-                <p className="text-xs text-gray-500 mt-1">Enter the full URL of the image</p>
+            <div className="px-8 py-6 space-y-6">
+              {/* Upload Mode Tabs */}
+              <div className="border-b border-gray-200">
+                <nav className="flex gap-4">
+                  <button
+                    onClick={() => setImageUploadMode('upload')}
+                    className={`pb-3 px-1 border-b-2 font-medium transition ${
+                      imageUploadMode === 'upload'
+                        ? 'border-primary text-primary'
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
+                  >
+                    📁 Upload from Device
+                  </button>
+                  <button
+                    onClick={() => setImageUploadMode('url')}
+                    className={`pb-3 px-1 border-b-2 font-medium transition ${
+                      imageUploadMode === 'url'
+                        ? 'border-primary text-primary'
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
+                  >
+                    🔗 Image URL
+                  </button>
+                </nav>
               </div>
 
+              {/* Upload from Device */}
+              {imageUploadMode === 'upload' && (
+                <div className="bg-gray-50 rounded-lg p-6 border-2 border-dashed border-gray-300 hover:border-primary transition">
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+                    onChange={handleImageFileUpload}
+                    disabled={imageUploading}
+                    className="hidden"
+                    id="image-upload"
+                  />
+                  <label
+                    htmlFor="image-upload"
+                    className="cursor-pointer flex flex-col items-center justify-center py-8"
+                  >
+                    <svg className="w-16 h-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    {imageUploading ? (
+                      <p className="text-primary font-semibold">Uploading...</p>
+                    ) : imageFormData.url ? (
+                      <div className="text-center">
+                        <p className="text-green-600 font-semibold mb-2">✓ Image uploaded successfully!</p>
+                        <p className="text-sm text-gray-500">Click to upload a different image</p>
+                      </div>
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-gray-700 font-semibold mb-2">Click to upload image</p>
+                        <p className="text-sm text-gray-500">Supports: JPG, PNG, WebP, GIF (Max 10MB)</p>
+                      </div>
+                    )}
+                  </label>
+                  {imageFormData.url && (
+                    <div className="mt-4 p-4 bg-white rounded-lg">
+                      <img src={imageFormData.url} alt="Preview" className="max-h-48 mx-auto rounded" />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Image URL Input */}
+              {imageUploadMode === 'url' && (
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Image URL <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="url"
+                    value={imageFormData.url}
+                    onChange={(e) => setImageFormData({ ...imageFormData, url: e.target.value })}
+                    placeholder="https://example.com/image.jpg"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base"
+                  />
+                  <p className="text-sm text-gray-500 mt-2">Enter the full URL of the image from the internet</p>
+                </div>
+              )}
+
+              {/* Title */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Title</label>
                 <input
                   type="text"
                   value={imageFormData.title}
                   onChange={(e) => setImageFormData({ ...imageFormData, title: e.target.value })}
                   placeholder="e.g., Lions in Serengeti"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base"
                 />
               </div>
 
+              {/* Caption */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Caption</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Caption</label>
                 <textarea
                   value={imageFormData.caption}
                   onChange={(e) => setImageFormData({ ...imageFormData, caption: e.target.value })}
                   placeholder="Brief description of the image"
-                  rows={2}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  rows={3}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base"
                 />
               </div>
 
+              {/* Category */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                <input
-                  type="text"
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Category</label>
+                <select
                   value={imageFormData.category}
                   onChange={(e) => setImageFormData({ ...imageFormData, category: e.target.value })}
-                  placeholder="e.g., Wildlife, Mountains, Beaches"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base"
+                >
+                  <option value="">Select category</option>
+                  <option value="Wildlife">Wildlife</option>
+                  <option value="Mountains">Mountains</option>
+                  <option value="Beaches">Beaches</option>
+                  <option value="Culture">Culture</option>
+                  <option value="Landscapes">Landscapes</option>
+                </select>
               </div>
 
-              <div className="flex items-center">
+              {/* Active Toggle */}
+              <div className="flex items-center bg-gray-50 p-4 rounded-lg">
                 <input
                   type="checkbox"
                   id="image-active"
                   checked={imageFormData.active}
                   onChange={(e) => setImageFormData({ ...imageFormData, active: e.target.checked })}
-                  className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                  className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
                 />
-                <label htmlFor="image-active" className="ml-2 text-sm font-medium text-gray-700">
+                <label htmlFor="image-active" className="ml-3 text-sm font-medium text-gray-700">
                   Active (visible on website)
                 </label>
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-200 flex justify-end gap-3">
+            {/* Footer */}
+            <div className="sticky bottom-0 bg-gray-50 px-8 py-5 border-t border-gray-200 flex justify-end gap-3 rounded-b-xl">
               <button
                 onClick={() => setShowAddImageModal(false)}
-                disabled={loading}
-                className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                disabled={loading || imageUploading}
+                className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-white transition font-semibold"
               >
                 Cancel
               </button>
               <button
                 onClick={addImage}
-                disabled={loading}
-                className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition disabled:opacity-50"
+                disabled={loading || imageUploading || !imageFormData.url}
+                className="px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-lg"
               >
-                {loading ? 'Adding...' : 'Add Image'}
+                {loading ? 'Adding...' : imageUploading ? 'Uploading...' : 'Add Image'}
               </button>
             </div>
           </div>
@@ -520,29 +669,104 @@ export default function ContentClient({ initialGallery, initialVideos }: Content
 
       {/* Add Video Modal */}
       {showAddVideoModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-900">Add YouTube Video</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-white rounded-xl shadow-2xl max-w-3xl w-full my-8 max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white px-8 py-6 border-b border-gray-200 rounded-t-xl">
+              <div className="flex items-center justify-between">
+                <h2 className="text-3xl font-bold text-gray-900">Add Video</h2>
+                <button
+                  onClick={() => setShowAddVideoModal(false)}
+                  className="text-gray-400 hover:text-gray-600 transition"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
             </div>
 
-            <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  YouTube URL <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="url"
-                  value={videoFormData.url}
-                  onChange={(e) => setVideoFormData({ ...videoFormData, url: e.target.value })}
-                  placeholder="https://www.youtube.com/watch?v=..."
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
-                <p className="text-xs text-gray-500 mt-1">Paste the full YouTube video URL</p>
+            <div className="px-8 py-6 space-y-6">
+              {/* Upload Mode Tabs */}
+              <div className="border-b border-gray-200">
+                <nav className="flex gap-4">
+                  <button
+                    onClick={() => setVideoUploadMode('upload')}
+                    className={`pb-3 px-1 border-b-2 font-medium transition ${
+                      videoUploadMode === 'upload'
+                        ? 'border-primary text-primary'
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
+                  >
+                    📁 Upload Video File
+                  </button>
+                  <button
+                    onClick={() => setVideoUploadMode('url')}
+                    className={`pb-3 px-1 border-b-2 font-medium transition ${
+                      videoUploadMode === 'url'
+                        ? 'border-primary text-primary'
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
+                  >
+                    🎬 YouTube URL
+                  </button>
+                </nav>
               </div>
 
+              {/* Upload Video File */}
+              {videoUploadMode === 'upload' && (
+                <div className="bg-gray-50 rounded-lg p-6 border-2 border-dashed border-gray-300 hover:border-primary transition">
+                  <input
+                    type="file"
+                    accept="video/mp4,video/webm,video/quicktime,video/x-msvideo"
+                    onChange={handleVideoFileUpload}
+                    disabled={videoUploading}
+                    className="hidden"
+                    id="video-upload"
+                  />
+                  <label
+                    htmlFor="video-upload"
+                    className="cursor-pointer flex flex-col items-center justify-center py-8"
+                  >
+                    <svg className="w-16 h-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    {videoUploading ? (
+                      <p className="text-primary font-semibold">Uploading... This may take a while for large videos</p>
+                    ) : videoFormData.url ? (
+                      <div className="text-center">
+                        <p className="text-green-600 font-semibold mb-2">✓ Video uploaded successfully!</p>
+                        <p className="text-sm text-gray-500">Click to upload a different video</p>
+                      </div>
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-gray-700 font-semibold mb-2">Click to upload video</p>
+                        <p className="text-sm text-gray-500">Supports: MP4, WebM, MOV, AVI (Max 100MB)</p>
+                      </div>
+                    )}
+                  </label>
+                </div>
+              )}
+
+              {/* YouTube URL Input */}
+              {videoUploadMode === 'url' && (
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    YouTube URL <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="url"
+                    value={videoFormData.url}
+                    onChange={(e) => setVideoFormData({ ...videoFormData, url: e.target.value })}
+                    placeholder="https://www.youtube.com/watch?v=..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base"
+                  />
+                  <p className="text-sm text-gray-500 mt-2">Paste the full YouTube video URL</p>
+                </div>
+              )}
+
+              {/* Title */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Title <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -550,60 +774,69 @@ export default function ContentClient({ initialGallery, initialVideos }: Content
                   value={videoFormData.title}
                   onChange={(e) => setVideoFormData({ ...videoFormData, title: e.target.value })}
                   placeholder="e.g., Serengeti Safari Adventure"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base"
                 />
               </div>
 
+              {/* Description */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Description</label>
                 <textarea
                   value={videoFormData.description}
                   onChange={(e) => setVideoFormData({ ...videoFormData, description: e.target.value })}
                   placeholder="Brief description of the video"
                   rows={3}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base"
                 />
               </div>
 
+              {/* Category */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                <input
-                  type="text"
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Category</label>
+                <select
                   value={videoFormData.category}
                   onChange={(e) => setVideoFormData({ ...videoFormData, category: e.target.value })}
-                  placeholder="e.g., Safari, Mountain Trekking, Beach"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-base"
+                >
+                  <option value="">Select category</option>
+                  <option value="Safari">Safari</option>
+                  <option value="Mountain Trekking">Mountain Trekking</option>
+                  <option value="Beach">Beach</option>
+                  <option value="Culture">Culture</option>
+                  <option value="Adventure">Adventure</option>
+                </select>
               </div>
 
-              <div className="flex items-center">
+              {/* Active Toggle */}
+              <div className="flex items-center bg-gray-50 p-4 rounded-lg">
                 <input
                   type="checkbox"
                   id="video-active"
                   checked={videoFormData.active}
                   onChange={(e) => setVideoFormData({ ...videoFormData, active: e.target.checked })}
-                  className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                  className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
                 />
-                <label htmlFor="video-active" className="ml-2 text-sm font-medium text-gray-700">
+                <label htmlFor="video-active" className="ml-3 text-sm font-medium text-gray-700">
                   Active (visible on website)
                 </label>
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-200 flex justify-end gap-3">
+            {/* Footer */}
+            <div className="sticky bottom-0 bg-gray-50 px-8 py-5 border-t border-gray-200 flex justify-end gap-3 rounded-b-xl">
               <button
                 onClick={() => setShowAddVideoModal(false)}
-                disabled={loading}
-                className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                disabled={loading || videoUploading}
+                className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-white transition font-semibold"
               >
                 Cancel
               </button>
               <button
                 onClick={addVideo}
-                disabled={loading}
-                className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition disabled:opacity-50"
+                disabled={loading || videoUploading || !videoFormData.url || !videoFormData.title}
+                className="px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-lg"
               >
-                {loading ? 'Adding...' : 'Add Video'}
+                {loading ? 'Adding...' : videoUploading ? 'Uploading...' : 'Add Video'}
               </button>
             </div>
           </div>
