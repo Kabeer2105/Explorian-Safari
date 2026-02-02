@@ -157,6 +157,41 @@ model Setting {
   @@index([key])
 }
 
+model GalleryImage {
+  id           String   @id @default(cuid())
+  url          String
+  title        String?
+  caption      String?  @db.Text
+  category     String?
+  order        Int      @default(0)
+  active       Boolean  @default(true)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@index([active])
+  @@index([category])
+  @@index([order])
+}
+
+model Video {
+  id           String   @id @default(cuid())
+  title        String
+  description  String?  @db.Text
+  url          String
+  thumbnailUrl String?
+  type         String   @default("youtube")
+  category     String?
+  order        Int      @default(0)
+  active       Boolean  @default(true)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@index([active])
+  @@index([category])
+  @@index([type])
+  @@index([order])
+}
+
 enum Package_type {
   SAFARI
   MOUNTAIN
