@@ -1,17 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-// GET gallery images (public)
+// GET gallery images (public - fetches from GalleryImage table)
 export async function GET(request: NextRequest) {
   try {
-    const gallerySetting = await prisma.setting.findUnique({
-      where: { key: 'gallery_images' },
+    const images = await prisma.galleryImage.findMany({
+      where: { active: true },
+      orderBy: { order: 'asc' },
+      select: {
+        id: true,
+        url: true,
+        title: true,
+        caption: true,
+        category: true,
+      },
     });
-
-    let images = [];
-    if (gallerySetting && gallerySetting.value) {
-      images = JSON.parse(gallerySetting.value);
-    }
 
     return NextResponse.json({ images });
   } catch (error) {
