@@ -18,7 +18,7 @@ export default async function MountainsPage() {
     type: pkg.type,
     description: pkg.description,
     badge_label: pkg.badge_label,
-    images: pkg.images,
+    images: pkg.images || '',
     highlights: pkg.highlights,
     price_from: Number(pkg.price_from),
     currency: pkg.currency,

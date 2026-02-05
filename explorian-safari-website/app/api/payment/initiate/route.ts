@@ -47,12 +47,14 @@ export async function POST(request: NextRequest) {
     // Create payment record
     await prisma.payment.create({
       data: {
-        bookingId: booking.id,
+        booking_id: booking.id,
+        transaction_id: paymentData.orderTrackingId,
         amount: Number(booking.total_amount),
         currency: booking.currency,
         status: 'PENDING',
         pesapal_merchant_reference: paymentData.merchantReference,
         pesapal_tracking_id: paymentData.orderTrackingId,
+        updated_at: new Date(),
       },
     });
 

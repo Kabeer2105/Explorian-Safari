@@ -24,9 +24,9 @@ export async function GET(request: NextRequest) {
       });
     } else if (bookingId) {
       payment = await prisma.payment.findFirst({
-        where: { bookingId },
+        where: { booking_id: bookingId },
         include: { Booking: true },
-        orderBy: { createdAt: 'desc' },
+        orderBy: { created_at: 'desc' },
       });
     }
 
