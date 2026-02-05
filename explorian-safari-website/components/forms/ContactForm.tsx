@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from '@/lib/language-context';
 
 export default function ContactForm() {
+  const t = useTranslations();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -46,7 +48,7 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       {success && (
         <div className="p-4 bg-green-50 border border-green-200 rounded-md text-green-700">
-          Thank you! We'll get back to you within 24 hours.
+          {t.contact.successMessage}
         </div>
       )}
 
@@ -57,44 +59,48 @@ export default function ContactForm() {
       )}
 
       <div>
-        <label className="block text-sm font-medium mb-2">Name *</label>
+        <label className="block text-sm font-medium mb-2">{t.contact.nameLabel} *</label>
         <input
           type="text"
           required
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          placeholder={t.contact.namePlaceholder}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Email *</label>
+        <label className="block text-sm font-medium mb-2">{t.contact.emailLabel} *</label>
         <input
           type="email"
           required
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          placeholder={t.contact.emailPlaceholder}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Phone</label>
+        <label className="block text-sm font-medium mb-2">{t.contact.phoneLabel}</label>
         <input
           type="tel"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          placeholder={t.contact.phonePlaceholder}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Message *</label>
+        <label className="block text-sm font-medium mb-2">{t.contact.messageLabel} *</label>
         <textarea
           required
           rows={5}
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+          placeholder={t.contact.messagePlaceholder}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary"
         />
       </div>
@@ -104,7 +110,7 @@ export default function ContactForm() {
         disabled={loading}
         className="w-full bg-primary text-white py-3 rounded-md font-semibold hover:bg-primary-dark transition disabled:opacity-50"
       >
-        {loading ? 'Sending...' : 'Send Message'}
+        {loading ? t.contact.submitting : t.contact.submitButton}
       </button>
     </form>
   );

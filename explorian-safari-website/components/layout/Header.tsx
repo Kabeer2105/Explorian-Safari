@@ -1,52 +1,40 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useTranslations } from '@/lib/language-context';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
-import { type Locale } from '@/i18n/index';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentLocale, setCurrentLocale] = useState<Locale>('en');
-  const t = useTranslations('nav');
-  const tCommon = useTranslations('common');
-
-  useEffect(() => {
-    // Get locale from cookie on client side
-    const localeCookie = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('locale='))
-      ?.split('=')[1] as Locale | undefined;
-    if (localeCookie) {
-      setCurrentLocale(localeCookie);
-    }
-  }, []);
+  const t = useTranslations();
 
   const navLinks = [
-    { href: '/', label: t('home') },
-    { href: '/safaris', label: t('safaris') },
-    { href: '/mountains', label: t('mountains') },
-    { href: '/beaches', label: t('beaches') },
-    { href: '/day-trips', label: t('dayTrips') },
-    { href: '/about', label: t('about') },
-    { href: '/contact', label: t('contact') },
+    { href: '/', label: t.nav.home },
+    { href: '/safaris', label: t.nav.safaris },
+    { href: '/mountains', label: t.nav.mountains },
+    { href: '/beaches', label: t.nav.beaches },
+    { href: '/day-trips', label: t.nav.dayTrips },
+    { href: '/about', label: t.nav.about },
+    { href: '/contact', label: t.nav.contact },
   ];
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-lg border-b border-gray-200">
       <nav className="container mx-auto px-6 lg:px-12">
-        <div className="flex items-center py-6" style={{ gap: '3rem' }}>
+        <div className="flex items-center py-3" style={{ gap: '3rem' }}>
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-4 group">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg">
-              <span className="text-4xl text-white">🦁</span>
-            </div>
-            <div className="hidden md:block">
-              <h1 className="text-3xl font-bold text-primary leading-tight">
-                Explorian Safaris
-              </h1>
-              <p className="text-base text-gray-600 font-medium">Tanzania Adventures</p>
+          <Link href="/" className="flex items-center group">
+            <div className="relative w-40 h-24 transform group-hover:scale-105 transition-transform duration-300">
+              <Image
+                src="/images/explorian-logo.png"
+                alt="Explorian Safaris Logo"
+                fill
+                sizes="160px"
+                className="object-contain"
+                priority
+              />
             </div>
           </Link>
 
@@ -84,9 +72,9 @@ export default function Header() {
                 whiteSpace: 'nowrap'
               }}
             >
-              {tCommon('requestQuote')}
+              {t.nav.requestQuote}
             </Link>
-            <LanguageSwitcher currentLocale={currentLocale} />
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile Menu Button */}
@@ -126,10 +114,10 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="mx-4 mt-4 bg-secondary text-white font-semibold rounded-full hover:bg-secondary-dark transition-all duration-200 shadow-lg flex items-center justify-center px-8 py-3"
               >
-                {tCommon('requestQuote')}
+                {t.nav.requestQuote}
               </Link>
               <div className="mx-4 mt-4">
-                <LanguageSwitcher currentLocale={currentLocale} />
+                <LanguageSwitcher />
               </div>
             </div>
           </div>

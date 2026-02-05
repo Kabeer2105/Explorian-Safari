@@ -23,31 +23,41 @@ export async function POST(request: NextRequest) {
         phone: phone || null,
         country: country || null,
         message,
-        tripInterest: tripInterest || null,
-        travelDates: travelDates || null,
-        numberOfGuests: numberOfGuests ? parseInt(numberOfGuests) : null,
+        trip_interest: tripInterest || null,
+        travel_dates: travelDates || null,
+        number_of_guests: numberOfGuests ? parseInt(numberOfGuests) : null,
         status: 'NEW',
       },
     });
 
-    // Send confirmation email to customer
-    await sendInquiryConfirmation({
-      name,
-      email,
-      message,
-    });
+    // Send confirmation email to customer (non-blocking)
+    try {
+      await sendInquiryConfirmation({
+        name,
+        email,
+        message,
+      });
+    } catch (emailError) {
+      console.error('Failed to send customer confirmation email:', emailError);
+      // Continue anyway - inquiry is saved
+    }
 
-    // Send notification to admin
-    await sendInquiryNotification({
-      name,
-      email,
-      phone: phone || 'Not provided',
-      country: country || 'Not specified',
-      message,
-      tripInterest: tripInterest || 'General inquiry',
-      travelDates: travelDates || 'Flexible',
-      numberOfGuests: numberOfGuests || 'Not specified',
-    });
+    // Send notification to admin (non-blocking)
+    try {
+      await sendInquiryNotification({
+        name,
+        email,
+        phone: phone || 'Not provided',
+        country: country || 'Not specified',
+        message,
+        tripInterest: tripInterest || 'General inquiry',
+        travelDates: travelDates || 'Flexible',
+        numberOfGuests: numberOfGuests || 'Not specified',
+      });
+    } catch (emailError) {
+      console.error('Failed to send admin notification email:', emailError);
+      // Continue anyway - inquiry is saved
+    }
 
     return NextResponse.json({
       success: true,

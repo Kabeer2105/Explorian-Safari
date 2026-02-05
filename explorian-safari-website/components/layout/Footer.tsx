@@ -1,7 +1,12 @@
+'use client';
+
 import Link from 'next/link';
+import Image from 'next/image';
+import { useTranslations } from '@/lib/language-context';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const t = useTranslations();
 
   return (
     <footer style={{ background: 'var(--earth-dark)', color: 'white', margin: 0, padding: 0 }}>
@@ -10,9 +15,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-accent font-bold text-lg mb-4">Explorian Safaris</h3>
+            <h3 className="text-accent font-bold text-lg mb-4">{t.footer.aboutTitle}</h3>
             <p className="text-gray-400 text-sm leading-relaxed mb-4">
-              Family-owned safari company with 20+ years experience. Licensed by the Ministry of Natural Resources and Tourism Tanzania.
+              {t.footer.aboutText}
             </p>
             <div className="flex gap-3">
               <a
@@ -47,31 +52,31 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-accent font-bold text-lg mb-4">Quick Links</h3>
+            <h3 className="text-accent font-bold text-lg mb-4">{t.footer.quickLinksTitle}</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/safaris" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Safari Packages
+                  {t.nav.safaris}
                 </Link>
               </li>
               <li>
                 <Link href="/mountains" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Mountain Treks
+                  {t.nav.mountains}
                 </Link>
               </li>
               <li>
                 <Link href="/beaches" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Beach Holidays
+                  {t.nav.beaches}
                 </Link>
               </li>
               <li>
                 <Link href="/day-trips" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Day Trips
+                  {t.nav.dayTrips}
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  About Us
+                  {t.nav.about}
                 </Link>
               </li>
             </ul>
@@ -79,7 +84,7 @@ export default function Footer() {
 
           {/* Our Partners */}
           <div>
-            <h3 className="text-accent font-bold text-lg mb-4">Our Partners</h3>
+            <h3 className="text-accent font-bold text-lg mb-4">{t.footer.servicesTitle}</h3>
             <ul className="space-y-2">
               <li>
                 <a
@@ -116,7 +121,7 @@ export default function Footer() {
 
           {/* Contact Us */}
           <div>
-            <h3 className="text-accent font-bold text-lg mb-4">Contact Us</h3>
+            <h3 className="text-accent font-bold text-lg mb-4">{t.footer.contactTitle}</h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2 text-gray-400">
                 <span className="mt-1">📧</span>
@@ -150,7 +155,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 pt-6 text-center text-gray-500 text-sm">
           <p>
-            Copyright © {currentYear} Explorian Safaris. All Rights Reserved. | Licensed Tour Operator
+            {t.footer.copyright}
           </p>
         </div>
       </div>

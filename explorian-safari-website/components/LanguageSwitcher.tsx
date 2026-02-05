@@ -1,54 +1,91 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
-import { useLocale } from 'next-intl';
+import { useState, useRef, useEffect } from 'react';
+import { useLanguage } from '@/lib/language-context';
+import { locales, localeNames, type Locale } from '@/lib/locale-config';
 
-const languages = [
-  { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'zh', name: '中文', flag: '🇨🇳' },
-];
+const languageFlags: Record<Locale, string> = {
+  en: '🇬🇧',
+  de: '🇩🇪',
+  fr: '🇫🇷',
+  es: '🇪🇸',
+  zh: '🇨🇳',
+};
 
 export default function LanguageSwitcher() {
-  const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { locale, setLocale } = useLanguage();
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleLanguageChange = (newLocale: string) => {
-    // Remove current locale from pathname if present
-    const pathWithoutLocale = pathname.replace(/^\/(en|de|fr|es|zh)/, '');
-    // Add new locale to pathname
-    const newPath = `/${newLocale}${pathWithoutLocale}`;
-    router.push(newPath);
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLanguageChange = (newLocale: Locale) => {
+    console.log('Language change clicked:', newLocale);
+    console.log('Current locale before change:', locale);
+    setLocale(newLocale);
+    console.log('setLocale called');
+    setIsOpen(false);
   };
 
-  const currentLanguage = languages.find((lang) => lang.code === locale) || languages[0];
-
   return (
-    <div className="relative group">
-      <button className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100 transition">
-        <span className="text-lg">{currentLanguage.flag}</span>
-        <span className="hidden sm:inline text-sm font-medium">{currentLanguage.name}</span>
-        <span className="text-xs">▼</span>
+    <div className="relative" ref={dropdownRef}>
+      {/* Current Language Button */}
+      <button
+        onClick={() => {
+          console.log('Language button clicked, current isOpen:', isOpen);
+          setIsOpen(!isOpen);
+        }}
+        className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition text-gray-700 border border-gray-300"
+        aria-label="Select language"
+      >
+        <span className="text-xl">{languageFlags[locale]}</span>
+        <span className="hidden sm:inline text-sm font-medium">{localeNames[locale]}</span>
+        <svg
+          className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
       </button>
 
-      <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-        {languages.map((lang) => (
-          <button
-            key={lang.code}
-            onClick={() => handleLanguageChange(lang.code)}
-            className={`w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition first:rounded-t-lg last:rounded-b-lg ${
-              lang.code === locale ? 'bg-primary-50 text-primary' : ''
-            }`}
-          >
-            <span className="text-lg">{lang.flag}</span>
-            <span className="text-sm font-medium">{lang.name}</span>
-            {lang.code === locale && <span className="ml-auto text-primary">✓</span>}
-          </button>
-        ))}
-      </div>
+      {/* Dropdown Menu */}
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+          {locales.map((lang) => (
+            <button
+              key={lang}
+              onClick={() => handleLanguageChange(lang)}
+              className={`w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition ${
+                locale === lang ? 'bg-primary/10 text-primary font-semibold' : 'text-gray-700'
+              }`}
+            >
+              <span className="text-xl">{languageFlags[lang]}</span>
+              <span className="text-sm">{localeNames[lang]}</span>
+              {locale === lang && (
+                <svg className="w-4 h-4 ml-auto text-primary" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

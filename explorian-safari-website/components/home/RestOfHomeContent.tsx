@@ -1,18 +1,21 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslations } from '@/lib/language-context';
 import GallerySectionClient from './GallerySectionClient';
 import VideosSection from './VideosSection';
 import FAQSection from './FAQSection';
 
 export default function RestOfHomeContent() {
+  const t = useTranslations();
+
   return (
     <>
       {/* Discover Tanzania Section */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="section-label">DISCOVER TANZANIA</div>
-          <h2 className="section-title">Explore Our Destinations</h2>
+          <div className="section-label">{t.home.discoverLabel}</div>
+          <h2 className="section-title">{t.home.discoverTitle}</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             {/* Safaris */}
@@ -24,12 +27,12 @@ export default function RestOfHomeContent() {
                   className="feature-image"
                 />
               </div>
-              <h3 className="feature-title">Wildlife Safaris</h3>
+              <h3 className="feature-title">{t.home.wildlifeSafarisTitle}</h3>
               <p className="feature-description">
-                Witness the Big Five and experience the Great Migration in Serengeti and Ngorongoro Crater.
+                {t.home.wildlifeSafarisDesc}
               </p>
               <Link href="/safaris" className="feature-link">
-                Explore Safaris →
+                {t.home.wildlifeSafarisLink}
               </Link>
             </div>
 
@@ -42,12 +45,12 @@ export default function RestOfHomeContent() {
                   className="feature-image"
                 />
               </div>
-              <h3 className="feature-title">Mountain Trekking</h3>
+              <h3 className="feature-title">{t.home.mountainTrekkingTitle}</h3>
               <p className="feature-description">
-                Conquer Africa's highest peak - Mount Kilimanjaro. Multiple routes available for all skill levels.
+                {t.home.mountainTrekkingDesc}
               </p>
               <Link href="/mountains" className="feature-link">
-                View Treks →
+                {t.home.mountainTrekkingLink}
               </Link>
             </div>
 
@@ -60,12 +63,12 @@ export default function RestOfHomeContent() {
                   className="feature-image"
                 />
               </div>
-              <h3 className="feature-title">Beach Holidays</h3>
+              <h3 className="feature-title">{t.home.beachHolidaysTitle}</h3>
               <p className="feature-description">
-                Relax on the pristine beaches of Zanzibar. Crystal-clear waters and white sand paradise.
+                {t.home.beachHolidaysDesc}
               </p>
               <Link href="/beaches" className="feature-link">
-                Beach Getaways →
+                {t.home.beachHolidaysLink}
               </Link>
             </div>
           </div>
@@ -75,71 +78,71 @@ export default function RestOfHomeContent() {
       {/* Why Choose Us Section */}
       <section className="section-padding bg-gradient-subtle">
         <div className="container-custom">
-          <div className="section-label">WHY CHOOSE US</div>
-          <h2 className="section-title">Your Trusted Safari Partner</h2>
+          <div className="section-label">{t.home.whyChooseTitle.toUpperCase()}</div>
+          <h2 className="section-title">{t.home.whyChooseSubtitle}</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
             <div className="benefit-card">
               <div className="benefit-icon">🏆</div>
-              <h4 className="benefit-title">Expert Guides</h4>
+              <h4 className="benefit-title">{t.home.expertGuidesTitle}</h4>
               <p className="benefit-text">
-                Certified, experienced guides with deep knowledge of wildlife and culture.
+                {t.home.expertGuidesDesc}
               </p>
             </div>
 
             <div className="benefit-card">
               <div className="benefit-icon">💰</div>
-              <h4 className="benefit-title">Best Value</h4>
+              <h4 className="benefit-title">{t.home.bestValueTitle}</h4>
               <p className="benefit-text">
-                Competitive pricing with no hidden costs. Transparent and fair pricing.
+                {t.home.bestValueDesc}
               </p>
             </div>
 
             <div className="benefit-card">
               <div className="benefit-icon">🚙</div>
-              <h4 className="benefit-title">Quality Vehicles</h4>
+              <h4 className="benefit-title">{t.home.qualityVehiclesTitle}</h4>
               <p className="benefit-text">
-                Well-maintained 4x4 Land Cruisers with pop-up roofs for optimal game viewing.
+                {t.home.qualityVehiclesDesc}
               </p>
             </div>
 
             <div className="benefit-card">
               <div className="benefit-icon">🛡️</div>
-              <h4 className="benefit-title">Safety First</h4>
+              <h4 className="benefit-title">{t.home.safetyFirstTitle}</h4>
               <p className="benefit-text">
-                Licensed and insured. We prioritize your safety and comfort at all times.
+                {t.home.safetyFirstDesc}
               </p>
             </div>
 
             <div className="benefit-card">
               <div className="benefit-icon">🌍</div>
-              <h4 className="benefit-title">Eco-Friendly</h4>
+              <h4 className="benefit-title">{t.home.ecoFriendlyTitle}</h4>
               <p className="benefit-text">
-                Committed to sustainable tourism and supporting local communities.
+                {t.home.ecoFriendlyDesc}
               </p>
             </div>
 
             <div className="benefit-card">
               <div className="benefit-icon">✨</div>
-              <h4 className="benefit-title">Personalized Service</h4>
+              <h4 className="benefit-title">{t.home.personalizedServiceTitle}</h4>
               <p className="benefit-text">
-                Customized itineraries tailored to your interests, budget, and schedule.
+                {t.home.personalizedServiceDesc}
               </p>
             </div>
 
             <div className="benefit-card">
               <div className="benefit-icon">📞</div>
-              <h4 className="benefit-title">24/7 Support</h4>
+              <h4 className="benefit-title">{t.home.support24_7Title}</h4>
               <p className="benefit-text">
-                Round-the-clock assistance before, during, and after your safari.
+                {t.home.support24_7Desc}
               </p>
             </div>
 
             <div className="benefit-card">
               <div className="benefit-icon">⭐</div>
-              <h4 className="benefit-title">5-Star Reviews</h4>
+              <h4 className="benefit-title">{t.home.fiveStarReviewsTitle}</h4>
               <p className="benefit-text">
-                Highly rated on TripAdvisor and SafariBookings.com by happy travelers.
+                {t.home.fiveStarReviewsDesc}
               </p>
             </div>
           </div>
@@ -149,9 +152,9 @@ export default function RestOfHomeContent() {
       {/* Gallery Section */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="section-label">GALLERY</div>
-          <h2 className="section-title">Moments from the Wild</h2>
-          <p className="section-subtitle">Real photos from our recent safaris</p>
+          <div className="section-label">{t.home.galleryTitle.toUpperCase()}</div>
+          <h2 className="section-title">{t.home.galleryTitle}</h2>
+          <p className="section-subtitle">{t.home.gallerySubtitle}</p>
 
           <div className="mt-12">
             <GallerySectionClient />
@@ -162,9 +165,9 @@ export default function RestOfHomeContent() {
       {/* Videos Section */}
       <section className="section-padding bg-sand-light">
         <div className="container-custom">
-          <div className="section-label">VIDEOS</div>
-          <h2 className="section-title">Experience Tanzania</h2>
-          <p className="section-subtitle">Watch our safari adventures</p>
+          <div className="section-label">{t.home.videosTitle.toUpperCase()}</div>
+          <h2 className="section-title">{t.home.videosTitle}</h2>
+          <p className="section-subtitle">{t.home.videosSubtitle}</p>
 
           <div className="mt-12">
             <VideosSection />
@@ -178,16 +181,16 @@ export default function RestOfHomeContent() {
       {/* CTA Section */}
       <section className="cta-section">
         <div className="container-custom text-center">
-          <h2 className="cta-title">Ready to Start Your Adventure?</h2>
+          <h2 className="cta-title">{t.home.ctaTitle}</h2>
           <p className="cta-subtitle">
-            Let us create a personalized safari experience tailored just for you
+            {t.home.ctaSubtitle}
           </p>
           <div className="cta-buttons">
             <Link href="/request-quote" className="btn-primary-large">
-              Request Travel Offer
+              {t.home.ctaButton}
             </Link>
             <Link href="/contact" className="btn-secondary-outline-large">
-              Contact Us
+              {t.nav.contact}
             </Link>
           </div>
         </div>

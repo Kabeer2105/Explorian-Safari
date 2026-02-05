@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from '@/lib/language-context';
 
 export default function BookingForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const packageId = searchParams.get('package');
+  const t = useTranslations();
 
   const [packages, setPackages] = useState<any[]>([]);
   const [selectedPackage, setSelectedPackage] = useState<any>(null);
@@ -137,10 +139,9 @@ export default function BookingForm() {
   return (
     <form onSubmit={handleSubmit} className="booking-form">
       <div className="form-header">
-        <h2 className="form-title">Complete Your Booking</h2>
+        <h2 className="form-title">{t.booking.title}</h2>
         <p className="form-subtitle">
-          Fill in your details below to secure your Tanzanian adventure.
-          We'll process your booking and send confirmation within minutes.
+          {t.booking.subtitle}
         </p>
       </div>
 
@@ -152,15 +153,15 @@ export default function BookingForm() {
 
       {/* Package Selection */}
       <div className="form-section">
-        <h3 className="section-heading">Select Your Package</h3>
+        <h3 className="section-heading">{t.booking.selectPackage}</h3>
 
         {!selectedPackage ? (
           <>
             {/* Step 1: Choose Package Type */}
             <div className="form-group">
-              <label className="form-label">Step 1: Choose Package Type *</label>
+              <label className="form-label">{t.booking.step1} *</label>
               {loadingPackages ? (
-                <div className="package-type-loading">Loading packages...</div>
+                <div className="package-type-loading">{t.booking.loadingPackages}</div>
               ) : (
                 <div className="package-type-grid">
                   {Object.keys(groupedPackages).map(type => (
@@ -175,7 +176,7 @@ export default function BookingForm() {
                     >
                       <div className="package-type-icon">{typeIcons[type] || '📦'}</div>
                       <div className="package-type-name">{type}</div>
-                      <div className="package-type-count">{groupedPackages[type].length} packages</div>
+                      <div className="package-type-count">{groupedPackages[type].length} {t.booking.packagesCount}</div>
                     </button>
                   ))}
                 </div>
@@ -185,13 +186,13 @@ export default function BookingForm() {
             {/* Step 2: Select Specific Package */}
             {selectedType && (
               <div className="form-group">
-                <label className="form-label">Step 2: Select Your {selectedType} Package *</label>
+                <label className="form-label">{t.booking.step2} {selectedType} {t.booking.packageLabel} *</label>
 
                 {/* Search Bar */}
                 {filteredPackages.length > 5 && (
                   <input
                     type="text"
-                    placeholder="Search packages..."
+                    placeholder={t.booking.searchPlaceholder}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="form-input package-search"
@@ -220,11 +221,11 @@ export default function BookingForm() {
                           </p>
                           {pkg.duration_days && (
                             <p className="package-selection-duration">
-                              📅 {pkg.duration_days} days
+                              📅 {pkg.duration_days} {t.common.days}
                             </p>
                           )}
                           <div className="package-selection-price">
-                            From {pkg.currency} {Number(pkg.price_from).toLocaleString()}
+                            {t.common.from} {pkg.currency} {Number(pkg.price_from).toLocaleString()}
                           </div>
                         </div>
                       </div>
@@ -233,7 +234,7 @@ export default function BookingForm() {
                 </div>
 
                 {filteredPackages.length === 0 && (
-                  <p className="package-no-results">No packages found matching "{searchTerm}"</p>
+                  <p className="package-no-results">{t.booking.noResults} "{searchTerm}"</p>
                 )}
               </div>
             )}
@@ -254,17 +255,17 @@ export default function BookingForm() {
                 }}
                 className="package-change-btn"
               >
-                Change Package
+                {t.booking.changePackage}
               </button>
             </div>
             <div className="package-preview-details">
               <p className="package-preview-description">{selectedPackage.description}</p>
               <div className="package-preview-info">
                 {selectedPackage.duration_days && (
-                  <span>📅 {selectedPackage.duration_days} days</span>
+                  <span>📅 {selectedPackage.duration_days} {t.common.days}</span>
                 )}
                 <span className="package-preview-price">
-                  From {selectedPackage.currency} {Number(selectedPackage.price_from).toLocaleString()} per person
+                  {t.common.from} {selectedPackage.currency} {Number(selectedPackage.price_from).toLocaleString()} {t.booking.perPerson}
                 </span>
               </div>
             </div>
@@ -277,55 +278,55 @@ export default function BookingForm() {
         <>
           {/* Personal Information */}
           <div className="form-section">
-            <h3 className="section-heading">Your Information</h3>
+            <h3 className="section-heading">{t.booking.yourInformation}</h3>
 
             <div className="form-row">
               <div className="form-group">
-                <label className="form-label">Full Name *</label>
+                <label className="form-label">{t.booking.nameLabel} *</label>
                 <input
                   type="text"
                   required
                   value={formData.customer_name}
                   onChange={(e) => setFormData({ ...formData, customer_name: e.target.value })}
                   className="form-input"
-                  placeholder="John Doe"
+                  placeholder={t.booking.namePlaceholder}
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">Email Address *</label>
+                <label className="form-label">{t.booking.emailLabel} *</label>
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="form-input"
-                  placeholder="john@example.com"
+                  placeholder={t.booking.emailPlaceholder}
                 />
               </div>
             </div>
 
             <div className="form-row">
               <div className="form-group">
-                <label className="form-label">Phone Number</label>
+                <label className="form-label">{t.booking.phoneLabel}</label>
                 <input
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="form-input"
-                  placeholder="+1 234 567 8900"
+                  placeholder={t.booking.phonePlaceholder}
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">Country of Residence *</label>
+                <label className="form-label">{t.booking.countryLabel} *</label>
                 <input
                   type="text"
                   required
                   value={formData.country}
                   onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                   className="form-input"
-                  placeholder="United States"
+                  placeholder={t.booking.countryPlaceholder}
                 />
               </div>
             </div>
@@ -333,10 +334,10 @@ export default function BookingForm() {
 
           {/* Travel Details */}
           <div className="form-section">
-            <h3 className="section-heading">Travel Details</h3>
+            <h3 className="section-heading">{t.booking.travelDetails}</h3>
 
             <div className="form-group">
-              <label className="form-label">Preferred Travel Start Date *</label>
+              <label className="form-label">{t.booking.travelDateLabel} *</label>
               <input
                 type="date"
                 required
@@ -346,13 +347,13 @@ export default function BookingForm() {
                 min={new Date().toISOString().split('T')[0]}
               />
               <p className="form-hint">
-                📌 If your travel date is less than 7 days away, we'll contact you directly to arrange your booking instead of processing payment online.
+                {t.booking.travelDateHint}
               </p>
             </div>
 
             <div className="form-row">
               <div className="form-group">
-                <label className="form-label">Number of Adults (18+) *</label>
+                <label className="form-label">{t.booking.adultsLabel} *</label>
                 <input
                   type="number"
                   min="1"
@@ -364,7 +365,7 @@ export default function BookingForm() {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Number of Children (0-17)</label>
+                <label className="form-label">{t.booking.childrenLabel}</label>
                 <input
                   type="number"
                   min="0"
@@ -377,13 +378,13 @@ export default function BookingForm() {
 
             {formData.children > 0 && (
               <div className="form-group">
-                <label className="form-label">Children Ages</label>
+                <label className="form-label">{t.booking.childrenAgesLabel}</label>
                 <input
                   type="text"
                   value={formData.children_ages}
                   onChange={(e) => setFormData({ ...formData, children_ages: e.target.value })}
                   className="form-input"
-                  placeholder="e.g., 8, 12, 15"
+                  placeholder={t.booking.childrenAgesPlaceholder}
                 />
               </div>
             )}
@@ -391,16 +392,16 @@ export default function BookingForm() {
 
           {/* Additional Requests */}
           <div className="form-section">
-            <h3 className="section-heading">Additional Information</h3>
+            <h3 className="section-heading">{t.booking.additionalInfo}</h3>
 
             <div className="form-group">
-              <label className="form-label">Special Requests or Requirements</label>
+              <label className="form-label">{t.booking.specialRequests}</label>
               <textarea
                 rows={4}
                 value={formData.special_requests}
                 onChange={(e) => setFormData({ ...formData, special_requests: e.target.value })}
                 className="form-textarea"
-                placeholder="Dietary restrictions, accessibility needs, special occasions, preferred activities, etc."
+                placeholder={t.booking.specialRequestsPlaceholder}
               />
             </div>
           </div>
@@ -412,10 +413,10 @@ export default function BookingForm() {
               disabled={loading || !formData.package_id}
               className="btn-submit"
             >
-              {loading ? 'Processing Your Booking...' : 'Continue to Secure Payment'}
+              {loading ? t.booking.submitting : t.booking.submitButton}
             </button>
             <p className="form-note">
-              🔒 Your payment will be processed securely through Pesapal. All transactions are encrypted and PCI-DSS compliant.
+              {t.booking.securityNote}
             </p>
           </div>
         </>

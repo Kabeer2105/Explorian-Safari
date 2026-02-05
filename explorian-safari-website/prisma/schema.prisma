@@ -9,7 +9,7 @@ datasource db {
 
 model Package {
   id               String       @id @default(cuid())
-  name             String
+  name             String       // Default language (English)
   slug             String       @unique
   type             Package_type
   description      String       @db.Text
@@ -25,16 +25,11 @@ model Package {
   active           Boolean      @default(true)
   featured         Boolean      @default(false)
   created_at       DateTime     @default(now())
-  updated_at       DateTime       @updatedAt
+  updated_at       DateTime     @updatedAt
   itinerary        String?      @db.Text
-  description_i18n String?      @db.Text
-  exclusions_i18n  String?      @db.Text
-  highlights_i18n  String?      @db.Text
-  inclusions_i18n  String?      @db.Text
-  name_i18n        String?      @db.Text
   badge_label      String?
-  itinerary_i18n   String?      @db.Text
   Booking          Booking[]
+  translations     Translation[] @relation("PackageTranslations")
 
   @@index([featured])
   @@index([type, active])
@@ -113,7 +108,9 @@ model Inquiry {
   status        Inquiry_status @default(NEW)
   responded_at  DateTime?
   created_at    DateTime       @default(now())
-  updated_at    DateTime
+  updated_at    DateTime       @updatedAt
+  country       String?
+  number_of_guests Int?
 
   @@index([status])
   @@index([email])
@@ -132,16 +129,15 @@ model User {
 }
 
 model Faq {
-  id            String   @id @default(cuid())
-  question      String
-  answer        String   @db.Text
-  category      String?
-  order         Int      @default(0)
-  active        Boolean  @default(true)
-  created_at    DateTime @default(now())
-  updated_at    DateTime
-  answer_i18n   String?  @db.Text
-  question_i18n String?  @db.Text
+  id           String        @id @default(cuid())
+  question     String        // Default language (English)
+  answer       String        @db.Text
+  category     String?
+  order        Int           @default(0)
+  active       Boolean       @default(true)
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  translations Translation[] @relation("FaqTranslations")
 
   @@index([active])
   @@index([category])
@@ -158,15 +154,16 @@ model Setting {
 }
 
 model GalleryImage {
-  id           String   @id @default(cuid())
+  id           String        @id @default(cuid())
   url          String
-  title        String?
-  caption      String?  @db.Text
+  title        String?       // Default language (English)
+  caption      String?       @db.Text
   category     String?
-  order        Int      @default(0)
-  active       Boolean  @default(true)
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+  order        Int           @default(0)
+  active       Boolean       @default(true)
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  translations Translation[] @relation("GalleryImageTranslations")
 
   @@index([active])
   @@index([category])
@@ -174,17 +171,18 @@ model GalleryImage {
 }
 
 model Video {
-  id           String   @id @default(cuid())
-  title        String
-  description  String?  @db.Text
+  id           String        @id @default(cuid())
+  title        String        // Default language (English)
+  description  String?       @db.Text
   url          String
   thumbnailUrl String?
-  type         String   @default("youtube")
+  type         String        @default("youtube")
   category     String?
-  order        Int      @default(0)
-  active       Boolean  @default(true)
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+  order        Int           @default(0)
+  active       Boolean       @default(true)
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
+  translations Translation[] @relation("VideoTranslations")
 
   @@index([active])
   @@index([category])
@@ -224,4 +222,26 @@ enum Booking_status {
   CONFIRMED
   PAID
   CANCELLED
+}
+
+model Translation {
+  id          String   @id @default(cuid())
+  entity_type String   // 'package', 'faq', 'galleryImage', 'video', etc.
+  entity_id   String   // ID of the entity
+  field       String   // 'name', 'description', 'answer', 'title', 'caption', etc.
+  language    String   // 'de', 'fr', 'es', 'zh' (not 'en' - English is stored in main table)
+  value       String   @db.Text
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  // Relations (optional, for easier queries)
+  package      Package?       @relation("PackageTranslations", fields: [entity_id], references: [id], onDelete: Cascade, map: "Translation_package_fkey")
+  faq          Faq?           @relation("FaqTranslations", fields: [entity_id], references: [id], onDelete: Cascade, map: "Translation_faq_fkey")
+  galleryImage GalleryImage?  @relation("GalleryImageTranslations", fields: [entity_id], references: [id], onDelete: Cascade, map: "Translation_gallery_fkey")
+  video        Video?         @relation("VideoTranslations", fields: [entity_id], references: [id], onDelete: Cascade, map: "Translation_video_fkey")
+
+  @@unique([entity_type, entity_id, field, language])
+  @@index([entity_type])
+  @@index([entity_id])
+  @@index([language])
 }

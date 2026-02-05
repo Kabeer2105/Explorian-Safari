@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from '@/lib/language-context';
 
 export default function RequestQuoteForm() {
   const router = useRouter();
+  const t = useTranslations();
 
   const [formData, setFormData] = useState({
     // Personal Information
@@ -94,10 +96,9 @@ How they heard about us: ${formData.how_heard || 'Not specified'}
   return (
     <form onSubmit={handleSubmit} className="request-quote-form">
       <div className="form-header">
-        <h2 className="form-title">Request Your Custom Safari</h2>
+        <h2 className="form-title">{t.quote.title}</h2>
         <p className="form-subtitle">
-          Share your travel dreams with us and we'll create a personalized itinerary
-          tailored to your preferences, budget, and interests.
+          {t.quote.subtitle}
         </p>
       </div>
 
@@ -109,55 +110,55 @@ How they heard about us: ${formData.how_heard || 'Not specified'}
 
       {/* Personal Information */}
       <div className="form-section">
-        <h3 className="section-heading">Your Information</h3>
+        <h3 className="section-heading">{t.quote.yourInformation}</h3>
 
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Full Name *</label>
+            <label className="form-label">{t.quote.nameLabel} *</label>
             <input
               type="text"
               required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="form-input"
-              placeholder="John Doe"
+              placeholder={t.quote.namePlaceholder}
             />
           </div>
 
           <div className="form-group">
-            <label className="form-label">Email Address *</label>
+            <label className="form-label">{t.quote.emailLabel} *</label>
             <input
               type="email"
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               className="form-input"
-              placeholder="john@example.com"
+              placeholder={t.quote.emailPlaceholder}
             />
           </div>
         </div>
 
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Phone Number</label>
+            <label className="form-label">{t.quote.phoneLabel}</label>
             <input
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               className="form-input"
-              placeholder="+1 234 567 8900"
+              placeholder={t.quote.phonePlaceholder}
             />
           </div>
 
           <div className="form-group">
-            <label className="form-label">Country of Residence *</label>
+            <label className="form-label">{t.quote.countryLabel} *</label>
             <input
               type="text"
               required
               value={formData.country}
               onChange={(e) => setFormData({ ...formData, country: e.target.value })}
               className="form-input"
-              placeholder="United States"
+              placeholder={t.quote.countryPlaceholder}
             />
           </div>
         </div>
@@ -165,76 +166,137 @@ How they heard about us: ${formData.how_heard || 'Not specified'}
 
       {/* Trip Details */}
       <div className="form-section">
-        <h3 className="section-heading">Trip Details</h3>
+        <h3 className="section-heading">{t.quote.tripDetails}</h3>
 
         <div className="form-group">
-          <label className="form-label">Type of Safari *</label>
+          <label className="form-label">{t.quote.safariTypeLabel} *</label>
           <select
             required
             value={formData.trip_type}
             onChange={(e) => setFormData({ ...formData, trip_type: e.target.value })}
             className="form-select"
           >
-            <option value="">Select safari type</option>
-            <option value="Wildlife Safari">Wildlife Safari Only</option>
-            <option value="Mountain Trekking">Mountain Trekking Only</option>
-            <option value="Beach Holiday">Beach Holiday Only</option>
-            <option value="Safari + Beach">Safari + Beach Combination</option>
-            <option value="Safari + Mountain">Safari + Mountain Combination</option>
-            <option value="Complete Package">Complete Package (Safari, Mountain & Beach)</option>
-            <option value="Custom">Fully Custom Itinerary</option>
+            <option value="">{t.quote.safariTypePlaceholder}</option>
+            <option value="Wildlife Safari">{t.quote.safariTypes.wildlifeSafari}</option>
+            <option value="Mountain Trekking">{t.quote.safariTypes.mountainTrekking}</option>
+            <option value="Beach Holiday">{t.quote.safariTypes.beachHoliday}</option>
+            <option value="Safari + Beach">{t.quote.safariTypes.safariBeach}</option>
+            <option value="Safari + Mountain">{t.quote.safariTypes.safariMountain}</option>
+            <option value="Complete Package">{t.quote.safariTypes.completePackage}</option>
+            <option value="Custom">{t.quote.safariTypes.custom}</option>
           </select>
         </div>
 
         <div className="form-group">
-          <label className="form-label">Destinations Interested In</label>
+          <label className="form-label">{t.quote.destinationsLabel}</label>
           <div className="checkbox-grid">
-            {['Serengeti', 'Ngorongoro Crater', 'Tarangire', 'Lake Manyara', 'Mount Kilimanjaro', 'Mount Meru', 'Zanzibar', 'Mafia Island'].map(dest => (
-              <label key={dest} className="checkbox-label">
-                <input
-                  type="checkbox"
-                  checked={formData.destinations.includes(dest)}
-                  onChange={() => handleCheckboxChange('destinations', dest)}
-                  className="checkbox-input"
-                />
-                <span>{dest}</span>
-              </label>
-            ))}
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.destinations.includes('Serengeti')}
+                onChange={() => handleCheckboxChange('destinations', 'Serengeti')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.destinations.serengeti}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.destinations.includes('Ngorongoro Crater')}
+                onChange={() => handleCheckboxChange('destinations', 'Ngorongoro Crater')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.destinations.ngorongoro}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.destinations.includes('Tarangire')}
+                onChange={() => handleCheckboxChange('destinations', 'Tarangire')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.destinations.tarangire}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.destinations.includes('Lake Manyara')}
+                onChange={() => handleCheckboxChange('destinations', 'Lake Manyara')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.destinations.lakeManyara}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.destinations.includes('Mount Kilimanjaro')}
+                onChange={() => handleCheckboxChange('destinations', 'Mount Kilimanjaro')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.destinations.kilimanjaro}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.destinations.includes('Mount Meru')}
+                onChange={() => handleCheckboxChange('destinations', 'Mount Meru')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.destinations.meru}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.destinations.includes('Zanzibar')}
+                onChange={() => handleCheckboxChange('destinations', 'Zanzibar')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.destinations.zanzibar}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.destinations.includes('Mafia Island')}
+                onChange={() => handleCheckboxChange('destinations', 'Mafia Island')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.destinations.mafia}</span>
+            </label>
           </div>
         </div>
 
         <div className="form-group">
-          <label className="form-label">Other Destinations (Optional)</label>
+          <label className="form-label">{t.quote.otherDestinationsLabel}</label>
           <input
             type="text"
             value={formData.other_destinations}
             onChange={(e) => setFormData({ ...formData, other_destinations: e.target.value })}
             className="form-input"
-            placeholder="e.g., Pemba Island, Ruaha National Park, Selous..."
+            placeholder={t.quote.otherDestinationsPlaceholder}
           />
         </div>
 
         <div className="form-group">
-          <label className="form-label">Trip Duration *</label>
+          <label className="form-label">{t.quote.durationLabel} *</label>
           <select
             required
             value={formData.duration}
             onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
             className="form-select"
           >
-            <option value="">Select duration</option>
-            <option value="3-4 days">3-4 Days</option>
-            <option value="5-7 days">5-7 Days</option>
-            <option value="8-10 days">8-10 Days</option>
-            <option value="11-14 days">11-14 Days</option>
-            <option value="15+ days">15+ Days</option>
-            <option value="Flexible">Flexible</option>
+            <option value="">{t.quote.durationPlaceholder}</option>
+            <option value="3-4 days">{t.quote.durations.days3_4}</option>
+            <option value="5-7 days">{t.quote.durations.days5_7}</option>
+            <option value="8-10 days">{t.quote.durations.days8_10}</option>
+            <option value="11-14 days">{t.quote.durations.days11_14}</option>
+            <option value="15+ days">{t.quote.durations.days15plus}</option>
+            <option value="Flexible">{t.quote.durations.flexible}</option>
           </select>
         </div>
 
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Preferred Start Date</label>
+            <label className="form-label">{t.quote.startDateLabel}</label>
             <input
               type="date"
               value={formData.start_date}
@@ -245,7 +307,7 @@ How they heard about us: ${formData.how_heard || 'Not specified'}
           </div>
 
           <div className="form-group">
-            <label className="form-label">Preferred End Date (Optional)</label>
+            <label className="form-label">{t.quote.endDateLabel}</label>
             <input
               type="date"
               value={formData.end_date}
@@ -264,18 +326,18 @@ How they heard about us: ${formData.how_heard || 'Not specified'}
               onChange={(e) => setFormData({ ...formData, date_flexible: e.target.checked })}
               className="checkbox-input"
             />
-            <span>My travel dates are flexible (I can adjust by a few days/weeks)</span>
+            <span>{t.quote.dateFlexibleLabel}</span>
           </label>
         </div>
       </div>
 
       {/* Group Composition */}
       <div className="form-section">
-        <h3 className="section-heading">Group Composition</h3>
+        <h3 className="section-heading">{t.quote.groupComposition}</h3>
 
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Number of Adults (18+) *</label>
+            <label className="form-label">{t.quote.adultsLabel} *</label>
             <input
               type="number"
               min="1"
@@ -287,7 +349,7 @@ How they heard about us: ${formData.how_heard || 'Not specified'}
           </div>
 
           <div className="form-group">
-            <label className="form-label">Number of Children (0-17)</label>
+            <label className="form-label">{t.quote.childrenLabel}</label>
             <input
               type="number"
               min="0"
@@ -300,13 +362,13 @@ How they heard about us: ${formData.how_heard || 'Not specified'}
 
         {formData.children > 0 && (
           <div className="form-group">
-            <label className="form-label">Children Ages</label>
+            <label className="form-label">{t.quote.childrenAgesLabel}</label>
             <input
               type="text"
               value={formData.children_ages}
               onChange={(e) => setFormData({ ...formData, children_ages: e.target.value })}
               className="form-input"
-              placeholder="e.g., 8, 12, 15"
+              placeholder={t.quote.childrenAgesPlaceholder}
             />
           </div>
         )}
@@ -314,92 +376,153 @@ How they heard about us: ${formData.how_heard || 'Not specified'}
 
       {/* Preferences */}
       <div className="form-section">
-        <h3 className="section-heading">Your Preferences</h3>
+        <h3 className="section-heading">{t.quote.yourPreferences}</h3>
 
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Budget Per Person (USD) *</label>
+            <label className="form-label">{t.quote.budgetLabel} *</label>
             <select
               required
               value={formData.budget_per_person}
               onChange={(e) => setFormData({ ...formData, budget_per_person: e.target.value })}
               className="form-select"
             >
-              <option value="">Select budget range</option>
-              <option value="$1,000 - $2,000">$1,000 - $2,000</option>
-              <option value="$2,000 - $3,500">$2,000 - $3,500</option>
-              <option value="$3,500 - $5,000">$3,500 - $5,000</option>
-              <option value="$5,000 - $7,500">$5,000 - $7,500</option>
-              <option value="$7,500+">$7,500+</option>
-              <option value="Flexible">Flexible</option>
+              <option value="">{t.quote.budgetPlaceholder}</option>
+              <option value="$1,000 - $2,000">{t.quote.budgets.range1}</option>
+              <option value="$2,000 - $3,500">{t.quote.budgets.range2}</option>
+              <option value="$3,500 - $5,000">{t.quote.budgets.range3}</option>
+              <option value="$5,000 - $7,500">{t.quote.budgets.range4}</option>
+              <option value="$7,500+">{t.quote.budgets.range5}</option>
+              <option value="Flexible">{t.quote.budgets.flexible}</option>
             </select>
           </div>
 
           <div className="form-group">
-            <label className="form-label">Accommodation Preference *</label>
+            <label className="form-label">{t.quote.accommodationLabel} *</label>
             <select
               required
               value={formData.accommodation_type}
               onChange={(e) => setFormData({ ...formData, accommodation_type: e.target.value })}
               className="form-select"
             >
-              <option value="">Select accommodation type</option>
-              <option value="Luxury Lodges">Luxury Lodges & Camps</option>
-              <option value="Mid-Range">Mid-Range Lodges & Tented Camps</option>
-              <option value="Budget">Budget Camping & Lodges</option>
-              <option value="Mix">Mix of Different Standards</option>
+              <option value="">{t.quote.accommodationPlaceholder}</option>
+              <option value="Luxury Lodges">{t.quote.accommodations.luxury}</option>
+              <option value="Mid-Range">{t.quote.accommodations.midRange}</option>
+              <option value="Budget">{t.quote.accommodations.budget}</option>
+              <option value="Mix">{t.quote.accommodations.mix}</option>
             </select>
           </div>
         </div>
 
         <div className="form-group">
-          <label className="form-label">Main Interests (Select all that apply)</label>
+          <label className="form-label">{t.quote.interestsLabel}</label>
           <div className="checkbox-grid">
-            {['Wildlife Viewing', 'Photography', 'Bird Watching', 'Cultural Experiences', 'Adventure Activities', 'Relaxation', 'Family-Friendly', 'Honeymoon/Romance'].map(interest => (
-              <label key={interest} className="checkbox-label">
-                <input
-                  type="checkbox"
-                  checked={formData.interests.includes(interest)}
-                  onChange={() => handleCheckboxChange('interests', interest)}
-                  className="checkbox-input"
-                />
-                <span>{interest}</span>
-              </label>
-            ))}
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.interests.includes('Wildlife Viewing')}
+                onChange={() => handleCheckboxChange('interests', 'Wildlife Viewing')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.interests.wildlife}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.interests.includes('Photography')}
+                onChange={() => handleCheckboxChange('interests', 'Photography')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.interests.photography}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.interests.includes('Bird Watching')}
+                onChange={() => handleCheckboxChange('interests', 'Bird Watching')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.interests.birdWatching}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.interests.includes('Cultural Experiences')}
+                onChange={() => handleCheckboxChange('interests', 'Cultural Experiences')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.interests.cultural}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.interests.includes('Adventure Activities')}
+                onChange={() => handleCheckboxChange('interests', 'Adventure Activities')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.interests.adventure}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.interests.includes('Relaxation')}
+                onChange={() => handleCheckboxChange('interests', 'Relaxation')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.interests.relaxation}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.interests.includes('Family-Friendly')}
+                onChange={() => handleCheckboxChange('interests', 'Family-Friendly')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.interests.family}</span>
+            </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={formData.interests.includes('Honeymoon/Romance')}
+                onChange={() => handleCheckboxChange('interests', 'Honeymoon/Romance')}
+                className="checkbox-input"
+              />
+              <span>{t.quote.interests.honeymoon}</span>
+            </label>
           </div>
         </div>
       </div>
 
       {/* Additional Information */}
       <div className="form-section">
-        <h3 className="section-heading">Additional Information</h3>
+        <h3 className="section-heading">{t.quote.additionalInfo}</h3>
 
         <div className="form-group">
-          <label className="form-label">Special Requirements or Requests</label>
+          <label className="form-label">{t.quote.specialRequests}</label>
           <textarea
             rows={4}
             value={formData.special_requirements}
             onChange={(e) => setFormData({ ...formData, special_requirements: e.target.value })}
             className="form-textarea"
-            placeholder="Dietary restrictions, accessibility needs, specific celebrations, preferred activities, etc."
+            placeholder={t.quote.specialRequestsPlaceholder}
           />
         </div>
 
         <div className="form-group">
-          <label className="form-label">How did you hear about us?</label>
+          <label className="form-label">{t.quote.howHeardLabel}</label>
           <select
             value={formData.how_heard}
             onChange={(e) => setFormData({ ...formData, how_heard: e.target.value })}
             className="form-select"
           >
-            <option value="">Select an option</option>
-            <option value="Google Search">Google Search</option>
-            <option value="Social Media">Social Media</option>
-            <option value="TripAdvisor">TripAdvisor</option>
-            <option value="Safari Bookings">Safari Bookings</option>
-            <option value="Friend/Family Referral">Friend/Family Referral</option>
-            <option value="Travel Agent">Travel Agent</option>
-            <option value="Other">Other</option>
+            <option value="">{t.quote.howHeardPlaceholder}</option>
+            <option value="Google Search">{t.quote.howHeardOptions.google}</option>
+            <option value="Social Media">{t.quote.howHeardOptions.socialMedia}</option>
+            <option value="TripAdvisor">{t.quote.howHeardOptions.tripAdvisor}</option>
+            <option value="Safari Bookings">{t.quote.howHeardOptions.safariBookings}</option>
+            <option value="Friend/Family Referral">{t.quote.howHeardOptions.referral}</option>
+            <option value="Travel Agent">{t.quote.howHeardOptions.travelAgent}</option>
+            <option value="Other">{t.quote.howHeardOptions.other}</option>
           </select>
         </div>
       </div>
@@ -410,10 +533,10 @@ How they heard about us: ${formData.how_heard || 'Not specified'}
           disabled={loading}
           className="btn-submit"
         >
-          {loading ? 'Sending Your Request...' : 'Request Custom Quote'}
+          {loading ? t.quote.submitting : t.quote.submitButton}
         </button>
         <p className="form-note">
-          We'll review your request and send you a detailed custom itinerary within 24-48 hours.
+          {t.quote.formNote}
         </p>
       </div>
     </form>

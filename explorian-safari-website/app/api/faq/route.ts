@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { attachTranslationsToMany } from '@/lib/translations-db';
 
 // GET all active FAQs
 export async function GET(request: NextRequest) {
@@ -16,7 +17,10 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    return NextResponse.json({ faqs });
+    // Attach translations
+    const faqsWithTranslations = await attachTranslationsToMany('faq', faqs);
+
+    return NextResponse.json({ faqs: faqsWithTranslations });
   } catch (error) {
     console.error('Error fetching FAQs:', error);
     return NextResponse.json(

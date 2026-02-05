@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import Link from 'next/link';
+import FeaturedPackagesClient from './home/FeaturedPackagesClient';
 
 export default async function FeaturedPackages() {
   const packages = await prisma.package.findMany({
@@ -7,66 +7,18 @@ export default async function FeaturedPackages() {
     orderBy: { created_at: 'desc' },
   });
 
-  if (packages.length === 0) {
-    return null;
-  }
+  // Convert to plain objects to avoid serialization issues
+  const plainPackages = packages.map(pkg => ({
+    id: pkg.id,
+    name: pkg.name,
+    description: pkg.description,
+    type: pkg.type,
+    images: pkg.images || '[]',
+    highlights: pkg.highlights,
+    price_from: Number(pkg.price_from),
+    currency: pkg.currency,
+    badge_label: pkg.badge_label,
+  }));
 
-  return (
-    <section className="section-padding bg-sand-light">
-      <div className="container-custom">
-        <div className="section-label">OUR EXPERIENCES</div>
-        <h2 className="section-title">Featured Safari Packages</h2>
-        <p className="section-subtitle">Handpicked adventures for unforgettable experiences</p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-          {packages.map((pkg) => {
-            const images = pkg.images ? JSON.parse(pkg.images) : [];
-            const highlights = pkg.highlights ? JSON.parse(pkg.highlights) : [];
-
-            return (
-              <div key={pkg.id} className="package-card">
-                <div className="package-image-wrapper">
-                  {pkg.badge_label && (
-                    <span className="package-badge">{pkg.badge_label}</span>
-                  )}
-                  <img
-                    src={images[0] || '/images/placeholder.jpg'}
-                    alt={pkg.name}
-                    className="package-image"
-                  />
-                </div>
-
-                <div className="package-content">
-                  <div className="package-category-text">{pkg.type}</div>
-                  <h3 className="package-title">{pkg.name}</h3>
-                  <p className="package-description">
-                    {pkg.description.substring(0, 120)}...
-                  </p>
-
-                  {highlights.length > 0 && (
-                    <ul className="package-features">
-                      {highlights.slice(0, 3).map((highlight: string, index: number) => (
-                        <li key={index}>{highlight}</li>
-                      ))}
-                    </ul>
-                  )}
-
-                  <div className="package-footer">
-                    <div className="package-price">
-                      <span className="from">From</span>
-                      <span className="price">{pkg.currency} {Number(pkg.price_from).toLocaleString()}</span>
-                      <span className="per-person">per person</span>
-                    </div>
-                    <Link href={`/book?package=${pkg.id}`} className="btn-book">
-                      Book Now
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
+  return <FeaturedPackagesClient packages={plainPackages} />;
 }

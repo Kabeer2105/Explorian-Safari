@@ -1,28 +1,28 @@
 'use client';
 
+import { useTranslations } from '@/lib/language-context';
+
 export default function TrustBar() {
+  const t = useTranslations();
+
   return (
     <section className="trust-bar">
       <div className="trust-items">
         <div className="trust-item">
           <div className="trust-item-icon">⭐</div>
-          <h4>4.8/5 Rating</h4>
-          <p>on Safari Bookings</p>
+          <p>{t.trustBar.rating}</p>
         </div>
         <div className="trust-item">
           <div className="trust-item-icon">✓</div>
-          <h4>Licensed Tour Operator</h4>
-          <p>Fully Certified</p>
+          <p>{t.trustBar.licensed}</p>
         </div>
         <div className="trust-item">
           <div className="trust-item-icon">📅</div>
-          <h4>10+ Years of Experience</h4>
-          <p>Expert Guides</p>
+          <p>{t.trustBar.experience}</p>
         </div>
         <div className="trust-item">
           <div className="trust-item-icon">😊</div>
-          <h4>100% Satisfaction Guarantee</h4>
-          <p>Happy Customers</p>
+          <p>{t.trustBar.satisfaction}</p>
         </div>
       </div>
     </section>

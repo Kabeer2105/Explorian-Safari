@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from '@/lib/language-context';
 
 export default function TripPlannerWidget() {
   const router = useRouter();
+  const t = useTranslations();
   const [formData, setFormData] = useState({
     tripType: '',
     duration: '',
@@ -27,20 +29,20 @@ export default function TripPlannerWidget() {
   return (
     <div className="trip-planner-widget">
       <div className="trip-planner-content">
-        <h3>Plan Your Perfect Safari</h3>
+        <h3>{t.home.tripPlannerTitle}</h3>
         <p className="trip-planner-subtitle">
-          Tell us your preferences and we'll create a customized itinerary for you.
+          {t.home.tripPlannerSubtitle}
         </p>
 
         <form onSubmit={handleSubmit} className="trip-planner-form">
           <div className="form-group">
-            <label>What interests you?</label>
+            <label>{t.home.tripPlannerInterest}</label>
             <select
               required
               value={formData.tripType}
               onChange={(e) => setFormData({ ...formData, tripType: e.target.value })}
             >
-              <option value="">Select trip type</option>
+              <option value="">{t.home.tripPlannerInterestPlaceholder}</option>
               <option value="Wildlife Safari">Wildlife Safari</option>
               <option value="Mount Kilimanjaro">Mount Kilimanjaro</option>
               <option value="Beach Holiday">Beach Holiday (Zanzibar)</option>
@@ -51,13 +53,13 @@ export default function TripPlannerWidget() {
           </div>
 
           <div className="form-group">
-            <label>How long?</label>
+            <label>{t.home.tripPlannerDuration}</label>
             <select
               required
               value={formData.duration}
               onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
             >
-              <option value="">Select duration</option>
+              <option value="">{t.home.tripPlannerDurationPlaceholder}</option>
               <option value="1-3 days">1-3 Days</option>
               <option value="4-7 days">4-7 Days</option>
               <option value="8-14 days">8-14 Days</option>
@@ -68,13 +70,13 @@ export default function TripPlannerWidget() {
 
           <div className="form-row">
             <div className="form-group">
-              <label>Budget per person</label>
+              <label>{t.home.tripPlannerBudget}</label>
               <select
                 required
                 value={formData.budget}
                 onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
               >
-                <option value="">Select budget</option>
+                <option value="">{t.home.tripPlannerBudgetPlaceholder}</option>
                 <option value="Under $1000">Under $1,000</option>
                 <option value="$1000-$2000">$1,000 - $2,000</option>
                 <option value="$2000-$5000">$2,000 - $5,000</option>
@@ -84,7 +86,7 @@ export default function TripPlannerWidget() {
             </div>
 
             <div className="form-group">
-              <label>Number of travelers</label>
+              <label>{t.home.tripPlannerTravelers}</label>
               <input
                 type="number"
                 min="1"
@@ -97,7 +99,7 @@ export default function TripPlannerWidget() {
           </div>
 
           <button type="submit" className="btn-primary w-full">
-            Get Your Custom Quote →
+            {t.home.tripPlannerSubmit}
           </button>
         </form>
       </div>

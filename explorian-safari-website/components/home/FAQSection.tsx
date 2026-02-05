@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations, useLanguage } from '@/lib/language-context';
+import { getTranslatedValue } from '@/lib/translations-db';
+import type { SupportedLanguage } from '@/lib/translations-db';
 
 interface FAQ {
   id: string;
@@ -8,9 +11,12 @@ interface FAQ {
   answer: string;
   category: string | null;
   order: number;
+  translations?: Record<SupportedLanguage, Record<string, string>>;
 }
 
 export default function FAQSection() {
+  const t = useTranslations();
+  const { locale } = useLanguage();
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [activeFAQ, setActiveFAQ] = useState<number | null>(null);
 
@@ -34,33 +40,38 @@ export default function FAQSection() {
   return (
     <section className="section-padding bg-gradient-subtle">
       <div className="container-custom">
-        <div className="section-label">FAQ</div>
-        <h2 className="section-title">Frequently Asked Questions</h2>
+        <div className="section-label">{t.home.faqLabel}</div>
+        <h2 className="section-title">{t.home.faqTitle}</h2>
         <p className="section-desc text-center max-w-2xl mx-auto mb-12">
-          Got questions? We've got answers! Here are some of the most common questions about
-          safaris in Tanzania.
+          {t.home.faqSubtitle}
         </p>
 
         <div className="max-w-4xl mx-auto">
-          {faqs.map((faq, index) => (
-            <div
-              key={faq.id}
-              className={`faq-item ${activeFAQ === index ? 'active' : ''}`}
-            >
-              <button
-                className="faq-question"
-                onClick={() => setActiveFAQ(activeFAQ === index ? null : index)}
+          {faqs.map((faq, index) => {
+            // Get translated values
+            const translatedQuestion = getTranslatedValue(faq, 'question', locale);
+            const translatedAnswer = getTranslatedValue(faq, 'answer', locale);
+
+            return (
+              <div
+                key={faq.id}
+                className={`faq-item ${activeFAQ === index ? 'active' : ''}`}
               >
-                <span>{faq.question}</span>
-                <span className="faq-icon">{activeFAQ === index ? '−' : '+'}</span>
-              </button>
-              {activeFAQ === index && (
-                <div className="faq-answer">
-                  <p>{faq.answer}</p>
-                </div>
-              )}
-            </div>
-          ))}
+                <button
+                  className="faq-question"
+                  onClick={() => setActiveFAQ(activeFAQ === index ? null : index)}
+                >
+                  <span>{translatedQuestion}</span>
+                  <span className="faq-icon">{activeFAQ === index ? '−' : '+'}</span>
+                </button>
+                {activeFAQ === index && (
+                  <div className="faq-answer">
+                    <p>{translatedAnswer}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

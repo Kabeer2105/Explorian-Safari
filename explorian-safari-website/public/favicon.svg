@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="#2a4d2f" stroke="#e85d04" stroke-width="2"/>
+
+  <!-- Cheetah silhouette in golden color -->
+  <g transform="translate(50, 50) scale(0.35)">
+    <ellipse cx="0" cy="-20" rx="60" ry="50" fill="#faa307" opacity="0.9"/>
+    <path d="M -20,-30 Q -10,-50 10,-45 Q 20,-50 25,-35 L 20,-20 Q 15,-30 0,-28 Q -15,-30 -20,-20 Z" fill="#e85d04"/>
+    <ellipse cx="-10" cy="-35" rx="3" ry="4" fill="#2a4d2f"/>
+    <ellipse cx="10" cy="-35" rx="3" ry="4" fill="#2a4d2f"/>
+    <path d="M -30,0 Q -25,20 -15,25 L -10,15 Q -20,10 -25,0 Z" fill="#e85d04"/>
+    <path d="M 30,0 Q 25,20 15,25 L 10,15 Q 20,10 25,0 Z" fill="#e85d04"/>
+    <path d="M -5,30 Q 0,45 5,30 Q 0,32 -5,30 Z" fill="#e85d04"/>
+  </g>
+
+  <!-- Letter E -->
+  <text x="50" y="70" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#faa307" text-anchor="middle">E</text>
+</svg>

@@ -1,5 +1,10 @@
-// Static content translations for home page and common elements
-import type { Locale } from './locale';
+// Static content translations for all pages and components
+import type { Locale } from './locale-config';
+import { en } from './translations/en';
+import { de } from './translations/de';
+import { fr } from './translations/fr';
+import { es } from './translations/es';
+import { zh } from './translations/zh';
 
 interface Translations {
   nav: {
@@ -30,165 +35,437 @@ interface Translations {
     days: string;
     from: string;
     viewAll: string;
+    close: string;
+    save: string;
+    cancel: string;
+    submit: string;
+    loading: string;
+    success: string;
+    error: string;
+    required: string;
+  };
+  home: {
+    ourExperiencesLabel: string;
+    testimonialsLabel: string;
+    planAdventureLabel: string;
+    featuredPackagesTitle: string;
+    featuredPackagesSubtitle: string;
+    planAdventureTitle: string;
+    tripPlannerTitle: string;
+    tripPlannerSubtitle: string;
+    tripPlannerInterest: string;
+    tripPlannerInterestPlaceholder: string;
+    tripPlannerDuration: string;
+    tripPlannerDurationPlaceholder: string;
+    tripPlannerBudget: string;
+    tripPlannerBudgetPlaceholder: string;
+    tripPlannerTravelers: string;
+    tripPlannerSubmit: string;
+    discoverLabel: string;
+    discoverTitle: string;
+    wildlifeSafarisTitle: string;
+    wildlifeSafarisDesc: string;
+    wildlifeSafarisLink: string;
+    mountainTrekkingTitle: string;
+    mountainTrekkingDesc: string;
+    mountainTrekkingLink: string;
+    beachHolidaysTitle: string;
+    beachHolidaysDesc: string;
+    beachHolidaysLink: string;
+    whyChooseLabel: string;
+    whyChooseTitle: string;
+    whyChooseSubtitle: string;
+    expertGuidesTitle: string;
+    expertGuidesDesc: string;
+    bestValueTitle: string;
+    bestValueDesc: string;
+    qualityVehiclesTitle: string;
+    qualityVehiclesDesc: string;
+    safetyFirstTitle: string;
+    safetyFirstDesc: string;
+    ecoFriendlyTitle: string;
+    ecoFriendlyDesc: string;
+    personalizedServiceTitle: string;
+    personalizedServiceDesc: string;
+    support24_7Title: string;
+    support24_7Desc: string;
+    fiveStarReviewsTitle: string;
+    fiveStarReviewsDesc: string;
+    faqLabel: string;
+    faqTitle: string;
+    faqSubtitle: string;
+    reviewsTitle: string;
+    reviewsSubtitle: string;
+    galleryTitle: string;
+    gallerySubtitle: string;
+    videosTitle: string;
+    videosSubtitle: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+    ctaButton: string;
+  };
+  safaris: {
+    heroSubtitle: string;
+    heroTitle: string;
+    heroDescription: string;
+    introLabel: string;
+    introTitle: string;
+    introDescription: string;
+    packagesLabel: string;
+    packagesTitle: string;
+    packagesSubtitle: string;
+    whyChooseLabel: string;
+    whyChooseTitle: string;
+    expertGuidesTitle: string;
+    expertGuidesDesc: string;
+    safariVehiclesTitle: string;
+    safariVehiclesDesc: string;
+    premiumLodgingTitle: string;
+    premiumLodgingDesc: string;
+    ecoFriendlyToursTitle: string;
+    ecoFriendlyToursDesc: string;
+    photographyFocusTitle: string;
+    photographyFocusDesc: string;
+    smallGroupsTitle: string;
+    smallGroupsDesc: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+  };
+  mountains: {
+    heroSubtitle: string;
+    heroTitle: string;
+    heroDescription: string;
+    introLabel: string;
+    introTitle: string;
+    introDescription: string;
+    packagesLabel: string;
+    packagesTitle: string;
+    packagesSubtitle: string;
+    infoLabel: string;
+    infoTitle: string;
+    bestTimeTitle: string;
+    bestTimeDesc: string;
+    whatsIncludedTitle: string;
+    whatsIncludedDesc: string;
+    successRateTitle: string;
+    successRateDesc: string;
+    whyChooseLabel: string;
+    whyChooseTitle: string;
+    certifiedGuidesTitle: string;
+    certifiedGuidesDesc: string;
+    qualityGearTitle: string;
+    qualityGearDesc: string;
+    mountainCuisineTitle: string;
+    mountainCuisineDesc: string;
+    safetyFirstTitle: string;
+    safetyFirstDesc: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+  };
+  beaches: {
+    heroSubtitle: string;
+    heroTitle: string;
+    heroDescription: string;
+    introLabel: string;
+    introTitle: string;
+    introDescription: string;
+    packagesLabel: string;
+    packagesTitle: string;
+    packagesSubtitle: string;
+    experiencesLabel: string;
+    experiencesTitle: string;
+    snorkelingTitle: string;
+    snorkelingDesc: string;
+    stoneTownTitle: string;
+    stoneTownDesc: string;
+    spicePlantationsTitle: string;
+    spicePlantationsDesc: string;
+    dolphinToursTitle: string;
+    dolphinToursDesc: string;
+    dhowCruisesTitle: string;
+    dhowCruisesDesc: string;
+    swahiliCuisineTitle: string;
+    swahiliCuisineDesc: string;
+    accommodationsLabel: string;
+    accommodationsTitle: string;
+    beachfrontResortsTitle: string;
+    beachfrontResortsDesc: string;
+    boutiqueHotelsTitle: string;
+    boutiqueHotelsDesc: string;
+    privateVillasTitle: string;
+    privateVillasDesc: string;
+    allInclusiveTitle: string;
+    allInclusiveDesc: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+  };
+  dayTrips: {
+    heroSubtitle: string;
+    heroTitle: string;
+    heroDescription: string;
+    introLabel: string;
+    introTitle: string;
+    introDescription: string;
+    tripsLabel: string;
+    tripsTitle: string;
+    tripsSubtitle: string;
+    noTripsMessage: string;
+    contactForCustom: string;
+    popularLabel: string;
+    popularTitle: string;
+    materuniTitle: string;
+    materuniDesc: string;
+    hotSpringsTitle: string;
+    hotSpringsDesc: string;
+    culturalVillagesTitle: string;
+    culturalVillagesDesc: string;
+    arushaParkTitle: string;
+    arushaParkDesc: string;
+    coffeePlantationTitle: string;
+    coffeePlantationDesc: string;
+    moshiTownTitle: string;
+    moshiTownDesc: string;
+    whyAddLabel: string;
+    whyAddTitle: string;
+    flexibleScheduleTitle: string;
+    flexibleScheduleDesc: string;
+    greatValueTitle: string;
+    greatValueDesc: string;
+    culturalImmersionTitle: string;
+    culturalImmersionDesc: string;
+    photoOpportunitiesTitle: string;
+    photoOpportunitiesDesc: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+  };
+  about: {
+    heroSubtitle: string;
+    heroTitle: string;
+    heroDescription: string;
+    whoWeAreLabel: string;
+    whoWeAreTitle: string;
+    whoWeAreDescription: string;
+    missionTitle: string;
+    missionDescription1: string;
+    missionDescription2: string;
+    quickFactsTitle: string;
+    locationLabel: string;
+    locationValue: string;
+    establishedLabel: string;
+    establishedValue: string;
+    ratingLabel: string;
+    ratingValue: string;
+    licensingLabel: string;
+    licensingValue: string;
+    whyChooseLabel: string;
+    whyChooseTitle: string;
+    licensedTitle: string;
+    licensedDesc: string;
+    expertGuidesTitle: string;
+    expertGuidesDesc: string;
+    personalizedServiceTitle: string;
+    personalizedServiceDesc: string;
+    sustainableTourismTitle: string;
+    sustainableTourismDesc: string;
+    excellentReviewsTitle: string;
+    excellentReviewsDesc: string;
+    qualityEquipmentTitle: string;
+    qualityEquipmentDesc: string;
+    valuesLabel: string;
+    valuesTitle: string;
+    sustainabilityTitle: string;
+    sustainabilityDesc: string;
+    integrityTitle: string;
+    integrityDesc: string;
+    excellenceTitle: string;
+    excellenceDesc: string;
+    teamLabel: string;
+    teamTitle: string;
+    safariGuidesTitle: string;
+    safariGuidesDesc: string;
+    mountainGuidesTitle: string;
+    mountainGuidesDesc: string;
+    safariChefsTitle: string;
+    safariChefsDesc: string;
+    supportTeamTitle: string;
+    supportTeamDesc: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+  };
+  contactPage: {
+    heroSubtitle: string;
+    heroTitle: string;
+    heroDescription: string;
+    contactUsLabel: string;
+    contactUsTitle: string;
+    contactUsSubtitle: string;
+    visitUsTitle: string;
+    visitUsAddress: string;
+    callUsTitle: string;
+    emailUsTitle: string;
+    whatsappTitle: string;
+    whatsappLink: string;
+    sendMessageLabel: string;
+    sendMessageTitle: string;
+    sendMessageDesc: string;
+    officeHoursLabel: string;
+    officeHoursTitle: string;
+    mondayFriday: string;
+    mondayFridayHours: string;
+    saturday: string;
+    saturdayHours: string;
+    sunday: string;
+    sundayHours: string;
+    emergencySupport: string;
+    quickResponseTitle: string;
+    emailInquiries: string;
+    whatsappMessages: string;
+    phoneCalls: string;
+    quoteRequests: string;
+    commonQuestionsLabel: string;
+    commonQuestionsTitle: string;
+    faqQuestion1: string;
+    faqAnswer1: string;
+    faqQuestion2: string;
+    faqAnswer2: string;
+    faqQuestion3: string;
+    faqAnswer3: string;
+    faqQuestion4: string;
+    faqAnswer4: string;
+    preferQuoteTitle: string;
+    preferQuoteSubtitle: string;
+  };
+  bookingPage: {
+    heroSubtitle: string;
+    heroTitle: string;
+    heroDescription: string;
+    howItWorksLabel: string;
+    howItWorksTitle: string;
+    step1Title: string;
+    step1Desc: string;
+    step2Title: string;
+    step2Desc: string;
+    step3Title: string;
+    step3Desc: string;
+    needAssistanceTitle: string;
+    needAssistanceDesc: string;
+    whatsappTitle: string;
+    emailTitle: string;
+    trustLabel: string;
+    securePaymentTitle: string;
+    securePaymentDesc: string;
+    instantConfirmationTitle: string;
+    instantConfirmationDesc: string;
+    flexiblePaymentTitle: string;
+    flexiblePaymentDesc: string;
+    licensedOperatorTitle: string;
+    licensedOperatorDesc: string;
+  };
+  contact: {
+    title: string;
+    subtitle: string;
+    formTitle: string;
+    nameLabel: string;
+    namePlaceholder: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    phoneLabel: string;
+    phonePlaceholder: string;
+    messageLabel: string;
+    messagePlaceholder: string;
+    submitButton: string;
+    submitting: string;
+    successMessage: string;
+    errorMessage: string;
+    infoTitle: string;
+    address: string;
+    phone: string;
+    email: string;
+    followUs: string;
+  };
+  quote: {
+    title: string;
+    subtitle: string;
+    step1Title: string;
+    step2Title: string;
+    step3Title: string;
+    packageLabel: string;
+    packagePlaceholder: string;
+    startDateLabel: string;
+    endDateLabel: string;
+    flexibleDates: string;
+    guestsLabel: string;
+    guestsPlaceholder: string;
+    nameLabel: string;
+    emailLabel: string;
+    phoneLabel: string;
+    countryLabel: string;
+    specialRequests: string;
+    specialRequestsPlaceholder: string;
+    submitButton: string;
+    submitting: string;
+    successTitle: string;
+    successMessage: string;
+    errorMessage: string;
+  };
+  booking: {
+    title: string;
+    subtitle: string;
+    selectedPackage: string;
+    travelDetails: string;
+    guestInformation: string;
+    paymentDetails: string;
+    bookingNumber: string;
+    totalAmount: string;
+    depositAmount: string;
+    proceedToPayment: string;
+    submittingBooking: string;
+    urgentNoticeTitle: string;
+    urgentNoticeMessage: string;
+    thankYou: string;
+  };
+  footer: {
+    aboutTitle: string;
+    aboutText: string;
+    quickLinksTitle: string;
+    servicesTitle: string;
+    contactTitle: string;
+    followUsTitle: string;
+    copyright: string;
+    developedBy: string;
+  };
+  errors: {
+    requiredField: string;
+    invalidEmail: string;
+    invalidPhone: string;
+    minLength: string;
+    maxLength: string;
+    minGuests: string;
+    maxGuests: string;
+    selectPackage: string;
+    selectDate: string;
+    networkError: string;
+    tryAgain: string;
+  };
+  validation: {
+    nameRequired: string;
+    emailRequired: string;
+    emailInvalid: string;
+    phoneRequired: string;
+    messageRequired: string;
+    packageRequired: string;
+    dateRequired: string;
+    guestsRequired: string;
+    guestsMin: string;
   };
 }
 
 const translations: Record<Locale, Translations> = {
-  en: {
-    nav: {
-      home: 'Home',
-      safaris: 'Safaris',
-      mountains: 'Mountains',
-      beaches: 'Beaches',
-      dayTrips: 'Day Trips',
-      about: 'About',
-      contact: 'Contact',
-      requestQuote: 'Request Quote',
-    },
-    hero: {
-      title: 'Discover the Magic of Tanzania',
-      subtitle: 'Unforgettable safaris, mountain treks, and beach holidays in East Africa',
-      cta: 'Explore Our Adventures',
-    },
-    trustBar: {
-      rating: '4.8/5 Rating on Safari Bookings',
-      licensed: 'Licensed Tour Operator',
-      experience: '10+ Years of Experience',
-      satisfaction: '100% Satisfaction Guarantee',
-    },
-    common: {
-      learnMore: 'Learn More',
-      bookNow: 'Book Now',
-      perPerson: 'per person',
-      days: 'days',
-      from: 'From',
-      viewAll: 'View All',
-    },
-  },
-  de: {
-    nav: {
-      home: 'Startseite',
-      safaris: 'Safaris',
-      mountains: 'Berge',
-      beaches: 'Strände',
-      dayTrips: 'Tagesausflüge',
-      about: 'Über uns',
-      contact: 'Kontakt',
-      requestQuote: 'Angebot anfordern',
-    },
-    hero: {
-      title: 'Entdecken Sie die Magie Tansanias',
-      subtitle: 'Unvergessliche Safaris, Bergtouren und Strandurlaube in Ostafrika',
-      cta: 'Entdecken Sie unsere Abenteuer',
-    },
-    trustBar: {
-      rating: '4,8/5 Bewertung auf Safari Bookings',
-      licensed: 'Lizenzierter Reiseveranstalter',
-      experience: '10+ Jahre Erfahrung',
-      satisfaction: '100% Zufriedenheitsgarantie',
-    },
-    common: {
-      learnMore: 'Mehr erfahren',
-      bookNow: 'Jetzt buchen',
-      perPerson: 'pro Person',
-      days: 'Tage',
-      from: 'Ab',
-      viewAll: 'Alle anzeigen',
-    },
-  },
-  fr: {
-    nav: {
-      home: 'Accueil',
-      safaris: 'Safaris',
-      mountains: 'Montagnes',
-      beaches: 'Plages',
-      dayTrips: 'Excursions',
-      about: 'À propos',
-      contact: 'Contact',
-      requestQuote: 'Demander un devis',
-    },
-    hero: {
-      title: 'Découvrez la magie de la Tanzanie',
-      subtitle: 'Safaris inoubliables, trekkings en montagne et vacances à la plage en Afrique de l\'Est',
-      cta: 'Explorez nos aventures',
-    },
-    trustBar: {
-      rating: 'Note de 4,8/5 sur Safari Bookings',
-      licensed: 'Tour opérateur agréé',
-      experience: 'Plus de 10 ans d\'expérience',
-      satisfaction: 'Garantie de satisfaction à 100%',
-    },
-    common: {
-      learnMore: 'En savoir plus',
-      bookNow: 'Réserver maintenant',
-      perPerson: 'par personne',
-      days: 'jours',
-      from: 'À partir de',
-      viewAll: 'Voir tout',
-    },
-  },
-  es: {
-    nav: {
-      home: 'Inicio',
-      safaris: 'Safaris',
-      mountains: 'Montañas',
-      beaches: 'Playas',
-      dayTrips: 'Excursiones',
-      about: 'Acerca de',
-      contact: 'Contacto',
-      requestQuote: 'Solicitar cotización',
-    },
-    hero: {
-      title: 'Descubre la magia de Tanzania',
-      subtitle: 'Safaris inolvidables, trekkings de montaña y vacaciones en la playa en África Oriental',
-      cta: 'Explora nuestras aventuras',
-    },
-    trustBar: {
-      rating: 'Calificación 4.8/5 en Safari Bookings',
-      licensed: 'Operador turístico licenciado',
-      experience: 'Más de 10 años de experiencia',
-      satisfaction: '100% de garantía de satisfacción',
-    },
-    common: {
-      learnMore: 'Saber más',
-      bookNow: 'Reservar ahora',
-      perPerson: 'por persona',
-      days: 'días',
-      from: 'Desde',
-      viewAll: 'Ver todo',
-    },
-  },
-  zh: {
-    nav: {
-      home: '首页',
-      safaris: '野生动物园',
-      mountains: '登山',
-      beaches: '海滩',
-      dayTrips: '一日游',
-      about: '关于我们',
-      contact: '联系我们',
-      requestQuote: '索取报价',
-    },
-    hero: {
-      title: '探索坦桑尼亚的魔力',
-      subtitle: '在东非体验难忘的野生动物园、登山和海滩假期',
-      cta: '探索我们的冒险',
-    },
-    trustBar: {
-      rating: 'Safari Bookings评分4.8/5',
-      licensed: '持牌旅游运营商',
-      experience: '10+年经验',
-      satisfaction: '100%满意保证',
-    },
-    common: {
-      learnMore: '了解更多',
-      bookNow: '立即预订',
-      perPerson: '每人',
-      days: '天',
-      from: '从',
-      viewAll: '查看全部',
-    },
-  },
+  en,
+  de,
+  fr,
+  es,
+  zh,
 };
 
 export function getTranslations(locale: Locale = 'en'): Translations {
