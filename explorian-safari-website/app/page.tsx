@@ -3,6 +3,8 @@ import TrustBar from '@/components/home/TrustBar';
 import HomePageSections from '@/components/home/HomePageSections';
 import RestOfHomeContent from '@/components/home/RestOfHomeContent';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * Home Page - Server Component
  * Combines client-side UI with server-side database content
