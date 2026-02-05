@@ -404,7 +404,7 @@ export const zh = {
     yourPreferences: '您的偏好',
     additionalInfo: '附加信息',
     nameLabel: '全名',
-    namePlacehold: '张三',
+    namePlaceholder: '张三',
     emailLabel: '电子邮件地址',
     emailPlaceholder: 'zhangsan@example.com',
     phoneLabel: '电话号码',

@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Package_type } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -175,11 +175,20 @@ async function main() {
       where: { slug: pkg.slug },
       update: {},
       create: {
-        ...pkg,
+        name: pkg.name,
+        slug: pkg.slug,
+        type: pkg.type.toUpperCase() as Package_type,
+        description: pkg.description || pkg.shortDescription || '',
+        highlights: pkg.highlights || null,
+        inclusions: pkg.inclusions || null,
+        exclusions: pkg.exclusions || null,
+        duration_days: pkg.durationDays,
+        price_from: pkg.priceFrom,
+        featured: pkg.featured,
         active: true,
         currency: 'USD',
-        maxGroupSize: 12,
-        difficultyLevel: pkg.difficultyLevel || 'easy',
+        max_group_size: 12,
+        difficulty_level: pkg.difficultyLevel || 'easy',
       },
     });
     console.log(`Created/Updated package: ${pkg.name}`);

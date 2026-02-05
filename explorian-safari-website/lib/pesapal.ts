@@ -73,6 +73,10 @@ class PesapalService {
       // Token expires in 5 minutes according to Pesapal docs
       this.tokenExpiry = new Date(Date.now() + 4.5 * 60 * 1000);
 
+      if (!this.accessToken) {
+        throw new Error('No access token received from Pesapal');
+      }
+
       return this.accessToken;
     } catch (error) {
       console.error('Error getting Pesapal access token:', error);

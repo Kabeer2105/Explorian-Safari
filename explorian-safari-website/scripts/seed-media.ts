@@ -66,12 +66,14 @@ async function main() {
   ];
 
   for (const image of galleryImages) {
-    await prisma.galleryImage.upsert({
-      where: { url: image.url },
-      update: {},
-      create: { ...image, active: true },
-    });
-    console.log(`Created/Updated gallery image: ${image.title}`);
+    try {
+      await prisma.galleryImage.create({
+        data: { ...image, active: true },
+      });
+      console.log(`Created gallery image: ${image.title}`);
+    } catch (error) {
+      console.log(`Gallery image already exists: ${image.title}`);
+    }
   }
 
   // Sample videos
@@ -106,12 +108,14 @@ async function main() {
   ];
 
   for (const video of videos) {
-    await prisma.video.upsert({
-      where: { url: video.url },
-      update: {},
-      create: { ...video, active: true },
-    });
-    console.log(`Created/Updated video: ${video.title}`);
+    try {
+      await prisma.video.create({
+        data: { ...video, active: true },
+      });
+      console.log(`Created video: ${video.title}`);
+    } catch (error) {
+      console.log(`Video already exists: ${video.title}`);
+    }
   }
 
   console.log('Media seeding completed successfully!');

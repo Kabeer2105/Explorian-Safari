@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Package_type } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -13,7 +13,7 @@ async function main() {
     update: {},
     create: {
       email: 'admin@exploriansafaris.com',
-      passwordHash: hashedPassword,
+      password_hash: hashedPassword,
       name: 'Admin User',
       role: 'ADMIN',
     },
@@ -27,8 +27,7 @@ async function main() {
     create: {
       name: 'Serengeti Wildlife Safari',
       slug: 'serengeti-wildlife-safari',
-      type: 'safari',
-      shortDescription: 'Experience the magnificent wildlife of Serengeti National Park',
+      type: 'SAFARI' as Package_type,
       description: 'Embark on an unforgettable 5-day journey through the iconic Serengeti National Park, home to the Great Migration and the Big Five. This classic safari experience offers incredible wildlife viewing opportunities in one of Africa\'s most famous wildlife reserves.',
       highlights: JSON.stringify([
         'Witness the Great Migration (seasonal)',
@@ -59,34 +58,34 @@ async function main() {
         {
           day: 1,
           title: 'Arrival in Arusha',
-          description: 'Arrive at Kilimanjaro Airport. Transfer to your hotel in Arusha. Evening briefing about your safari.',
+          
         },
         {
           day: 2,
           title: 'Arusha to Serengeti',
-          description: 'After breakfast, depart for Serengeti National Park. Game drive en route. Arrive at your lodge in the afternoon.',
+          
         },
         {
           day: 3,
           title: 'Full Day Serengeti',
-          description: 'Full day of game drives in Serengeti. Morning and afternoon drives with lunch at the lodge.',
+          
         },
         {
           day: 4,
           title: 'Serengeti to Ngorongoro',
-          description: 'Morning game drive, then drive to Ngorongoro Crater rim. Overnight at crater rim lodge.',
+          
         },
         {
           day: 5,
           title: 'Ngorongoro Crater - Departure',
-          description: 'Early morning descent into Ngorongoro Crater for game drive. Afternoon return to Arusha for departure.',
+          
         },
       ]),
-      durationDays: 5,
-      priceFrom: 1850,
+      duration_days: 5,
+      price_from: 1850,
       currency: 'USD',
-      maxGroupSize: 6,
-      difficultyLevel: 'easy',
+      max_group_size: 6,
+      difficulty_level: 'easy',
       active: true,
       featured: true,
     },
@@ -99,8 +98,7 @@ async function main() {
     create: {
       name: 'Kilimanjaro - Machame Route',
       slug: 'kilimanjaro-machame-route',
-      type: 'mountain',
-      shortDescription: 'Conquer Africa\'s highest peak via the scenic Machame Route',
+      type: 'MOUNTAIN' as Package_type,
       description: 'The Machame Route, also known as the "Whiskey Route," is one of the most popular and scenic routes up Mount Kilimanjaro. This 7-day trek offers stunning views, diverse landscapes, and excellent acclimatization.',
       highlights: JSON.stringify([
         'Summit Africa\'s highest peak (5,895m)',
@@ -131,44 +129,44 @@ async function main() {
         {
           day: 1,
           title: 'Machame Gate to Machame Camp',
-          description: 'Drive to Machame Gate (1,800m). Begin trek through rainforest to Machame Camp (3,000m). 5-7 hours hiking.',
+          
         },
         {
           day: 2,
           title: 'Machame Camp to Shira Camp',
-          description: 'Trek from rainforest into moorland zone. Reach Shira Camp (3,840m). 4-6 hours hiking.',
+          
         },
         {
           day: 3,
           title: 'Shira Camp to Barranco Camp',
-          description: 'Acclimatization day. Climb to Lava Tower (4,600m), then descend to Barranco Camp (3,960m). 6-8 hours.',
+          
         },
         {
           day: 4,
           title: 'Barranco Camp to Karanga Camp',
-          description: 'Climb Barranco Wall, then trek to Karanga Camp (3,995m). 4-5 hours hiking.',
+          
         },
         {
           day: 5,
           title: 'Karanga Camp to Barafu Camp',
-          description: 'Trek to Barafu Camp (4,673m). Rest and prepare for summit attempt. 4-5 hours hiking.',
+          
         },
         {
           day: 6,
           title: 'Summit Day - Uhuru Peak',
-          description: 'Midnight start. Summit Uhuru Peak (5,895m) at sunrise. Descend to Mweka Camp (3,100m). 12-16 hours.',
+          
         },
         {
           day: 7,
           title: 'Mweka Camp to Mweka Gate',
-          description: 'Final descent through rainforest to Mweka Gate. Receive summit certificate. Return to hotel.',
+          
         },
       ]),
-      durationDays: 7,
-      priceFrom: 2100,
+      duration_days: 7,
+      price_from: 2100,
       currency: 'USD',
-      maxGroupSize: 12,
-      difficultyLevel: 'challenging',
+      max_group_size: 12,
+      difficulty_level: 'challenging',
       active: true,
       featured: true,
     },
@@ -181,8 +179,7 @@ async function main() {
     create: {
       name: 'Zanzibar Beach Relaxation',
       slug: 'zanzibar-beach-relaxation',
-      type: 'beach',
-      shortDescription: 'Relax on pristine white sand beaches in tropical paradise',
+      type: 'BEACH' as Package_type,
       description: 'Unwind on the beautiful beaches of Zanzibar after your safari or mountain trek. This 5-day beach holiday includes accommodation at a beach resort, water sports, and optional cultural tours of Stone Town.',
       highlights: JSON.stringify([
         'Pristine white sand beaches',
@@ -206,11 +203,11 @@ async function main() {
         'Water sports (diving, jet ski, etc.)',
         'Personal expenses',
       ]),
-      durationDays: 5,
-      priceFrom: 850,
+      duration_days: 5,
+      price_from: 850,
       currency: 'USD',
-      maxGroupSize: 20,
-      difficultyLevel: 'easy',
+      max_group_size: 20,
+      difficulty_level: 'easy',
       active: true,
       featured: true,
     },
@@ -266,50 +263,42 @@ async function main() {
       {
         key: 'site_title',
         value: 'Explorian Safaris - Tanzania Safari Experts',
-        type: 'TEXT',
-        description: 'Main site title for SEO',
+        updated_at: new Date(),
       },
       {
         key: 'contact_email',
         value: 'info@exploriansafaris.com',
-        type: 'TEXT',
-        description: 'Primary contact email',
+        updated_at: new Date(),
       },
       {
         key: 'contact_phone',
         value: '+255 719 245 540',
-        type: 'TEXT',
-        description: 'Primary contact phone',
+        updated_at: new Date(),
       },
       {
         key: 'contact_address',
         value: 'Moshi, Kilimanjaro, Tanzania',
-        type: 'TEXT',
-        description: 'Business address',
+        updated_at: new Date(),
       },
       {
         key: 'social_facebook',
         value: 'https://facebook.com/exploriansafaris',
-        type: 'TEXT',
-        description: 'Facebook page URL',
+        updated_at: new Date(),
       },
       {
         key: 'social_instagram',
         value: 'https://instagram.com/explorian_safaris',
-        type: 'TEXT',
-        description: 'Instagram profile URL',
+        updated_at: new Date(),
       },
       {
         key: 'social_twitter',
         value: 'https://twitter.com/exploriansafaris',
-        type: 'TEXT',
-        description: 'Twitter profile URL',
+        updated_at: new Date(),
       },
     ],
     skipDuplicates: true,
   });
   console.log('Created settings');
-
   console.log('Seeding completed successfully!');
 }
 

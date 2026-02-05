@@ -1,5 +1,5 @@
 // Translation utilities for database content
-import prisma from './prisma';
+import { prisma } from './prisma';
 import type { Locale } from './locale';
 
 // Get translations from database
@@ -45,12 +45,11 @@ export async function saveTranslation(
   try {
     await prisma.setting.upsert({
       where: { key: `${key}_${locale}` },
-      update: { value },
+      update: { value, updated_at: new Date() },
       create: {
         key: `${key}_${locale}`,
         value,
-        type: 'TEXT',
-        description: `Translation for ${key} in ${locale}`,
+        updated_at: new Date(),
       },
     });
   } catch (error) {
