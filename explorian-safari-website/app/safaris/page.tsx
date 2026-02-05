@@ -19,7 +19,7 @@ export default async function SafarisPage() {
     description: pkg.description,
     badge_label: pkg.badge_label,
     images: pkg.images || '',
-    highlights: pkg.highlights,
+    highlights: pkg.highlights || '',
     price_from: Number(pkg.price_from),
     currency: pkg.currency,
     translations: pkg.translations, // Include translations

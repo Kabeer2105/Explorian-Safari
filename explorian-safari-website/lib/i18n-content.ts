@@ -411,6 +411,7 @@ interface Translations {
   booking: {
     title: string;
     subtitle: string;
+    selectPackage: string;
     selectedPackage: string;
     travelDetails: string;
     guestInformation: string;
@@ -457,6 +458,20 @@ interface Translations {
     dateRequired: string;
     guestsRequired: string;
     guestsMin: string;
+  };
+  inquirySuccess: {
+    title: string;
+    subtitle: string;
+    whatHappensTitle: string;
+    step1Title: string;
+    step1Description: string;
+    step2Title: string;
+    step2Description: string;
+    step3Title: string;
+    step3Description: string;
+    needHelp: string;
+    returnHome: string;
+    browsePakages: string;
   };
 }
 
