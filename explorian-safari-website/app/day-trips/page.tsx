@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma';
 import DayTripsPageContent from '@/components/pages/DayTripsPageContent';
 import { attachTranslationsToMany } from '@/lib/translations-db';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DayTripsPage() {
   const dayTrips = await prisma.package.findMany({
     where: { type: 'DAYTRIP', active: true },

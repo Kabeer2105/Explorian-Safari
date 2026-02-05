@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma';
 import SafarisPageContent from '@/components/pages/SafarisPageContent';
 import { attachTranslationsToMany } from '@/lib/translations-db';
 
+export const dynamic = 'force-dynamic';
+
 export default async function SafarisPage() {
   const safaris = await prisma.package.findMany({
     where: { type: 'SAFARI', active: true },

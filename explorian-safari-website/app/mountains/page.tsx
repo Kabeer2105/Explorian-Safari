@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma';
 import MountainsPageContent from '@/components/pages/MountainsPageContent';
 import { attachTranslationsToMany } from '@/lib/translations-db';
 
+export const dynamic = 'force-dynamic';
+
 export default async function MountainsPage() {
   const mountains = await prisma.package.findMany({
     where: { type: 'MOUNTAIN', active: true },

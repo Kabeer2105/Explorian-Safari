@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma';
 import BeachesPageContent from '@/components/pages/BeachesPageContent';
 import { attachTranslationsToMany } from '@/lib/translations-db';
 
+export const dynamic = 'force-dynamic';
+
 export default async function BeachesPage() {
   const beaches = await prisma.package.findMany({
     where: { type: 'BEACH', active: true },
