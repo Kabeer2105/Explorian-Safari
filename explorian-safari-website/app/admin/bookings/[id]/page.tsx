@@ -24,7 +24,7 @@ export default async function BookingDetailPage({
     notFound();
   }
 
-  const guestDetails = booking.guestDetails ? JSON.parse(booking.guestDetails) : null;
+  const guestDetails = booking.guest_details ? JSON.parse(booking.guest_details) : null;
 
   return (
     <div>
@@ -82,7 +82,7 @@ export default async function BookingDetailPage({
               <div>
                 <dt className="text-sm font-medium text-gray-500">Package</dt>
                 <dd className="mt-1 text-sm text-gray-900">
-                  {booking.package?.name || 'Custom Package'}
+                  {booking.Package?.name || 'Custom Package'}
                 </dd>
               </div>
               <div>
@@ -163,7 +163,7 @@ export default async function BookingDetailPage({
           </div>
 
           {/* Package Details */}
-          {booking.package && (
+          {booking.Package && (
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">Package Details</h2>
               <div className="space-y-3">
@@ -217,17 +217,17 @@ export default async function BookingDetailPage({
                     <p className="text-sm font-medium text-gray-900">
                       {payment.currency} {Number(payment.amount).toFixed(2)}
                     </p>
-                    {payment.paymentMethod && (
-                      <p className="text-xs text-gray-500">{payment.paymentMethod}</p>
+                    {payment.payment_method && (
+                      <p className="text-xs text-gray-500">{payment.payment_method}</p>
                     )}
                     <p className="text-xs text-gray-500 mt-1">
-                      {payment.paidAt
-                        ? `Paid on ${new Date(payment.paidAt).toLocaleDateString()}`
+                      {payment.paid_at
+                        ? `Paid on ${new Date(payment.paid_at).toLocaleDateString()}`
                         : `Created on ${new Date(payment.created_at).toLocaleDateString()}`}
                     </p>
-                    {payment.transactionId && (
+                    {payment.transaction_id && (
                       <p className="text-xs text-gray-500 font-mono mt-1">
-                        ID: {payment.transactionId}
+                        ID: {payment.transaction_id}
                       </p>
                     )}
                   </div>
@@ -247,13 +247,13 @@ export default async function BookingDetailPage({
                 Email Customer
               </a>
               <a
-                href={`tel:${booking.phone}`}
+                href={`tel:${booking.phone || ''}`}
                 className="block w-full px-4 py-2 text-sm text-center bg-secondary text-white rounded hover:bg-secondary-dark transition"
               >
                 Call Customer
               </a>
               <a
-                href={`https://wa.me/${booking.phone.replace(/[^0-9]/g, '')}`}
+                href={`https://wa.me/${booking.phone?.replace(/[^0-9]/g, '') || ''}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full px-4 py-2 text-sm text-center bg-green-600 text-white rounded hover:bg-green-700 transition"

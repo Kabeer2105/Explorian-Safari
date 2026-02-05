@@ -54,7 +54,6 @@ export async function POST(request: NextRequest) {
       where: { id: user.id },
       data: {
         password_hash: newPasswordHash,
-        updated_at: new Date(),
       },
     });
 

@@ -42,7 +42,7 @@ export default async function EditPackagePage({
           </div>
           <div className="flex gap-2">
             <Link
-              href={`/${pkg.type === 'safari' ? 'safaris' : pkg.type === 'mountain' ? 'mountains' : pkg.type === 'beach' ? 'beaches' : 'day-trips'}`}
+              href={`/${pkg.type === 'SAFARI' ? 'safaris' : pkg.type === 'MOUNTAIN' ? 'mountains' : pkg.type === 'BEACH' ? 'beaches' : 'day-trips'}`}
               target="_blank"
               className="px-4 py-2 text-sm border border-gray-300 rounded hover:bg-gray-50 transition"
             >

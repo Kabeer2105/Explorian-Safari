@@ -32,11 +32,7 @@ export async function POST(request: NextRequest) {
 
     // Send confirmation email to customer (non-blocking)
     try {
-      await sendInquiryConfirmation({
-        name,
-        email,
-        message,
-      });
+      await sendInquiryConfirmation(email, name, tripInterest || 'General inquiry');
     } catch (emailError) {
       console.error('Failed to send customer confirmation email:', emailError);
       // Continue anyway - inquiry is saved
@@ -47,12 +43,10 @@ export async function POST(request: NextRequest) {
       await sendInquiryNotification({
         name,
         email,
-        phone: phone || 'Not provided',
-        country: country || 'Not specified',
+        phone,
         message,
-        tripInterest: tripInterest || 'General inquiry',
-        travelDates: travelDates || 'Flexible',
-        numberOfGuests: numberOfGuests || 'Not specified',
+        trip_interest: tripInterest,
+        travel_dates: travelDates,
       });
     } catch (emailError) {
       console.error('Failed to send admin notification email:', emailError);

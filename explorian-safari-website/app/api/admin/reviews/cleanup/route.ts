@@ -13,10 +13,7 @@ export async function POST(request: Request) {
     // Delete reviews with no text or very short text
     const result = await prisma.review.deleteMany({
       where: {
-        OR: [
-          { review_text: null },
-          { review_text: '' },
-        ],
+        review_text: '',
       },
     });
 

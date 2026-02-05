@@ -42,11 +42,11 @@ export async function PUT(request: NextRequest) {
       settings.map((setting: any) =>
         prisma.setting.upsert({
           where: { key: setting.key },
-          update: { value: setting.value },
+          update: { value: setting.value, updated_at: new Date() },
           create: {
             key: setting.key,
             value: setting.value,
-            type: 'TEXT',
+            updated_at: new Date(),
           },
         })
       )

@@ -19,13 +19,13 @@ export async function GET(request: NextRequest) {
     let payment;
     if (orderTrackingId) {
       payment = await prisma.payment.findFirst({
-        where: { pesapalTrackingId: orderTrackingId },
-        include: { booking: true },
+        where: { pesapal_tracking_id: orderTrackingId },
+        include: { Booking: true },
       });
     } else if (bookingId) {
       payment = await prisma.payment.findFirst({
         where: { bookingId },
-        include: { booking: true },
+        include: { Booking: true },
         orderBy: { createdAt: 'desc' },
       });
     }
@@ -40,18 +40,18 @@ export async function GET(request: NextRequest) {
         status: payment.status,
         amount: payment.amount,
         currency: payment.currency,
-        paymentMethod: payment.paymentMethod,
-        paidAt: payment.paidAt,
+        payment_method: payment.payment_method,
+        paid_at: payment.paid_at,
         booking: {
-          referenceNumber: payment.booking.referenceNumber,
-          status: payment.booking.status,
+          reference_number: payment.Booking.reference_number,
+          status: payment.Booking.status,
         },
       });
     }
 
     // Check status with Pesapal if still pending
     const pesapal = initPesapal();
-    const status = await pesapal.getTransactionStatus(payment.pesapalTrackingId!);
+    const status = await pesapal.getTransactionStatus(payment.pesapal_tracking_id!);
 
     // Update if status changed
     if (status.status === 'COMPLETED' || status.status === 'SUCCESS') {
@@ -59,13 +59,13 @@ export async function GET(request: NextRequest) {
         where: { id: payment.id },
         data: {
           status: 'COMPLETED',
-          paymentMethod: status.paymentMethod,
-          paidAt: new Date(),
+          payment_method: status.paymentMethod,
+          paid_at: new Date(),
         },
       });
 
       await prisma.booking.update({
-        where: { id: payment.bookingId },
+        where: { id: payment.booking_id },
         data: { status: 'PAID' },
       });
 
@@ -73,10 +73,10 @@ export async function GET(request: NextRequest) {
         status: 'COMPLETED',
         amount: payment.amount,
         currency: payment.currency,
-        paymentMethod: status.paymentMethod,
-        paidAt: new Date(),
+        payment_method: status.paymentMethod,
+        paid_at: new Date(),
         booking: {
-          referenceNumber: payment.booking.referenceNumber,
+          reference_number: payment.Booking.reference_number,
           status: 'PAID',
         },
       });
@@ -91,8 +91,8 @@ export async function GET(request: NextRequest) {
         amount: payment.amount,
         currency: payment.currency,
         booking: {
-          referenceNumber: payment.booking.referenceNumber,
-          status: payment.booking.status,
+          reference_number: payment.Booking.reference_number,
+          status: payment.Booking.status,
         },
       });
     }
@@ -103,8 +103,8 @@ export async function GET(request: NextRequest) {
       amount: payment.amount,
       currency: payment.currency,
       booking: {
-        referenceNumber: payment.booking.referenceNumber,
-        status: payment.booking.status,
+        reference_number: payment.Booking.reference_number,
+        status: payment.Booking.status,
       },
     });
   } catch (error) {

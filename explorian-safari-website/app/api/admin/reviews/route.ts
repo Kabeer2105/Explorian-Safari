@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     }
 
     const reviews = await prisma.review.findMany({
-      orderBy: { reviewDate: 'desc' },
+      orderBy: { review_date: 'desc' },
     });
 
     return NextResponse.json(reviews);
@@ -31,9 +31,9 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { authorName, rating, reviewText, reviewDate } = body;
+    const { author_name, rating, review_text, review_date } = body;
 
-    if (!authorName || !rating || !reviewText) {
+    if (!author_name || !rating || !review_text) {
       return NextResponse.json(
         { error: 'Author name, rating, and review text are required' },
         { status: 400 }
@@ -43,10 +43,10 @@ export async function POST(request: NextRequest) {
     const review = await prisma.review.create({
       data: {
         source: 'manual',
-        authorName,
+        author_name,
         rating: parseFloat(rating),
-        reviewText,
-        reviewDate: reviewDate ? new Date(reviewDate) : new Date(),
+        review_text,
+        review_date: review_date ? new Date(review_date) : new Date(),
         active: true,
       },
     });

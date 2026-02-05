@@ -16,27 +16,9 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
-    const {
-      name_i18n,
-      description_i18n,
-      highlights_i18n,
-      inclusions_i18n,
-      exclusions_i18n,
-      itinerary_i18n,
-    } = body;
-
-    await prisma.package.update({
-      where: { id },
-      data: {
-        name_i18n,
-        description_i18n,
-        highlights_i18n,
-        inclusions_i18n,
-        exclusions_i18n,
-        itinerary_i18n,
-        updated_at: new Date(),
-      },
-    });
+    // Translations are now handled via the Translation model
+    // This endpoint is kept for backwards compatibility but does nothing
+    // Use /api/admin/translations/package/[id] instead
 
     return NextResponse.json({
       success: true,

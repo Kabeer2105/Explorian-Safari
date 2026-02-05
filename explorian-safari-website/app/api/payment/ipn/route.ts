@@ -22,8 +22,8 @@ export async function POST(request: NextRequest) {
     const payment = await prisma.payment.findFirst({
       where: {
         OR: [
-          { pesapalTrackingId: OrderTrackingId },
-          { pesapalMerchantReference: OrderMerchantReference || undefined },
+          { pesapal_tracking_id: OrderTrackingId },
+          { pesapal_merchant_reference: OrderMerchantReference || undefined },
         ],
       },
     });
@@ -39,14 +39,14 @@ export async function POST(request: NextRequest) {
         where: { id: payment.id },
         data: {
           status: 'COMPLETED',
-          paymentMethod: status.paymentMethod,
-          paidAt: new Date(),
+          payment_method: status.paymentMethod,
+          paid_at: new Date(),
         },
       });
 
       // Update booking status
       await prisma.booking.update({
-        where: { id: payment.bookingId },
+        where: { id: payment.booking_id },
         data: { status: 'PAID' },
       });
 

@@ -21,11 +21,11 @@ export async function GET(request: NextRequest) {
     const payment = await prisma.payment.findFirst({
       where: {
         OR: [
-          { pesapalTrackingId: orderTrackingId },
-          { pesapalMerchantReference: merchantReference || undefined },
+          { pesapal_tracking_id: orderTrackingId },
+          { pesapal_merchant_reference: merchantReference || undefined },
         ],
       },
-      include: { booking: true },
+      include: { Booking: true },
     });
 
     if (!payment) {
@@ -38,28 +38,28 @@ export async function GET(request: NextRequest) {
         where: { id: payment.id },
         data: {
           status: 'COMPLETED',
-          paymentMethod: status.paymentMethod,
-          paidAt: new Date(),
+          payment_method: status.paymentMethod,
+          paid_at: new Date(),
         },
       });
 
       // Update booking status
       await prisma.booking.update({
-        where: { id: payment.bookingId },
+        where: { id: payment.booking_id },
         data: { status: 'PAID' },
       });
 
-      return redirect(`/payment/success?ref=${payment.booking.referenceNumber}`);
+      return redirect(`/payment/success?ref=${payment.Booking.reference_number}`);
     } else if (status.status === 'FAILED' || status.status === 'CANCELLED') {
       await prisma.payment.update({
         where: { id: payment.id },
         data: { status: 'FAILED' },
       });
 
-      return redirect(`/payment/failed?ref=${payment.booking.referenceNumber}`);
+      return redirect(`/payment/failed?ref=${payment.Booking.reference_number}`);
     } else {
       // Still pending
-      return redirect(`/payment/pending?ref=${payment.booking.referenceNumber}`);
+      return redirect(`/payment/pending?ref=${payment.Booking.reference_number}`);
     }
   } catch (error) {
     console.error('Error handling payment callback:', error);

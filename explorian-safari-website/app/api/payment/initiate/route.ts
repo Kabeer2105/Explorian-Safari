@@ -14,14 +14,14 @@ export async function POST(request: NextRequest) {
     // Get booking details
     const booking = await prisma.booking.findUnique({
       where: { id: bookingId },
-      include: { package: true },
+      include: { Package: true },
     });
 
     if (!booking) {
       return NextResponse.json({ error: 'Booking not found' }, { status: 404 });
     }
 
-    if (!booking.totalAmount) {
+    if (!booking.total_amount) {
       return NextResponse.json({ error: 'Booking has no amount' }, { status: 400 });
     }
 
@@ -30,17 +30,17 @@ export async function POST(request: NextRequest) {
 
     // Submit order to Pesapal
     const paymentData = await pesapal.submitOrder({
-      amount: Number(booking.totalAmount),
+      amount: Number(booking.total_amount),
       currency: booking.currency,
-      description: `Payment for ${booking.package?.name || 'Safari Booking'} - ${booking.referenceNumber}`,
+      description: `Payment for ${booking.Package?.name || 'Safari Booking'} - ${booking.reference_number}`,
       callbackUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/payment/callback`,
       cancellationUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/payment/failed`,
       billingAddress: {
         emailAddress: booking.email,
-        phoneNumber: booking.phone,
+        phoneNumber: booking.phone || '',
         countryCode: booking.country || 'TZ',
-        firstName: booking.customerName.split(' ')[0],
-        lastName: booking.customerName.split(' ').slice(1).join(' ') || booking.customerName,
+        firstName: booking.customer_name.split(' ')[0],
+        lastName: booking.customer_name.split(' ').slice(1).join(' ') || booking.customer_name,
       },
     });
 
@@ -48,11 +48,11 @@ export async function POST(request: NextRequest) {
     await prisma.payment.create({
       data: {
         bookingId: booking.id,
-        amount: Number(booking.totalAmount),
+        amount: Number(booking.total_amount),
         currency: booking.currency,
         status: 'PENDING',
-        pesapalMerchantReference: paymentData.merchantReference,
-        pesapalTrackingId: paymentData.orderTrackingId,
+        pesapal_merchant_reference: paymentData.merchantReference,
+        pesapal_tracking_id: paymentData.orderTrackingId,
       },
     });
 
